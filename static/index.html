@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>PlainReader</title>
+    <meta name="description" content="Description.">
+    <meta name="author" content="Luke Hagan">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/popover.css">
+</head>
+
+<body>
+    <div class="popover hidden" id="pinboard_popover">
+        <div class="popover-content">
+            <div class="arrow"><span></span></div>
+            <div class="popover-body">
+                <ul>
+                    <li><a href="#" id="send_to_pinboard">tags</a></li>
+                    <li><a href="#" id="send_to_pinboard_read_later">later</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="topbar">
+        <div id="topbar_inner">
+            <div id="send_to_instapaper" class="button">
+                <iframe border="0" scrolling="no" width="78" height="17" allowtransparency="true" frameborder="0" src=""></iframe>
+            </div>
+            <a href="#" id="open_in_new_window" class="button hidden">1</a>
+            <a href="#" id="pinboard" class="button hidden">|</a>
+        </div>
+    </div>
+    
+    <div id="sidebar">
+        <div id="nav">
+            <div id="floater">
+            </div>
+            <div id="arrows">
+                <a href="#" id="up" class="button">▲&nbsp;</a>
+                <div id="down_wrapper"><a href="#" id="down" class="button">▲</a></div>
+            </div>
+            <div id="refresh_wrapper"><a href="#" id="refresh" class="button">[</a></div>
+        </div>
+        <div id="stories">
+            <ul>
+                <li class="hidden" id="template">
+                    <a href="#">
+                        <span class="site"></span>
+                        <span class="date"></span>
+                        <h1 class="title"></h1>
+                        <span class="intro"></span>
+                        <div class="icon">r</div>
+                        <div class="ident_site hidden"></div>
+                        <div class="ident_story hidden"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="content_wrapper">
+        <div id="content" class="hidden">
+            <header>
+                <time datetime="" pubdate=""></time>
+                <a href="#"><h1></h1></a>
+                <span class="site"></span>
+                <span class="author"></span>
+            </header>
+            <div class="body_text">
+                
+            </div>
+        </div>
+    </div>
+    
+    <script defer src="js/libs/zepto.js"></script>
+    <script defer src="js/plugins.js"></script>
+    <script defer src="js/script.js"></script>
+    
+</body>
+</html>
