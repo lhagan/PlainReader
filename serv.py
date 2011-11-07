@@ -10,7 +10,7 @@ from bottle import *
 import newsblur_interface
 import instapaper
 
-nb = newsblur_interface.Interface(simulate_mark_as_read=False)
+nb = newsblur_interface.Interface(simulate_mark_as_read=True)
 
 @route('/refresh')
 def refresh():
