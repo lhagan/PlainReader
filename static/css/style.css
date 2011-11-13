@@ -315,6 +315,17 @@ img {
   }
 }
 
+#mark_all_read_wrapper {
+    position: absolute;
+    bottom: 50px;
+    margin: 0px;
+    padding: 0px;
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+    left: 11px;
+}
+
 #refresh_wrapper {
     position: absolute;
     bottom: 5px;

@@ -85,7 +85,6 @@ $(document).ready(function(){
                 });
                 
                 $('#content_wrapper')[0].scrollTop = 0;
-                $.post('/read', { feed_id: site, story_id: id });
             });
             
             $(item).appendTo('#stories ul');
@@ -106,6 +105,13 @@ $(document).ready(function(){
         // call refresh on server
         $.get('/refresh', updateFeeds);
         
+    });
+    
+    $('#mark_all_read').bind('click', function() {
+        // tell server to mark all as read
+        $.get('/all_read');
+        // clear the stories list
+        $('#stories li').not('#template').remove();
     });
 
     $('#pinboard').bind('click', function() {
@@ -175,6 +181,10 @@ $(document).ready(function(){
         
         if (e.keyIdentifier == 'Up') {
             prevStory();
+        }
+        
+        if (e.keyIdentifier == 'Enter') {
+            $('#content header a').trigger('click');
         }
     }
     

@@ -8,6 +8,10 @@ PlainReader (working title) is a proof of concept web-based client for the excel
 2. Instapaper and Pinboard integration
 3. Full article mode using [Instapaper's text engine](http://www.instapaper.com/extras) (click the article title)
 4. 20px Georgia article font
+5. Keyboard shortcuts: up/down arrows to flip through articles, enter for full article mode (see above)
+
+## Screenshot (iPad)
+![screenshot](https://github.com/lhagan/PlainReader/raw/master/plainreader_screenshot.jpg)
 
 ## Why
 
@@ -23,6 +27,7 @@ PlainReader consists of a web (HTML5, CSS3, Javascript) front-end and an interme
 * [Instapaper](http://www.instapaper.com): text engine provides cleaned up article content to minimize loading times (and advertising).
 * [HTML5 Boilerplate](http://html5boilerplate.com/): HTML/CSS/JS template.
 * [Iconic](http://somerandomdude.com/work/iconic/): free, minimal icons distributed (among other things) in OTF font format, allowing PlainReader's interface to get by without a single image.
+* [Beautiful Soup](http://www.crummy.com/software/BeautifulSoup/): Python HTML/XML parser.
 
 ## Usage
 
@@ -33,7 +38,7 @@ It's completely self-contained, so just run `python serv.py` and point your brow
 ## Roadmap
 
 1. stop managing data in the DOM (or at least clean it up)
-2. fix mark as read functionality
+2. enable mark as read on a per item basis (currently, only mark all as read is enabled)
 3. interface additions/refinements:
     * unread count (with intelligence breakdown)
     * scroll story list to keep the currently selected item in the middle (where possible)
@@ -47,7 +52,7 @@ I don't plan on ever supporting:
 * non-WebKit browsers
 * iPhone, or anything else smaller than an iPad
 * reading individual feeds (instead of the River of News)
-* social anything
+* social anything (unless you count pinboard)
 
 That said, I'll consider patches / pull requests on any of these if you figure out how to implement them without adding a bunch of complexity or cluttering up the interface.
 

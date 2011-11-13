@@ -7,15 +7,11 @@ released under the MIT license (see LICENSE.txt for details)
 """
 
 import newsblur
-import threading
 
 class Interface():
-    def __init__(self, simulate_mark_as_read):
+    def __init__(self):
         self.nb = newsblur.API()
         self.items = {}
-        self.mark_as_read_queue = {}
-        self.t = threading.Timer(15, self.markAsRead)
-        self.simulate_mark_as_read = simulate_mark_as_read
     
     def checkAuth(self):
         status = self.nb.login('', '')['authenticated']
@@ -46,39 +42,30 @@ class Interface():
                     if int(story['intelligence'][attr]) < 0:
                         nogood = True
                 if not nogood:
+                #if nogood:
                     story['site_title'] = unreadfeeds['%s' % story['story_feed_id']]
                     unreadstories.append(story)
+                    
         self.items['stories'] = unreadstories
         
     def stories(self):
         return self.items
     
-    def queueRead(self, story_id, feed_id):
-        self.t.cancel()
-        
-        if not feed_id in self.mark_as_read_queue:
-            self.mark_as_read_queue[feed_id] = [];
-        if len(self.mark_as_read_queue[feed_id]) == 0:
-            self.mark_as_read_queue[feed_id] = [];
-        
-        self.mark_as_read_queue[feed_id].append(story_id)
-        
-        # TODO: this doesn't seem to work consistently
-        if len(self.mark_as_read_queue) >= 5:
-            self.markAsRead
-        else:
-            self.t = threading.Timer(15, self.markAsRead)
-            self.t.start()
-    
-    def markAsRead(self):
-        for feed_id in self.mark_as_read_queue:
-            if self.simulate_mark_as_read:
-                print self.mark_as_read_queue
-            else:
-                self.nb.mark_story_as_read(feed_id, self.mark_as_read_queue[feed_id])
-                
-        self.mark_as_read_queue[feed_id] = {}
+    def markAllAsRead(self):
+        unreadfeeds = {}
+        for item in self.items['stories']:
+            if item['story_feed_id'] not in unreadfeeds:
+                unreadfeeds[item['story_feed_id']] = []
             
+            unreadfeeds[item['story_feed_id']].append(item)
+        
+        for feed in unreadfeeds:
+            items = []
+            for item in unreadfeeds[feed]:
+                items.append(item['id'])
+                
+            self.nb.mark_story_as_read(feed, items)
+                            
 def main():
     newsblur = Interface()
     newsblur.refresh()

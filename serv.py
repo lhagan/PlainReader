@@ -10,7 +10,7 @@ from bottle import *
 import newsblur_interface
 import instapaper
 
-nb = newsblur_interface.Interface(simulate_mark_as_read=True)
+nb = newsblur_interface.Interface()
 
 @route('/refresh')
 def refresh():
@@ -20,11 +20,9 @@ def refresh():
 def unread():
     return nb.stories()
 
-@post('/read')
-def mark_as_read():
-    story_id = request.forms.get('story_id')
-    feed_id = request.forms.get('feed_id')
-    nb.queueRead(story_id, feed_id)
+@get('/all_read')
+def mark_all_as_read():
+    nb.markAllAsRead()
     
 @get('/text')
 def instapaper_text():
