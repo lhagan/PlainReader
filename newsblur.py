@@ -97,9 +97,10 @@ class API:
         Used when combined with /reader/feeds and include_favicons=false, so the feeds request contains far less data. 
         Useful for mobile devices, but requires a second request. 
         '''
-        return {
-            'feeds': feeds
-        }
+        data = []
+        for feed in feeds:
+            data.append( ("feeds", feed) )
+        return data
 
     @request()
     def page(self, feed_id):
@@ -175,7 +176,7 @@ class API:
         Stories are ordered in reverse chronological order.
         `read_stories_count` is the number of stories that have been read in this
         continuation, so NewsBlur can efficiently skip those stories when retrieving
-        new stories.
+        new stories. Takes an array of feed ids.
         '''
         
         data = [ ('page', page), ('read_stories_count', read_stories_count) ]
@@ -189,6 +190,7 @@ class API:
          Mark stories as read.
             Multiple story ids can be sent at once.
             Each story must be from the same feed.
+            Takes an array of story ids.
         '''
         
         data = [ ('feed_id', feed_id) ]
@@ -280,13 +282,15 @@ class API:
         }
     
     @request('reader/mark_feed_as_read')
-    def mark_feed_as_read(self, feed_id):
+    def mark_feed_as_read(self, feed_ids):
         '''
         Mark a list of feeds as read.
+        Takes an array of feeds.
         '''
-        return {
-            'feed_id': feed_id,
-        }
+        data = []
+        for feed in feed_ids:
+            data.append( ("feed_id", feed) )
+        return data
 
     @request('reader/save_feed_order')
     def save_feed_order(self, folders):

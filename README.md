@@ -26,7 +26,7 @@ PlainReader consists of a web (HTML5, CSS3, Javascript) front-end and an interme
 
 ## Usage
 
-It's completely self-contained, so just run 'python serv.py' and point your browser at [http://localhost:8181](http://localhost:8181).
+It's completely self-contained, so just run `python serv.py` and point your browser at [http://localhost:8181](http://localhost:8181).
 
 **Important:** don't run PlainReader on a computer/server that's open to the internet or on an untrusted LAN. If your computer isn't firewalled, anyone on your network can access your feeds while you're logged in.
 
