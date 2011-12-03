@@ -31,9 +31,13 @@ PlainReader consists of a web (HTML5, CSS3, Javascript) front-end and an interme
 
 ## Usage
 
-It's completely self-contained, so just run `python serv.py` and point your browser at [http://localhost:8181](http://localhost:8181).
+Starting PlainReader runs a local web server that hosts the PlainReader webapp. Once the server is running, just access PlainReader in your browser at [http://localhost:8181](http://localhost:8181). If you aren't running a firewall (or if you configure your firewall to allow HTTP connections to port 8181), you can access PlainReader from any computer (or iOS device) on your local network.
 
-**Important:** don't run PlainReader on a computer/server that's open to the internet or on an untrusted LAN. If your computer isn't firewalled, anyone on your network can access your feeds while you're logged in.
+**Mac users**: just [download the Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.zip)!
+
+**Everyone else**: PlainReader's only dependency is Python, so just run grab the source code, run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181).
+
+**IMPORTANT:** don't run PlainReader on a computer/server that's open to the internet or on an untrusted LAN. If your computer isn't firewalled, anyone on your network can access your feeds while you're logged in.
 
 ## Roadmap
 
