@@ -9,8 +9,13 @@ released under the MIT license (see LICENSE.txt for details)
 from bottle import *
 import newsblur_interface
 import instapaper
+import webbrowser
+from threading import Timer
 
 nb = newsblur_interface.Interface()
+
+def openBrowser():
+    webbrowser.open('http://localhost:8181')
 
 @route('/refresh')
 def refresh():
@@ -57,6 +62,9 @@ def index():
         return static_file('index.html', root='static/')
     else:
         redirect('/login')
+
+# open browser in 2 seconds
+Timer(2, openBrowser, ()).start()
 
 debug(True)
 run(host='0.0.0.0', port=8181, reloader=True)
