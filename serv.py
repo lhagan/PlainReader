@@ -11,6 +11,7 @@ import newsblur_interface
 import instapaper
 import webbrowser
 from threading import Timer
+from optparse import OptionParser
 
 nb = newsblur_interface.Interface()
 
@@ -62,9 +63,18 @@ def index():
         return static_file('index.html', root='static/')
     else:
         redirect('/login')
+        
+def main():
+    parser = OptionParser(usage="%prog [options]")
+    parser.add_option(  "-n", "--nobrowser", action="store_true", default=False, dest="nobrowser", help="Don't automatically open site in browser.")
+    opts, args = parser.parse_args()
 
-# open browser in 2 seconds
-Timer(2, openBrowser, ()).start()
+    if not opts.nobrowser:
+        # open browser in 2 seconds
+        Timer(2, openBrowser, ()).start()
 
-debug(True)
-run(host='0.0.0.0', port=8181, reloader=True)
+    debug(True)
+    run(host='0.0.0.0', port=8181, reloader=True)
+
+if __name__ == "__main__":
+    main()
