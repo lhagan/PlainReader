@@ -26,6 +26,31 @@ $(document).ready(function(){
         });
     }
     
+    function showArticleView() {
+        $('#content').removeClass('hidden');
+        $('#pinboard').removeClass('hidden');
+        $('#open_in_new_window').removeClass('hidden');
+        $('#send_to_instapaper iframe').show();
+    }
+    
+    function hideArticleView() {
+        $('#content').addClass('hidden');
+        $('#pinboard').addClass('hidden');
+        $('#open_in_new_window').addClass('hidden');
+        $('#send_to_instapaper iframe').hide();
+    }
+    
+    function clearStories() {
+        // clear stories list
+        $('#stories li').not('#template').remove();
+        
+        // empty out the unreaditems variable
+        unreaditems = {};
+        
+        // hide the article view
+        hideArticleView();
+    }
+    
     function getUnread(json) {
         unreaditems = json.stories;
         
@@ -57,9 +82,7 @@ $(document).ready(function(){
                 
                 var story_obj = unreaditems[story];
                 
-                $('#content').removeClass('hidden');
-                $('#pinboard').removeClass('hidden');
-                $('#open_in_new_window').removeClass('hidden');
+                showArticleView();
                 
                 $('#content header time').html(story_obj.long_parsed_date);
                 $('#content header h1').html(story_obj.story_title);
@@ -93,31 +116,44 @@ $(document).ready(function(){
     
     function updateFeeds() {
         // stop spinning refresh button
-        $('#refresh_wrapper').removeClass('spinning')
+        $('#refresh_wrapper').removeClass('spinning');
         
         // get unread items from server
         $.getJSON('/unread', getUnread);
     }
     
+    /*
+    Refresh Button
+    */
     $('#refresh').bind('click', function() {
         // spin the refresh button to show progress
         $('#refresh_wrapper').addClass('spinning');
+        // clear stories list
+        clearStories();
         // call refresh on server
         $.get('/refresh', updateFeeds);
         
     });
     
+    /*
+    Mark All Read button
+    */
     $('#mark_all_read').bind('click', function() {
         // tell server to mark all as read
         $.get('/all_read');
-        // clear the stories list
-        $('#stories li').not('#template').remove();
+        clearStories();
     });
-
+    
+    /*
+    pinboard popup menu
+    */
     $('#pinboard').bind('click', function() {
         $('#pinboard_popover').toggleClass('hidden');
     });
     
+    /*
+    Send to pinboard (popup with tags)
+    */
     $('#send_to_pinboard').bind('click', function() {
         var q, d, p;
         q = $('#content header a').attr('href');
@@ -134,6 +170,9 @@ $(document).ready(function(){
         $('#pinboard_popover').addClass('hidden');
     });
     
+    /*
+    Send to pinboard (read later)
+    */
     $('#send_to_pinboard_read_later').bind('click', function() {
         var q, d, p, t;
         q = $('#content header a').attr('href');
@@ -151,13 +190,18 @@ $(document).ready(function(){
         $('#pinboard_popover').addClass('hidden');
     });
     
+    /*
+    Open original article in a new tab/window
+    */
     $('#open_in_new_window').bind('click', function() {
         open($('#content header a').attr('href'));
     });
     
     updateFeeds();
     
-    // keyboard shortcuts, etc.
+    /*
+    keyboard shortcuts
+    */
     function nextStory() {
         var next = $('#stories .selected').next();
         if (next.length === 0) {
