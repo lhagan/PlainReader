@@ -2,10 +2,10 @@
 part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.txt for details) */
-
+/*global stripTags */
 var unreaditems;
 
-$(document).ready(function(){
+$(document).ready(function(){        
     function instapaperText(data) {
         $('#content .body_text').html(data);
         $('#content .body_text a').attr('target', '_blank');
@@ -107,7 +107,17 @@ $(document).ready(function(){
                     event.preventDefault();
                 });
                 
-                $('#content_wrapper')[0].scrollTop = 0;
+                // scroll stories list to keep selected item in center (where possible)
+                // TODO: move to plugins
+                var list = document.getElementById('stories');
+                var listheight = list.offsetHeight;
+                var elementheight = $(this).parent().height();
+                this.parentNode.scrollIntoView(true);
+                var currentscroll = list.scrollTop;
+                if( list.scrollTop != (list.scrollHeight - listheight)) {
+                    list.scrollTop = currentscroll - (listheight/2 - elementheight/2);
+                }
+                            
             });
             
             $(item).appendTo('#stories ul');
@@ -221,14 +231,17 @@ $(document).ready(function(){
     function key_down(e) {
         if (e.keyIdentifier == 'Down') {
             nextStory();
+            event.preventDefault();
         }
         
         if (e.keyIdentifier == 'Up') {
             prevStory();
+            event.preventDefault();
         }
         
         if (e.keyIdentifier == 'Enter') {
             $('#content header a').trigger('click');
+            event.preventDefault();
         }
     }
     
