@@ -4,6 +4,7 @@ created: 2011-11-05
 released under the MIT license (see LICENSE.txt for details) */
 /*global stripTags */
 var unreaditems;
+var unreadcount = 0;
 
 $(document).ready(function(){        
     function instapaperText(data) {
@@ -51,8 +52,14 @@ $(document).ready(function(){
         hideArticleView();
     }
     
+    function updateUnreadCount() {
+        $('#unreadcount').html(unreadcount);
+    }
+    
     function getUnread(json) {
         unreaditems = json.stories;
+        unreadcount = json.unreadcount;
+        updateUnreadCount();
         
         var list_template = $('#template');   
         for (var i=0; i<unreaditems.length; i++) {
@@ -80,6 +87,13 @@ $(document).ready(function(){
                 var story = $('.ident_story', this).html();
                 var id = $(this).parent().attr('id');
                 
+                // mark article as read
+                $.get('/mark_read?story_id=' + id + '&feed_id=' + site, function(data) {
+                    console.log(data);
+                    unreadcount -= 1;
+                    updateUnreadCount();
+                });
+                
                 var story_obj = unreaditems[story];
                 
                 showArticleView();
@@ -90,7 +104,7 @@ $(document).ready(function(){
                 $('#content header .author').html(story_obj.story_authors);
                 $('#content .body_text').html(story_obj.story_content);
                 $('#content .body_text a').attr('target', '_blank');
-                $('#content header a').attr('href', story_obj.story_permalink);
+                $('#content header a').attr('href', story_obj.story_permalink);        
                 
                 var d;
                 if (document.getSelection) {

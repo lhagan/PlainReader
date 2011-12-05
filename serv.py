@@ -10,9 +10,11 @@ from bottle import *
 import newsblur_interface
 import instapaper
 import webbrowser
+import sigintfix
 from threading import Timer
 from optparse import OptionParser
 
+sigintfix.Watcher()
 nb = newsblur_interface.Interface()
 
 def openBrowser():
@@ -25,6 +27,12 @@ def refresh():
 @route('/unread')
 def unread():
     return nb.stories()
+    
+@get('/mark_read')
+def queue_read():
+    story_id = request.GET['story_id']
+    feed_id = request.GET['feed_id']
+    nb.queueRead(story_id, feed_id)
 
 @get('/all_read')
 def mark_all_as_read():

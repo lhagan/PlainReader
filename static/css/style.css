@@ -277,6 +277,16 @@ img {
     text-decoration: none;
 }
 
+#unreadcount {
+    position: relative;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    color: #E8E8E8;
+    top: 15px;
+}
+
 #floater {
     float: left;
     height: 50%;

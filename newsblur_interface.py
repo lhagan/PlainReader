@@ -7,12 +7,17 @@ released under the MIT license (see LICENSE.txt for details)
 """
 
 import newsblur
+import RepeatTimer
 
 class Interface():
     def __init__(self):
         self.nb = newsblur.API()
         self.items = {}
-    
+        self.mark_read_queue = {}
+        
+        r = RepeatTimer.RepeatTimer(15.0, self.read)
+        r.start()
+            
     def checkAuth(self):
         status = self.nb.login('', '')['authenticated']
         return status
@@ -23,10 +28,12 @@ class Interface():
     def refresh(self):
         feeds = self.nb.feeds()['feeds']
         unreadfeeds = {}
+        unreadcount = 0
         for feed in feeds:
             if feeds[feed]['ps'] != 0 or feeds[feed]['nt'] != 0:
-            #if feeds[feed]['ng'] != 0:
                 unreadfeeds[feed] = feeds[feed]['feed_title']
+                unreadcount += (feeds[feed]['ps'] + feeds[feed]['nt'])
+                self.mark_read_queue[feed] = []
 
         feed_array = []
         for feed_id in unreadfeeds:
@@ -42,14 +49,22 @@ class Interface():
                     if int(story['intelligence'][attr]) < 0:
                         nogood = True
                 if not nogood:
-                #if nogood:
                     story['site_title'] = unreadfeeds['%s' % story['story_feed_id']]
                     unreadstories.append(story)
                     
         self.items['stories'] = unreadstories
+        self.items['unreadcount'] = unreadcount
         
     def stories(self):
         return self.items
+        
+    def queueRead(self, story_id, feed_id):
+        self.mark_read_queue[feed_id].append(story_id)
+
+    def markAsRead(self, queue):
+        for feed_id in queue:
+            if len(queue[feed_id]) is not 0:
+                self.nb.mark_story_as_read(feed_id, queue[feed_id])
     
     def markAllAsRead(self):
         unreadfeeds = {}
@@ -65,6 +80,14 @@ class Interface():
                 items.append(item['id'])
                 
             self.nb.mark_story_as_read(feed, items)
+    
+    def read(self):
+        self.markAsRead(self.mark_read_queue)
+        self.clearQueue()
+        
+    def clearQueue(self):
+        for feed in self.mark_read_queue:
+            self.mark_read_queue[feed] = []
                             
 def main():
     newsblur = Interface()
