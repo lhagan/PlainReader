@@ -2,7 +2,7 @@
 part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.txt for details) */
-/*global stripTags */
+/*global stripTags print */
 var unreaditems;
 var unreadcount = 0;
 
@@ -87,13 +87,15 @@ $(document).ready(function(){
                 var site = $('.ident_site', this).html();
                 var story = $('.ident_story', this).html();
                 var id = $(this).parent().attr('id');
+                var status = $('.status', this).html();
                 
                 // mark article as read
-                $.get('/mark_read?story_id=' + id + '&feed_id=' + site, function(data) {
-                    console.log(data);
+                if (parseInt(status, 10) === 0) {
+                    $('.status', this).html('1');
                     unreadcount -= 1;
                     updateUnreadCount();
-                });
+                    $.get('/mark_read?story_id=' + id + '&feed_id=' + site);
+                }
                 
                 var story_obj = unreaditems[story];
                 
