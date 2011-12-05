@@ -80,6 +80,7 @@ $(document).ready(function(){
             $('a .ident_story', item).html(i);
             
             $('a', item).bind('click', function() {
+                $('#stories ul li.selected').animate({opacity: 0.5}, 100);
                 $('#stories ul li').removeClass('selected');
 
                 $(this).parent().addClass('selected');

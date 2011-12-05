@@ -33,7 +33,8 @@ class Interface():
             if feeds[feed]['ps'] != 0 or feeds[feed]['nt'] != 0:
                 unreadfeeds[feed] = feeds[feed]['feed_title']
                 unreadcount += (feeds[feed]['ps'] + feeds[feed]['nt'])
-                self.mark_read_queue[feed] = []
+                if feed not in self.mark_read_queue:
+                    self.mark_read_queue[feed] = []
 
         feed_array = []
         for feed_id in unreadfeeds:
