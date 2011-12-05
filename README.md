@@ -1,6 +1,6 @@
 # PlainReader
 
-PlainReader (working title) is a proof of concept web-based client for the excellent [NewsBlur](http://newsblur.com) RSS reader. It's currently in a very early alpha state, so don't expect it to replace your current news reader any time soon.
+PlainReader (working title) is a clean, minimal web-based client for the excellent [NewsBlur](http://newsblur.com) RSS reader. It's still in an **early beta** state with only the bare minimum of features to work as a functional news reader.
 
 ## Features
 
@@ -31,30 +31,32 @@ PlainReader consists of a web (HTML5, CSS3, Javascript) front-end and an interme
 
 ## Usage
 
-Starting PlainReader runs a local web server that hosts the PlainReader webapp. Once the server is running, just access PlainReader in your browser at [http://localhost:8181](http://localhost:8181). If you aren't running a firewall (or if you configure your firewall to allow HTTP connections to port 8181), you can access PlainReader from any computer (or iOS device) on your local network.
+Starting PlainReader runs a local web server that hosts the PlainReader webapp. Once the server is running, just access PlainReader in your browser at [http://localhost:8181](http://localhost:8181). If you aren't running a firewall (or if you configure your firewall to allow HTTP connections to port 8181), you can access PlainReader from any computer (or iOS device) on your local network using your computer's IP address or Bonjour name.
 
 **Mac users**: just [download the Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.zip)!
 
-**Everyone else**: PlainReader's only dependency is Python, so just run grab the source code, run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181).
+**Everyone else**: PlainReader's only dependency is Python, so just run grab the source code, run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181). Note that PlainReader may not work on Windows, but fixing this is in the plan.
 
 **IMPORTANT:** don't run PlainReader on a computer/server that's open to the internet or on an untrusted LAN. If your computer isn't firewalled, anyone on your network can access your feeds while you're logged in.
 
 ## Roadmap
 
 1. stop managing data in the DOM (or at least clean it up)
-2. enable mark as read on a per item basis (currently, only mark all as read is enabled)
+2. <del>enable mark as read on a per item basis (currently, only mark all as read is enabled)</del>
 3. interface additions/refinements:
-    * unread count (with intelligence breakdown)
-    * scroll story list to keep the currently selected item in the middle (where possible)
+    * <del>unread count</del> (with intelligence breakdown)
+    * <del>scroll story list to keep the currently selected item in the middle (where possible)</del>
     * feed favicons & intelligence classifiers in story list
-4. 'mark all as read' button
-5. intelligence panel
+4. <del>'mark all as read' button</del>
+5. intelligence <del>panel</del> tag buttons in the article header
+6. load multiple 'pages' of unread items (currently, you have to hit refresh feeds once you get to the bottom of the list)
+7. Windows support
 
 I don't plan on ever supporting:
 
 * changing the Intelligence filter mode (only yellow and green items are displayed)
 * non-WebKit browsers
-* iPhone, or anything else smaller than an iPad
+* <del>iPhone, or anything else smaller than an iPad</del> OK, maybe there'll be an iPhone version eventually
 * reading individual feeds (instead of the River of News)
 * social anything (unless you count pinboard)
 
