@@ -28,6 +28,7 @@ PlainReader consists of a web (HTML5, CSS3, Javascript) front-end and an interme
 * [HTML5 Boilerplate](http://html5boilerplate.com/): HTML/CSS/JS template.
 * [Iconic](http://somerandomdude.com/work/iconic/): free, minimal icons distributed (among other things) in OTF font format, allowing PlainReader's interface to get by without a single image.
 * [Beautiful Soup](http://www.crummy.com/software/BeautifulSoup/): Python HTML/XML parser.
+* [Platypus](http://sveinbjorn.org/platypus): bundles PlainReader into a Mac Application
 
 ## Usage
 
@@ -35,7 +36,7 @@ Starting PlainReader runs a local web server that hosts the PlainReader webapp. 
 
 **Mac users**: just [download the Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.zip)!
 
-**Everyone else**: PlainReader's only dependency is Python, so just run grab the source code, run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181). Note that PlainReader may not work on Windows, but fixing this is in the plan.
+**Everyone else**: PlainReader's only dependency is Python, so just grab the source code, run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181). Note that PlainReader may not work on Windows right now, but fixing this is in the plan.
 
 **IMPORTANT:** don't run PlainReader on a computer/server that's open to the internet or on an untrusted LAN. If your computer isn't firewalled, anyone on your network can access your feeds while you're logged in.
 
