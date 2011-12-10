@@ -2,6 +2,11 @@
 
 PlainReader (working title) is a clean, minimal web-based client for the excellent [NewsBlur](http://newsblur.com) RSS reader. It's still in an **early beta** state with only the bare minimum of features to work as a functional news reader.
 
+## Download Links
+
+* [Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.zip) (10.6+)
+* [Python Source](https://github.com/lhagan/PlainReader/zipball/master) (all other platforms)
+
 ## Features
 
 1. Simple list of unread items from NewsBlur's River of News
@@ -36,7 +41,7 @@ Starting PlainReader runs a local web server that hosts the PlainReader webapp. 
 
 **Mac users**: just [download the Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.zip)!
 
-**Everyone else**: PlainReader's only dependency is Python, so just grab the source code, run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181). Note that PlainReader may not work on Windows right now, but fixing this is in the plan.
+**Everyone else**: PlainReader's only dependency is Python, so just [grab the source code](https://github.com/lhagan/PlainReader/zipball/master), run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181). Note that PlainReader may not work on Windows right now, but fixing this is in the plan.
 
 **IMPORTANT:** don't run PlainReader on a computer/server that's open to the internet or on an untrusted LAN. If your computer isn't firewalled, anyone on your network can access your feeds while you're logged in.
 
