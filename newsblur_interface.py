@@ -46,9 +46,14 @@ class Interface():
         for story in allstories:
             if story['read_status'] == 0:
                 nogood = False
+                # story is no good if any intelligence attributes are -1
+                # but a +1 overrides all
                 for attr in story['intelligence']:
-                    if int(story['intelligence'][attr]) < 0:
+                    if int(story['intelligence'][attr]) == -1:
                         nogood = True
+                for attr in story['intelligence']:
+                    if int(story['intelligence'][attr]) == 1:
+                        nogood = False
                 if not nogood:
                     story['site_title'] = unreadfeeds['%s' % story['story_feed_id']]
                     unreadstories.append(story)
