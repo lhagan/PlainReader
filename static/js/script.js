@@ -231,18 +231,16 @@ $(document).ready(function(){
     */
     function nextStory() {
         var next = $('#stories .selected').next();
-        if (next.length === 0) {
-            next = $('#stories li').first().next();
+        if (next.length !== 0) {
+            $('a', next).trigger('click');
         }
-        $('a', next).trigger('click');
     }
     
     function prevStory() {
         var prev = $('#stories .selected').prev();
-        if (prev.length === 0) {
-            prev = $('#stories li').first().next();
+        if (prev.length !== 0) {
+            $('a', prev).trigger('click');
         }
-        $('a', prev).trigger('click');
     }
     
     function key_down(e) {
