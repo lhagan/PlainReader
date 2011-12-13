@@ -56,7 +56,7 @@ Starting PlainReader runs a local web server that hosts the PlainReader webapp. 
 4. <del>'mark all as read' button</del>
 5. intelligence <del>panel</del> tag buttons in the article header
 6. load multiple 'pages' of unread items (currently, you have to hit refresh feeds once you get to the bottom of the list)
-7. Windows support
+<del>7. Windows support</del>
 
 I don't plan on ever supporting:
 
