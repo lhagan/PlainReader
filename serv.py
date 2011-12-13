@@ -10,11 +10,15 @@ from bottle import *
 import newsblur_interface
 import instapaper
 import webbrowser
-import sigintfix
 from threading import Timer
 from optparse import OptionParser
+import os, sys
 
-sigintfix.Watcher()
+# fix doesn't work on Windows
+if sys.platform is not 'win32':
+    import sigintfix
+    sigintfix.Watcher()
+    
 nb = newsblur_interface.Interface()
 
 def openBrowser():
@@ -75,6 +79,7 @@ def index():
 def main():
     parser = OptionParser(usage="%prog [options]")
     parser.add_option(  "-n", "--nobrowser", action="store_true", default=False, dest="nobrowser", help="Don't automatically open site in browser.")
+    parser.add_option(  "-p", "--private", action="store_true", default=False, dest="private", help="Private mode, prevents access from LAN (binds to localhost instead of 0.0.0.0).")
     opts, args = parser.parse_args()
 
     if not opts.nobrowser:
@@ -82,7 +87,10 @@ def main():
         Timer(2, openBrowser, ()).start()
 
     debug(True)
-    run(host='0.0.0.0', port=8181)
+    host = '0.0.0.0'
+    if opts.private:
+        host = 'localhost'
+    run(host=host, port=8181)
 
 if __name__ == "__main__":
     main()
