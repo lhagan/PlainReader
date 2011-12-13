@@ -28,6 +28,8 @@ $(document).ready(function(){
     }
     
     function showArticleView() {
+        // scroll article back to top
+        $('#content_wrapper').get(0).scrollTop = 0;
         $('#content').removeClass('hidden');
         $('#pinboard').removeClass('hidden');
         $('#open_in_new_window').removeClass('hidden');
@@ -139,12 +141,12 @@ $(document).ready(function(){
             
             $(item).appendTo('#stories ul');
         }
+        
+        // stop spinning refresh button
+        $('#refresh_wrapper').removeClass('spinning');
     }
     
     function updateFeeds() {
-        // stop spinning refresh button
-        $('#refresh_wrapper').removeClass('spinning');
-        
         // get unread items from server
         $.getJSON('/unread', getUnread);
     }
