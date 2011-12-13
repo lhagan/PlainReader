@@ -94,7 +94,7 @@ $(document).ready(function(){
                     $('.status', this).html('1');
                     unreadcount -= 1;
                     updateUnreadCount();
-                    $.get('/mark_read?story_id=' + id + '&feed_id=' + site);
+                    $.post('/mark_read', { story_id: id, feed_id: site });
                 }
                 
                 var story_obj = unreaditems[story];

@@ -28,10 +28,10 @@ def refresh():
 def unread():
     return nb.stories()
     
-@get('/mark_read')
+@post('/mark_read')
 def queue_read():
-    story_id = request.GET['story_id']
-    feed_id = request.GET['feed_id']
+    story_id = request.POST.get('story_id')
+    feed_id = request.POST.get('feed_id')
     nb.queueRead(story_id, feed_id)
 
 @get('/all_read')
@@ -82,7 +82,7 @@ def main():
         Timer(2, openBrowser, ()).start()
 
     debug(True)
-    run(host='0.0.0.0', port=8181, reloader=True)
+    run(host='0.0.0.0', port=8181)
 
 if __name__ == "__main__":
     main()
