@@ -10,10 +10,11 @@ PlainReader (working title) is a clean, minimal web-based client for the excelle
 ## Features
 
 1. Simple list of unread items from NewsBlur's River of News
-2. Instapaper and Pinboard integration
-3. Full article mode using [Instapaper's text engine](http://www.instapaper.com/extras) (click the article title)
-4. 20px Georgia article font
-5. Keyboard shortcuts: up/down arrows to flip through articles, enter for full article mode (see above)
+2. one-click to send to Instapaper
+3. Pinboard integration ('popup with tags' & 'read later')
+4. Full article mode using [Instapaper's text engine](http://www.instapaper.com/extras) (click the article title)
+5. 20px Georgia article font
+6. Keyboard shortcuts: up/down arrows to flip through articles, enter for full article mode (see above)
 
 ## Screenshot (iPad)
 ![screenshot](https://github.com/lhagan/PlainReader/raw/master/plainreader_screenshot.jpg)
@@ -48,15 +49,15 @@ Starting PlainReader runs a local web server that hosts the PlainReader webapp. 
 ## Roadmap
 
 1. stop managing data in the DOM (or at least clean it up)
-2. <del>enable mark as read on a per item basis (currently, only mark all as read is enabled)</del>
+2. <del>enable mark as read on a per item basis (currently, only mark all as read is enabled)</del> (done)
 3. interface additions/refinements:
-    * <del>unread count</del> (with intelligence breakdown)
-    * <del>scroll story list to keep the currently selected item in the middle (where possible)</del>
+    * <del>unread count</del>(done) with intelligence breakdown
+    * <del>scroll story list to keep the currently selected item in the middle (where possible)</del> (done)
     * feed favicons & intelligence classifiers in story list
-4. <del>'mark all as read' button</del>
+4. <del>'mark all as read' button</del> (done)
 5. intelligence <del>panel</del> tag buttons in the article header
 6. load multiple 'pages' of unread items (currently, you have to hit refresh feeds once you get to the bottom of the list)
-<del>7. Windows support</del>
+<del>7. Windows support</del> (done)
 
 I don't plan on ever supporting:
 
