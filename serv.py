@@ -15,7 +15,7 @@ from optparse import OptionParser
 import os, sys
 
 # fix doesn't work on Windows
-if sys.platform is not 'win32':
+if sys.platform != 'win32':
     import sigintfix
     sigintfix.Watcher()
     

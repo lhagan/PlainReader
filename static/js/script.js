@@ -6,7 +6,7 @@ released under the MIT license (see LICENSE.txt for details) */
 var unreaditems;
 var unreadcount = 0;
 
-$(document).ready(function(){        
+$(document).ready(function(){
     function instapaperText(data) {
         $('#content .body_text').html(data);
         $('#content .body_text a').attr('target', '_blank');
