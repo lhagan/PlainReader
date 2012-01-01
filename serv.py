@@ -3,7 +3,7 @@
 serv.py (the actual webapp)
 part of PlainReader by Luke Hagan
 created: 2011-11-05
-released under the MIT license (see LICENSE.txt for details)
+released under the MIT license (see LICENSE.md for details)
 """
 
 from bottle import *

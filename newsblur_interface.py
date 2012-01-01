@@ -3,7 +3,7 @@
 newsblur_interface.py
 part of PlainReader by Luke Hagan
 created: 2011-11-04
-released under the MIT license (see LICENSE.txt for details)
+released under the MIT license (see LICENSE.md for details)
 """
 
 import newsblur
