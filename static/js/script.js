@@ -161,7 +161,6 @@ $(document).ready(function(){
         clearStories();
         // call refresh on server
         $.get('/refresh', updateFeeds);
-        
     });
     
     /*
@@ -265,7 +264,9 @@ $(document).ready(function(){
     $(document).bind('keydown', key_down);
     $('#down').bind('click', nextStory);
     $('#up').bind('click', prevStory);
-    
+	
+	// update items
+	$('#refresh').trigger('click');
 });
 
 
