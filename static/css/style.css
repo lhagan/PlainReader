@@ -518,6 +518,9 @@ img {
 
 #stories a .site {
   left: 0px;
+  height: 14px;
+  width: 200px;
+  overflow: hidden;
 }
 
 #stories a .date {
@@ -528,6 +531,8 @@ img {
   padding-top: 20px;
   color: #4D4D4D;
   margin-bottom: 0px;
+  max-height: 32px;
+  overflow: hidden;
 }
 
 #stories a .intro {
