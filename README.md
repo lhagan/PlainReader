@@ -4,7 +4,7 @@ PlainReader (working title) is a clean, minimal web-based client for the excelle
 
 ## Download Links
 
-* [Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.zip) (10.6+)
+* [Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.dmg) (10.6+)
 * [Python Source](https://github.com/lhagan/PlainReader/zipball/master) (all other platforms)
 
 ## Features
@@ -40,7 +40,7 @@ PlainReader consists of a web (HTML5, CSS3, Javascript) front-end and an interme
 
 Starting PlainReader runs a local web server that hosts the PlainReader webapp. Once the server is running, just access PlainReader in your browser at [http://localhost:8181](http://localhost:8181). If you aren't running a firewall (or if you configure your firewall to allow HTTP connections to port 8181), you can access PlainReader from any computer (or iOS device) on your local network using your computer's IP address or Bonjour name.
 
-**Mac users**: just [download the Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.zip)!
+**Mac users**: just [download the Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.dmg)!
 
 **Everyone else**: PlainReader's only dependency is Python, so just [grab the source code](https://github.com/lhagan/PlainReader/zipball/master), run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181).
 
