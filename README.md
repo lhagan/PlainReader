@@ -17,7 +17,7 @@ PlainReader (working title) is a clean, minimal web-based client for the excelle
 6. Keyboard shortcuts: up/down arrows to flip through articles, enter for full article mode (see above), spacebar to smoothly scroll articles
 
 ## Screenshot (iPad)
-![screenshot](https://github.com/lhagan/PlainReader/raw/master/plainreader_screenshot.png)
+![screenshot](https://github.com/lhagan/PlainReader/raw/master/plainreader_screenshot.jpg)
 
 ## Why
 
