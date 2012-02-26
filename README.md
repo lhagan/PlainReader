@@ -10,18 +10,18 @@ PlainReader (working title) is a clean, minimal web-based client for the excelle
 ## Features
 
 1. Simple list of unread items from NewsBlur's River of News
-2. one-click to send to Instapaper
+2. One-click to send to Instapaper
 3. Pinboard integration ('popup with tags' & 'read later')
 4. Full article mode using [Instapaper's text engine](http://www.instapaper.com/extras) (click the article title)
 5. 20px Georgia article font
-6. Keyboard shortcuts: up/down arrows to flip through articles, enter for full article mode (see above)
+6. Keyboard shortcuts: up/down arrows to flip through articles, enter for full article mode (see above), spacebar to smoothly scroll articles
 
 ## Screenshot (iPad)
-![screenshot](https://github.com/lhagan/PlainReader/raw/master/plainreader_screenshot.jpg)
+![screenshot](https://github.com/lhagan/PlainReader/raw/master/plainreader_screenshot.png)
 
 ## Why
 
-I started building PlainReader out of a desire for a simple, minimal RSS reading experience akin to that of Silvio Rizzi's [Reeder](http://reederapp.com),[^1] but in a web browser. The goal is a single webapp that works equally well on my 11" MacBook Air and iPad 1. If you have a bigger or smaller screen, well, your mileage may vary. It's also not intended to be a replacement for the default NewsBlur interface -- PlainReader will never reach feature parity with NewsBlur, that's not the point.
+I started building PlainReader out of a desire for a simple, minimal RSS reading experience akin to that of Silvio Rizzi's [Reeder](http://reederapp.com),[^1] but in a web browser (and using NewsBlur instead of Google Reader). The goal is a single webapp that works equally well on my 11" MacBook Air and iPad 1. If you have a bigger or smaller screen, well, your mileage may vary. It's also not intended to be a replacement for the default NewsBlur interface -- PlainReader will never reach feature parity with NewsBlur's web UI, that's not the point.
 
 ## How
 
@@ -42,9 +42,9 @@ Starting PlainReader runs a local web server that hosts the PlainReader webapp. 
 
 **Mac users**: just [download the Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.zip)!
 
-**Everyone else**: PlainReader's only dependency is Python, so just [grab the source code](https://github.com/lhagan/PlainReader/zipball/master), run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181). Note that PlainReader may not work on Windows right now, but fixing this is in the plan.
+**Everyone else**: PlainReader's only dependency is Python, so just [grab the source code](https://github.com/lhagan/PlainReader/zipball/master), run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181).
 
-**IMPORTANT:** don't run PlainReader on a computer/server that's open to the internet or on an untrusted LAN. If your computer isn't firewalled, anyone on your network can access your feeds while you're logged in.
+**IMPORTANT:** don't run PlainReader on a computer/server that's open to the internet or on an untrusted LAN. If your computer isn't firewalled, anyone on your network can access your feeds while PlainReader is running and logged in.
 
 ## Roadmap
 
@@ -57,7 +57,7 @@ Starting PlainReader runs a local web server that hosts the PlainReader webapp. 
 4. <del>'mark all as read' button</del> (done)
 5. intelligence <del>panel</del> tag buttons in the article header
 6. load multiple 'pages' of unread items (currently, you have to hit refresh feeds once you get to the bottom of the list)
-<del>7. Windows support</del> (done)
+7. <del>Windows support</del> (done)
 
 I don't plan on ever supporting:
 

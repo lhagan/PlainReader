@@ -258,6 +258,7 @@ img {
     width:365px;
     height:100%;
     top:0px;
+    bottom: 0px;
     position:fixed;
     border-right: 1px solid #DBDAD8;
     -webkit-box-shadow: 0 0 0 1px #F7F6F5;
@@ -481,23 +482,29 @@ img {
 }
 
 #stories ul {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
 }
 
 #stories li {
   list-style: none;
+  height: 135px;
+  /*margin-bottom: 25px;*/
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow-y: hidden;
+}
+
+#stories .wrap {
+  display: block;
+  height: 110px;
+  margin-top: 15px;
   margin-bottom: 25px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  border: 1px dashed #F0EEEC;
-  -webkit-border-radius: 5px;
   overflow-y: hidden;
 }
 
 #stories li.selected {
-  border: 1px dashed #C4C2C0;
   background: #E4E1DD;
 }
 
@@ -506,7 +513,7 @@ img {
   text-decoration: none;
   color: #9B9B9B;
   display: block;
-  height: 105px;
+  height: 110px;
   margin-left: 20px;
 }
 
@@ -528,14 +535,15 @@ img {
 }
 
 #stories a .title {
-  padding-top: 20px;
+  padding-top: 10px;
   color: #4D4D4D;
   margin-bottom: 0px;
-  max-height: 32px;
+  max-height: 34px;
   overflow: hidden;
 }
 
 #stories a .intro {
+  display: block;
   font-size: 14px;
   line-height: 18px;
 }

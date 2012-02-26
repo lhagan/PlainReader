@@ -6,6 +6,10 @@ released under the MIT license (see LICENSE.md for details) */
 var unreaditems;
 var unreadcount = 0;
 
+window.onload = function(){ 
+	$('#refresh').trigger('click'); 
+}
+
 $(document).ready(function(){
     function instapaperText(data) {
         $('#content .body_text').html(data);
@@ -75,7 +79,7 @@ $(document).ready(function(){
             $('a .site', item).html(story_obj.site_title);
             $('a .date', item).html(story_obj.short_parsed_date);
             $('a .title', item).html(story_obj.story_title);
-            $('a .intro', item).html(stripTags(story_obj.story_content).substring(0, 80) + '...');
+            $('a .intro', item).html(stripTags(story_obj.story_content).substring(0, 250) + '...');
             
             // TODO: less hacky way to do this?
             $('a .ident_site', item).html(site);
@@ -259,30 +263,17 @@ $(document).ready(function(){
             $('#content header a').trigger('click');
             event.preventDefault();
         }
+		
+		// space bar
+		if (e.keyCode == 32) {
+			smoothScroll('content_wrapper', 400, 750);
+			event.preventDefault();
+		}
     }
     
     $(document).bind('keydown', key_down);
     $('#down').bind('click', nextStory);
     $('#up').bind('click', prevStory);
-	
-	// update items
-	$('#refresh').trigger('click');
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

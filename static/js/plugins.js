@@ -39,3 +39,33 @@ function stripTags(html) {
    tmp.innerHTML = html;
    return tmp.textContent||tmp.innerText;
 }
+
+// page scrolling
+// based on: https://github.com/madrobby/zepto/issues/401#issuecomment-4156269
+// with modifications to scroll div element instead of window
+smoothScroll = function(element, deltaY, duration) {
+	var targetElement = document.getElementById(element);
+	var startY = targetElement.scrollTop;
+    var endY = startY + deltaY;
+
+    var startT  = +(new Date());
+    var finishT = startT + duration
+
+    var interpolate = function (source, target, shift) { 
+        return (source + (target - source) * shift); 
+    };
+
+    var easing = function (pos) { 
+        return (-Math.cos(pos * Math.PI) / 2) + .5; 
+    };
+
+    var animate = function() {
+        var now = +(new Date());
+        var shift = (now > finishT) ? 1 : (now - startT) / duration;
+		
+		targetElement.scrollTop = Math.floor(interpolate(startY, endY, easing(shift)));
+        (now > finishT) || setTimeout(animate, 15);
+    };
+
+    animate();
+};
