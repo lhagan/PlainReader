@@ -34,7 +34,7 @@ PlainReader consists of a web (HTML5, CSS3, Javascript) front-end and an interme
 * [HTML5 Boilerplate](http://html5boilerplate.com/): HTML/CSS/JS template.
 * [Iconic](http://somerandomdude.com/work/iconic/): free, minimal icons distributed (among other things) in OTF font format, allowing PlainReader's interface to get by without a single image.
 * [Beautiful Soup](http://www.crummy.com/software/BeautifulSoup/): Python HTML/XML parser.
-* [Platypus](http://sveinbjorn.org/platypus): bundles PlainReader into a Mac Application
+* [Platypus](http://sveinbjorn.org/platypus): bundles PlainReader into a Mac Application.
 
 ## Usage
 
