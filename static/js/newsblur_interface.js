@@ -1,4 +1,4 @@
-/*global $, console*/
+/*global $, console, clearInterval, setInterval*/
 
 var Newsblur = function () {
 	"use strict";
@@ -77,7 +77,6 @@ var Newsblur = function () {
 	};
 
 	getStories = function (postdata) {
-		console.log("getting stories: " + postdata);
 		$.ajax({
 			type: 'POST',
 			url: '/newsblur/reader/river_stories',
@@ -90,14 +89,15 @@ var Newsblur = function () {
 	};
 
 	getPages = function (postdata, page) {
-		var run = function () {
+		var run, interval;
+		run = function () {
 			if (complete === 'true') {
 				clearInterval(interval);
 			}
 			getStories(postdata + "page=" + page);
 			page += 1;
 		};
-		var interval = setInterval(run, 10000);
+		interval = setInterval(run, 10000);
 		run();
 	};
 

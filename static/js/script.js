@@ -174,11 +174,7 @@ $(document).ready(function () {
     };
 
     updateFeeds = function () {
-        // get unread items from server
-        //$.getJSON('/unread', getUnread);
 		getUnread(nb.items);
-		console.log("updating");
-		console.log(nb.items);
     };
 
     /*
@@ -262,10 +258,16 @@ $(document).ready(function () {
     keyboard shortcuts
     */
     nextStory = function () {
-        var next = $('#stories .selected').next();
-        if (next.length !== 0) {
+        var selected = $('#stories .selected'),
+			next = selected.next();
+
+        if (next.size() !== 0) {
             $('a', next).trigger('click');
         }
+		if (selected.size() === 0) {
+			next = $('#stories li').not('.hidden').first();
+			$('a', next).trigger('click');
+		}
     };
 
     prevStory = function () {
