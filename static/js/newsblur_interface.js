@@ -49,11 +49,6 @@ var Newsblur = function () {
 		} else {
 			complete = 'true';
 		}
-
-		// TODO: remove this, debug only
-		if (that.items.stories.length > 50) {
-			complete = 'true';
-		}
 	};
 
 	processFeeds = function (json) {
@@ -91,7 +86,7 @@ var Newsblur = function () {
 	getPages = function (postdata, page) {
 		var run, interval;
 		run = function () {
-			if (complete === 'true') {
+			if (complete === 'true' || page === 2) { // remove page check
 				clearInterval(interval);
 			}
 			getStories(postdata + "page=" + page);

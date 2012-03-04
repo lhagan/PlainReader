@@ -18,7 +18,7 @@ $(document).ready(function () {
 	var instapaperText,
 		showArticleView,
 		hideArticleView,
-		clearStories,
+		hideReadStories,
 		updateUnreadCount,
 		getUnread,
 		updateFeeds,
@@ -64,12 +64,19 @@ $(document).ready(function () {
         $('#send_to_instapaper iframe').hide();
     };
 
-    clearStories = function () {
+    hideReadStories = function () {
         // clear stories list
-        $('#stories li').not('#template').remove();
+        //$('#stories li').not('#template').remove();
 
         // empty out the unreaditems variable
-        unreaditems = {};
+        //unreaditems = {};
+		
+		// hide read stories;
+		$('#stories li a .status').each(function () {
+			if ($(this).html() === '1') {
+				$(this).parent().parent().addClass('hidden');
+			}
+		});
 
         // hide the article view
         hideArticleView();
@@ -184,7 +191,7 @@ $(document).ready(function () {
         // spin the refresh button to show progress
         $('#refresh_wrapper').addClass('spinning');
         // clear stories list
-        clearStories();
+        hideReadStories();
         // call refresh on server
         //$.get('/refresh', updateFeeds);
 		nb.refresh(updateFeeds);
@@ -196,7 +203,7 @@ $(document).ready(function () {
     $('#mark_all_read').bind('click', function () {
         // tell server to mark all as read
         $.get('/all_read');
-        clearStories();
+        hideReadStories();
     });
 
     /*
