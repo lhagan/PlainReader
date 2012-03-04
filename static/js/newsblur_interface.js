@@ -49,6 +49,11 @@ var Newsblur = function () {
 		} else {
 			complete = 'true';
 		}
+		
+		// TODO: remove this, debug only
+		if (this.items.unreadstories.length > 50) {
+			complete = 'true';
+		}
 	};
 
 	processFeeds = function (json) {
