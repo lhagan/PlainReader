@@ -9,7 +9,7 @@ var Newsblur = function () {
 		getStories,
 		unreadfeeds = {},
 		callback,
-		complete = "false",
+		complete = false,
 		mark_read_queue = {};
 
 	this.items = {'stories': [], 'unreadcount': 0};
@@ -27,19 +27,19 @@ var Newsblur = function () {
 			for (i = 0; i < allstories.length; i += 1) {
 				story = allstories[i];
 				if (story.read_status === 0) {
-					nogood = 'true';
+					nogood = true;
 					// story is no good if any intelligence attributes are -1
 					// but a +1 overrides all
 					intel = story.intelligence;
 					for (j = 0; j < intel.length; j += 1) {
 						if (parseInt(intel[j], 10) === -1) {
-							nogood = 'true';
+							nogood = true;
 						}
 						if (parseInt(intel[j], 10) === 1) {
-							nogood = 'false';
+							nogood = false;
 						}
 					}
-					if (nogood !== 'false') {
+					if (nogood !== false) {
 						story.site_title = unreadfeeds[story.story_feed_id];
 						unreadstories.push(story);
 					}
@@ -48,7 +48,7 @@ var Newsblur = function () {
 			that.items.stories = unreadstories;
 			callback();
 		} else {
-			complete = 'true';
+			complete = true;
 		}
 	};
 
@@ -80,7 +80,6 @@ var Newsblur = function () {
 			url: '/newsblur/reader/river_stories',
 			data: postdata,
 			dataType: 'json',
-			async: true,
 			success: processStories,
 			error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
 		});
@@ -89,7 +88,7 @@ var Newsblur = function () {
 	getPages = function (postdata, page) {
 		var run, interval;
 		run = function () {
-			if (complete === 'true' || page === 2) { // remove page check
+			if (complete === true || page === 2) { // remove page check
 				clearInterval(interval);
 			}
 			getStories(postdata + "page=" + page);
@@ -99,9 +98,17 @@ var Newsblur = function () {
 		run();
 	};
 
+	this.refresh = function (call) {
+		callback = call;
+		// zero the unread count
+		that.items.unreadcount = 0;
+		$.getJSON('/newsblur/reader/feeds', processFeeds);
+	};
+
 	this.markRead = function (feed_id, story_id) {
 		var run,
-			interval;
+			interval,
+			queue;
 		run = function () {
 			var feed,
 				queue,
@@ -132,19 +139,41 @@ var Newsblur = function () {
 			}
 		};
 
-		clearTimeout(interval);
-		mark_read_queue[feed_id].push(story_id);
-		if (mark_read_queue[feed_id].length >= 5) {
-			run();
-		} else {
-			interval = setTimeout(run, 5000);
+		queue = function () {
+			clearTimeout(interval);
+
+			mark_read_queue[feed_id].push(story_id);
+			if (mark_read_queue[feed_id].length >= 5) {
+				run();
+			} else {
+				interval = setTimeout(run, 5000);
+			}
+		};
+
+		if (this.checkAuth === true) {
+			queue();
 		}
 	};
 
-	this.refresh = function (call) {
-		callback = call;
-		// zero the unread count
-		that.items.unreadcount = 0;
-		$.getJSON('/newsblur/reader/feeds', processFeeds);
+    this.login = function (username, password, call) {
+		var check = function (json) {
+			call(json.authenticated);
+		};
+		$.ajax({
+			type: 'POST',
+			url: '/newsblur/api/login',
+			data: {'username': username, 'password': password},
+			dataType: 'json',
+			success: check,
+			error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
+		});
+    };
+
+	this.logout = function () {
+		$.post('/newsblur/api/logout');
+	};
+
+    this.checkAuth = function (call) {
+        this.login('', '', call);
 	};
 };
