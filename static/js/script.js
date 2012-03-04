@@ -35,8 +35,7 @@ $(document).ready(function () {
 
         $('#content header a').bind('click', function (event) {
             // TODO: less hacky way to do this?
-            var site = $('.selected .ident_site').html(),
-				story = $('.selected .ident_story').html(),
+            var story = $('.selected .ident_story').html(),
 				story_obj = unreaditems[story];
             $('#content .body_text').html(story_obj.story_content);
             $('#content header a').unbind('click');
@@ -65,12 +64,6 @@ $(document).ready(function () {
     };
 
     hideReadStories = function () {
-        // clear stories list
-        //$('#stories li').not('#template').remove();
-
-        // empty out the unreaditems variable
-        //unreaditems = {};
-		
 		// hide read stories;
 		$('#stories li a .status').each(function () {
 			if ($(this).html() === '1') {
@@ -137,7 +130,7 @@ $(document).ready(function () {
 	                    $('.status', this).html('1');
 	                    unreadcount -= 1;
 	                    updateUnreadCount();
-	                    $.post('/mark_read', { story_id: id, feed_id: site });
+						nb.markRead(site, id);
 	                }
 
 	                showArticleView();

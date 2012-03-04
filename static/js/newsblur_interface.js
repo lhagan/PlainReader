@@ -1,4 +1,4 @@
-/*global $, console, clearInterval, setInterval*/
+/*global $, console, clearInterval, setInterval, setTimeout, clearTimeout*/
 
 var Newsblur = function () {
 	"use strict";
@@ -9,7 +9,8 @@ var Newsblur = function () {
 		getStories,
 		unreadfeeds = {},
 		callback,
-		complete = "false";
+		complete = "false",
+		mark_read_queue = {};
 
 	this.items = {'stories': [], 'unreadcount': 0};
 
@@ -64,7 +65,9 @@ var Newsblur = function () {
 					unreadfeeds[feed_id] = feed.feed_title;
 					that.items.unreadcount += (feed.ps + feed.nt);
 					postdata += 'feeds=' + feed_id + '&';
-					// mark read queue stuff here
+				}
+				if (!mark_read_queue.hasOwnProperty(feed_id)) {
+					mark_read_queue[feed_id] = [];
 				}
 			}
 		}
@@ -79,7 +82,7 @@ var Newsblur = function () {
 			dataType: 'json',
 			async: true,
 			success: processStories,
-			error: function (xhr, type) { console.log("error!" + xhr + " " + type); }
+			error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
 		});
 	};
 
@@ -94,6 +97,48 @@ var Newsblur = function () {
 		};
 		interval = setInterval(run, 10000);
 		run();
+	};
+
+	this.markRead = function (feed_id, story_id) {
+		var run,
+			interval;
+		run = function () {
+			var feed,
+				queue,
+				i,
+				postdata,
+				clear = function (feed) {
+					console.log('mark as read successful');
+					mark_read_queue[feed] = [];
+				};
+			for (feed in mark_read_queue) {
+				if (mark_read_queue.hasOwnProperty(feed)) {
+					queue = mark_read_queue[feed];
+					if (queue.length > 0) {
+						postdata = "feed_id=" + feed;
+						for (i = 0; i < queue.length; i += 1) {
+							postdata += "&story_id=" + queue[i];
+						}
+						$.ajax({
+							type: 'POST',
+							url: '/newsblur/reader/mark_story_as_read',
+							data: postdata,
+							dataType: 'json',
+							success: function () { clear(feed); },
+							error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
+						});
+					}
+				}
+			}
+		};
+
+		clearTimeout(interval);
+		mark_read_queue[feed_id].push(story_id);
+		if (mark_read_queue[feed_id].length >= 5) {
+			run();
+		} else {
+			interval = setTimeout(run, 5000);
+		}
 	};
 
 	this.refresh = function (call) {
