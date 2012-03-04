@@ -49,9 +49,9 @@ var Newsblur = function () {
 		} else {
 			complete = 'true';
 		}
-		
+
 		// TODO: remove this, debug only
-		if (this.items.unreadstories.length > 50) {
+		if (that.items.stories.length > 50) {
 			complete = 'true';
 		}
 	};
@@ -90,13 +90,15 @@ var Newsblur = function () {
 	};
 
 	getPages = function (postdata, page) {
-		var interval = setInterval(function () {
+		var run = function () {
 			if (complete === 'true') {
 				clearInterval(interval);
 			}
 			getStories(postdata + "page=" + page);
 			page += 1;
-		}, 10000);
+		};
+		var interval = setInterval(run, 10000);
+		run();
 	};
 
 	this.refresh = function (call) {
