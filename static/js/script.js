@@ -29,7 +29,9 @@ $(document).ready(function () {
 		key_down,
 		nb,
 		ip,
-		displayed_stories = [];
+		displayed_stories = [],
+		all_stories = {},
+		article_index = 0;
 
 	instapaperText = function (data) {
         $('#content .body_text').html(data);
@@ -92,6 +94,7 @@ $(document).ready(function () {
         // empty out the unreaditems and displayed stories lists
         unreaditems = {};
 		displayed_stories = [];
+		all_stories = {};
 
         // hide the article view
         hideArticleView();
@@ -117,6 +120,9 @@ $(document).ready(function () {
             site = unreaditems[i].story_feed_id;
             story_obj = unreaditems[i];
 			if (displayed_stories.indexOf(story_obj.id) === -1) {
+				// save to all_stories
+				all_stories[article_index] = story_obj;
+
 	            item = list_template.clone();
 
 	            $(item).attr('id', story_obj.id);
@@ -129,14 +135,15 @@ $(document).ready(function () {
 
 	            // TODO: less hacky way to do this?
 	            $('a .ident_site', item).html(site);
-	            $('a .ident_story', item).html(i);
+	            $('a .ident_story', item).html(article_index);
+				article_index += 1;
 
 	            $('a', item).bind('click', function () {
 					var site = $('.ident_site', this).html(),
-						story = $('.ident_story', this).html(),
+						article_id = $('.ident_story', this).html(),
 						id = $(this).parent().attr('id'),
 						status = $('.status', this).html(),
-						story_obj = unreaditems[story],
+						story_obj = all_stories[article_id],
 						list = document.getElementById('stories'),
 						listheight = list.offsetHeight,
 						elementheight = $(this).parent().height(),
