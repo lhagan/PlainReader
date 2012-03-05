@@ -2,7 +2,7 @@
 part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.md for details) */
-/*global stripTags, print, $, document, open, event, smoothScroll, Newsblur */
+/*global stripTags, print, $, document, open, event, smoothScroll, Newsblur, Instapaper */
 
 var unreaditems;
 var unreadcount = 0;
@@ -16,6 +16,7 @@ window.onload = function(){
 $(document).ready(function () {
 	"use strict";
 	var instapaperText,
+		bindInstapaperText,
 		showArticleView,
 		hideArticleView,
 		hideReadStories,
@@ -27,12 +28,14 @@ $(document).ready(function () {
 		prevStory,
 		key_down,
 		nb,
+		ip,
 		displayed_stories = [];
 
 	instapaperText = function (data) {
         $('#content .body_text').html(data);
         $('#content .body_text a').attr('target', '_blank');
         $('#content header a').unbind('click');
+		print('got article');
 
         $('#content header a').bind('click', function (event) {
             // TODO: less hacky way to do this?
@@ -40,13 +43,18 @@ $(document).ready(function () {
 				story_obj = unreaditems[story];
             $('#content .body_text').html(story_obj.story_content);
             $('#content header a').unbind('click');
-            $('#content header a').bind('click', function (event) {
-                $.get('/text?url=' + $('#content header a').attr('href'), instapaperText);
-                event.preventDefault();
-            });
+            bindInstapaperText($('#content header a'));
             event.preventDefault();
         });
     };
+
+	bindInstapaperText = function (element) {
+        element.bind('click', function (event) {
+			ip.getArticle($('#content header a').get(0), instapaperText);
+			print('getting article from instapaper');
+            event.preventDefault();
+        });
+	};
 
     showArticleView = function () {
         // scroll article back to top
@@ -163,10 +171,7 @@ $(document).ready(function () {
 	                // TODO: why doesn't description work?
 	                $('#send_to_instapaper iframe').attr('src', 'http://www.instapaper.com/e2?url=' + encodeURIComponent(story_obj.story_permalink) + '&title=' + encodeURIComponent(story_obj.story_title) + '&description=' + encodeURIComponent(d));
 
-	                $('#content header a').bind('click', function (event) {
-	                    $.get('/text?url=' + $('#content header a').attr('href'), instapaperText);
-	                    event.preventDefault();
-	                });
+	                bindInstapaperText($('#content header a'));
 
 	                // scroll stories list to keep selected item in center (where possible)
 	                // TODO: move to plugins
@@ -372,5 +377,6 @@ $(document).ready(function () {
 	});
 
 	nb = new Newsblur();
+	ip = new Instapaper();
 });
 
