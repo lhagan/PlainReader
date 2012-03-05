@@ -310,7 +310,7 @@ img {
     -webkit-transform: rotate(180deg);
     left: -31px;
     line-height: 2.5em;
-    margin-top: 20px;
+    margin-top: 19px;
 }
 
 #nav .button {
@@ -321,7 +321,7 @@ img {
 #mark_all_read_wrapper, #refresh_wrapper {
     margin: 0px;
     padding: 0px;
-	font-size: 24px;
+	font-size: 20px;
 } 
 
 @-webkit-keyframes rotate {
@@ -335,7 +335,7 @@ img {
 
 #mark_all_read_wrapper {
     position: absolute;
-    bottom: 50px;
+    bottom: 45px;
     height: 30px;
     width: 30px;
     left: 11px;
@@ -347,10 +347,10 @@ img {
 
 #refresh_wrapper {
     position: absolute;
-    bottom: 5px;
-    height: 30px;
-    width: 30px;
-    left: 7px;
+    bottom: 10px;
+	left: 12px;
+    height: 20px;
+    width: 20px;
 }
 
 #refresh_wrapper.spinning {
@@ -362,8 +362,8 @@ img {
 
 #refresh {
     position: relative;
-    left: 5px;
-    top: 1px;
+    left: 1px;
+    top: -2px;
 }
 #refresh:before {
 	content:'\e036';
@@ -371,11 +371,11 @@ img {
 
 #settings_wrapper {
     position: absolute;
-    top: 40px;
+    top: 50px;
     height: 30px;
     width: 30px;
     left: 7px;
-	font-size: 20px;
+	font-size: 16px;
 	text-align: center;
 }
 #settings:before {
@@ -421,7 +421,6 @@ img {
     position: absolute;
     top: 12px;  
     color: #B6B4B3;
-    font-size: 18px;
 }
 
 #send_to_instapaper {
@@ -647,6 +646,14 @@ img {
     outline: none;
 }
 
+#login_form .cancel, #login_form .logout {
+	color: #9B9B9B;
+}
+
+#login_form .cancel:hover, #login_form .logout:hover {
+	color: #4D4D4D
+}
+
 #login_form .cancel {
 	position: absolute;
 	top: 0;
@@ -666,10 +673,6 @@ img {
 	margin-right:auto;
 	top: 25px;
 	font-size: 18px;
-	color: #9B9B9B;
-}
-#login_form .logout:hover {
-	color: #4D4D4D
 }
 
 @-webkit-keyframes shake {
