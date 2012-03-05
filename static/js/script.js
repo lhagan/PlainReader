@@ -39,6 +39,7 @@ $(document).ready(function () {
 
         $('#content header a').bind('click', function (event) {
             // TODO: less hacky way to do this?
+			print('returning to regular article view');
             var story = $('.selected .ident_story').html(),
 				story_obj = unreaditems[story];
             $('#content .body_text').html(story_obj.story_content);
@@ -141,6 +142,9 @@ $(document).ready(function () {
 						elementheight = $(this).parent().height(),
 						currentscroll = list.scrollTop;
 
+					// unbind instapaper text link (sometimes conflicts with new bind)
+					$('#content header a').unbind('click');
+
 	                $('#stories ul li.selected').animate({opacity: 0.5}, 100);
 	                $('#stories ul li').removeClass('selected');
 
@@ -223,6 +227,8 @@ $(document).ready(function () {
 			}
 			$('#login_form_wrapper').removeClass('hidden');
 		};
+		// need to temporarily unbind keydown to prevent interference with form submission
+		$(document).unbind('keydown', key_down);
 		nb.checkAuth(go);
 		event.preventDefault();
     });
@@ -342,7 +348,7 @@ $(document).ready(function () {
 		}
     };
 
-    //$(document).bind('keydown', key_down);
+    $(document).bind('keydown', key_down);
     $('#down').bind('click', nextStory);
     $('#up').bind('click', prevStory);
 
@@ -356,6 +362,8 @@ $(document).ready(function () {
 				if (response === true) {
 					$('#login_form_wrapper').addClass('hidden');
 					$('#refresh').trigger('click');
+					// re-bind keydown once form is submitted
+					$(document).bind('keydown', key_down);
 				} else {
 					$form.find('input[name="password"]').val('');
 					$('#login_form').addClass('animate');
@@ -367,12 +375,16 @@ $(document).ready(function () {
 	});
 	$('#login_form .cancel').bind('click', function (event) {
 		$('#login_form_wrapper').addClass('hidden');
+		// re-bind keydown on cancel
+		$(document).bind('keydown', key_down);
 		event.preventDefault();
 	});
 	$('#login_form .logout').bind('click', function (event) {
 		nb.logout();
 		$('#login_form_wrapper').addClass('hidden');
 		clearStories();
+		// re-bind keydown on logout
+		$(document).bind('keydown', key_down);
 		event.preventDefault();
 	});
 
