@@ -105,6 +105,7 @@ $(document).ready(function () {
     };
 
     getUnread = function (json) {
+		print('updating list');
 		var i,
 			list_template = $('#template'),
 			site,
@@ -203,6 +204,7 @@ $(document).ready(function () {
     };
 
     updateFeeds = function () {
+		print('got feeds, processing');
 		getUnread(nb.items);
     };
 
@@ -216,6 +218,7 @@ $(document).ready(function () {
         hideReadStories();
         // call refresh on server
         //$.get('/refresh', updateFeeds);
+		print('updating feeds');
 		nb.refresh(updateFeeds);
 		event.preventDefault();
     });
