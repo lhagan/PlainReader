@@ -30,22 +30,24 @@
             <div id="send_to_instapaper" class="button">
                 <iframe border="0" scrolling="no" width="78" height="17" allowtransparency="true" frameborder="0" src=""></iframe>
             </div>
-            <a href="#" id="open_in_new_window" class="button hidden">1</a>
-            <a href="#" id="pinboard" class="button hidden">|</a>
+            <a href="#" id="open_in_new_window" class="button hidden"></a>
+            <a href="#" id="pinboard" class="button hidden"></a>
         </div>
     </div>
     
     <div id="sidebar">
         <div id="nav">
             <div id="unreadcount">0</div>
+			<div id="settings_wrapper"><a href="" id="settings" class="button"></a></div>
             <div id="floater">
             </div>
             <div id="arrows">
-                <a href="#" id="up" class="button">▲&nbsp;</a>
-                <div id="down_wrapper"><a href="#" id="down" class="button">▲</a></div>
+                <a href="" id="up" class="button">▲&nbsp;</a>
+                <div id="down_wrapper"><a href="" id="down" class="button">▲</a></div>
             </div>
-            <div id="mark_all_read_wrapper"><a href="#" id="mark_all_read" class="button">y</a></div>
-            <div id="refresh_wrapper"><a href="#" id="refresh" class="button">[</a></div>
+            <div id="mark_all_read_wrapper"><a href="" id="mark_all_read" class="button"></a></div>
+            <div id="refresh_wrapper"><a href="" id="refresh" class="button"></a></div>
+			
         </div>
         <div id="stories">
             <ul>
@@ -56,7 +58,7 @@
 	                        <span class="date"></span>
 	                        <h1 class="title"></h1>
 	                        <span class="intro"></span>
-	                        <span class="icon">r</span>
+	                        <span class="icon"></span>
 						</span>
                         <span class="ident_site hidden"></span>
                         <span class="ident_story hidden"></span>
@@ -75,9 +77,19 @@
                 <span class="site"></span>
                 <span class="author"></span>
             </header>
-            <div class="body_text">
-                
-            </div>
+            <div class="body_text"></div>
+        </div>
+    </div>
+	
+    <div id="login_form_wrapper" class="hidden">
+        <div id="login_form">
+            <form id="login" action="/newsblur/api/login" method="post">
+                <input name="username" placeholder="username" type="text" autofocus spellcheck="false" />
+                <input name="password" placeholder="password" type="password" />
+                <input id="submit" type="submit" value="login" />
+            </form>
+            <a href="" class="button cancel"></a>
+			<a href="" class="button logout hidden">You're logged in. Click to logout.</a>
         </div>
     </div>
     

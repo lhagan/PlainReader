@@ -19,6 +19,7 @@ $(document).ready(function () {
 		showArticleView,
 		hideArticleView,
 		hideReadStories,
+		clearStories,
 		updateUnreadCount,
 		getUnread,
 		updateFeeds,
@@ -75,6 +76,18 @@ $(document).ready(function () {
         hideArticleView();
     };
 
+    clearStories = function () {
+        // clear stories list
+        $('#stories li').not('#template').remove();
+
+        // empty out the unreaditems and displayed stories lists
+        unreaditems = {};
+		displayed_stories = [];
+
+        // hide the article view
+        hideArticleView();
+    };
+
     updateUnreadCount = function () {
         $('#unreadcount').html(unreadcount);
     };
@@ -103,7 +116,7 @@ $(document).ready(function () {
 	            $('a .site', item).html(story_obj.site_title);
 	            $('a .date', item).html(story_obj.short_parsed_date);
 	            $('a .title', item).html(story_obj.story_title);
-	            $('a .intro', item).html(stripTags(story_obj.story_content).substring(0, 250) + '...');
+	            $('a .intro', item).html(stripTags(story_obj.story_content).substring(0, 250));
 
 	            // TODO: less hacky way to do this?
 	            $('a .ident_site', item).html(site);
@@ -180,7 +193,7 @@ $(document).ready(function () {
     /*
     Refresh Button
     */
-    $('#refresh').bind('click', function () {
+    $('#refresh').bind('click', function (event) {
         // spin the refresh button to show progress
         $('#refresh_wrapper').addClass('spinning');
         // clear stories list
@@ -188,28 +201,49 @@ $(document).ready(function () {
         // call refresh on server
         //$.get('/refresh', updateFeeds);
 		nb.refresh(updateFeeds);
+		event.preventDefault();
+    });
+
+    /*
+    Settings Button
+    */
+    $('#settings').bind('click', function (event) {
+		var go = function (response) {
+			if (response === true) {
+				$('#login_form .logout').removeClass('hidden');
+				$('#login input').addClass('hidden');
+			} else {
+				$('#login_form .logout').addClass('hidden');
+				$('#login input').removeClass('hidden');
+			}
+			$('#login_form_wrapper').removeClass('hidden');
+		};
+		nb.checkAuth(go);
+		event.preventDefault();
     });
 
     /*
     Mark All Read button
     */
-    $('#mark_all_read').bind('click', function () {
+    $('#mark_all_read').bind('click', function (event) {
         // tell server to mark all as read
         $.get('/all_read');
         hideReadStories();
+		event.preventDefault();
     });
 
     /*
     pinboard popup menu
     */
-    $('#pinboard').bind('click', function () {
+    $('#pinboard').bind('click', function (event) {
         $('#pinboard_popover').toggleClass('hidden');
+		event.preventDefault();
     });
 
     /*
     Send to pinboard (popup with tags)
     */
-    $('#send_to_pinboard').bind('click', function () {
+    $('#send_to_pinboard').bind('click', function (event) {
         var q, d, p;
         q = $('#content header a').attr('href');
         p = $('#content header h1').html();
@@ -223,12 +257,13 @@ $(document).ready(function () {
 
         open('https://pinboard.in/add?showtags=yes&url=' + encodeURIComponent(q) + '&description=' + encodeURIComponent(d) + '&title=' + encodeURIComponent(p), 'Pinboard', 'toolbar=no,width=700,height=600');
         $('#pinboard_popover').addClass('hidden');
+		event.preventDefault();
     });
 
     /*
     Send to pinboard (read later)
     */
-    $('#send_to_pinboard_read_later').bind('click', function () {
+    $('#send_to_pinboard_read_later').bind('click', function (event) {
         var q, d, p, t;
         q = $('#content header a').attr('href');
         p = $('#content header h1').html();
@@ -243,13 +278,15 @@ $(document).ready(function () {
         t = open('https://pinboard.in/add?later=yes&noui=yes&jump=close&url=' + encodeURIComponent(q) + '&description=' + encodeURIComponent(d) + '&title=' + encodeURIComponent(p), 'Pinboard', 'toolbar=no,width=100,height=100');
         t.blur();
         $('#pinboard_popover').addClass('hidden');
+		event.preventDefault();
     });
 
     /*
     Open original article in a new tab/window
     */
-    $('#open_in_new_window').bind('click', function () {
+    $('#open_in_new_window').bind('click', function (event) {
         open($('#content header a').attr('href'));
+		event.preventDefault();
     });
 
     //updateFeeds();
@@ -300,9 +337,39 @@ $(document).ready(function () {
 		}
     };
 
-    $(document).bind('keydown', key_down);
+    //$(document).bind('keydown', key_down);
     $('#down').bind('click', nextStory);
     $('#up').bind('click', prevStory);
+
+	$('#login').submit(function (event) {
+		$('#login_form').removeClass('animate');
+		clearStories();
+		var $form = $(this),
+			username = $form.find('input[name="username"]').val(),
+			password = $form.find('input[name="password"]').val(),
+			callback = function (response) {
+				if (response === true) {
+					$('#login_form_wrapper').addClass('hidden');
+					$('#refresh').trigger('click');
+				} else {
+					$form.find('input[name="password"]').val('');
+					$('#login_form').addClass('animate');
+					print("incorrect login, try again");
+				}
+			};
+		nb.login(username, password, callback);
+		event.preventDefault();
+	});
+	$('#login_form .cancel').bind('click', function (event) {
+		$('#login_form_wrapper').addClass('hidden');
+		event.preventDefault();
+	});
+	$('#login_form .logout').bind('click', function (event) {
+		nb.logout();
+		$('#login_form_wrapper').addClass('hidden');
+		clearStories();
+		event.preventDefault();
+	});
 
 	nb = new Newsblur();
 });

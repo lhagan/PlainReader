@@ -223,7 +223,7 @@ OFL-licensed: http://scripts.sil.org/OFL */
 	   url("../fonts/iconic_stroke.otf") format('opentype');
 }
 
-#nav, #topbar, #stories .icon {
+#nav, #topbar, .button {
     font-family: "IconicStroke";
 }
 
@@ -247,7 +247,7 @@ img {
 	height: auto;
 }
 
-#nav a, #stories a, #topbar a, #content header a, #pinboard_popover a {
+#nav a, #stories a, #topbar a, #content header a, #pinboard_popover a, #login_form a {
     /* prevent highlight on touch for UI
     http://blogs.unbolt.net/index.php/brinley/2010/11/25/disabling-highlight-on-touch-in-ios-mobile-safari-web-apps */
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -274,7 +274,7 @@ img {
   background: #3D3E40;
 }
 
-#nav a, #topbar_inner a {
+#nav a, #topbar_inner a, #login_form a {
     text-decoration: none;
 }
 
@@ -315,7 +315,14 @@ img {
 
 #nav .button {
     color: #E8E8E8;
+	display: block;
 }
+
+#mark_all_read_wrapper, #refresh_wrapper {
+    margin: 0px;
+    padding: 0px;
+	font-size: 24px;
+} 
 
 @-webkit-keyframes rotate {
   from {
@@ -329,20 +336,18 @@ img {
 #mark_all_read_wrapper {
     position: absolute;
     bottom: 50px;
-    margin: 0px;
-    padding: 0px;
-    font-size: 30px;
     height: 30px;
     width: 30px;
     left: 11px;
 }
 
+#mark_all_read:before {
+	content: '\2717';
+}
+
 #refresh_wrapper {
     position: absolute;
     bottom: 5px;
-    margin: 0px;
-    padding: 0px;
-    font-size: 30px;
     height: 30px;
     width: 30px;
     left: 7px;
@@ -356,10 +361,25 @@ img {
 }
 
 #refresh {
-    display: block;
     position: relative;
-    left: 6px;
-    top: 0px;
+    left: 5px;
+    top: 1px;
+}
+#refresh:before {
+	content:'\e036';
+}
+
+#settings_wrapper {
+    position: absolute;
+    top: 40px;
+    height: 30px;
+    width: 30px;
+    left: 7px;
+	font-size: 20px;
+	text-align: center;
+}
+#settings:before {
+	content:'\2699';
 }
 
 /* stories list */
@@ -401,7 +421,7 @@ img {
     position: absolute;
     top: 12px;  
     color: #B6B4B3;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 #send_to_instapaper {
@@ -417,9 +437,15 @@ img {
 #open_in_new_window {
     right: 70px;
 }
+#open_in_new_window:before {
+	content: '\e059';
+}
 
 #pinboard {
     right: 30px;
+}
+#pinboard:before {
+	content: '\e067';
 }
 
 /* content */
@@ -551,10 +577,14 @@ img {
 #stories a .icon {
   position: absolute;
   top: 20px;
-  left: -22px;
+  left: -42px;
   height: 16px;
   width: 16px;
   font-size: 16px;
+  overflow: scroll;
+}
+#stories a .icon: after {
+	content: '\e02d';
 }
 
 #frame {
@@ -570,11 +600,24 @@ img {
 }
 
 /* login form */
+#login_form_wrapper {
+	position: absolute;
+    width: 100%;
+	height: 100%;
+	z-index: 10000;
+	background: rgba(0, 0, 0, 0.4);
+}
+
 #login_form {
-    width: 600px;
+	position: relative;
+	width: 565px;
+	height: 70px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 150px;
+	margin-top: 150px;
+	background-color: #F0EEEC;
+	-webkit-border-radius: 5px;
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 #submit {
@@ -602,6 +645,42 @@ img {
 
 #login_form input:hover, #login_form input:focus {
     outline: none;
+}
+
+#login_form .cancel {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 5px;
+	font-size: 10px;
+}
+#login_form .cancel:before {
+	content: '\2713';
+}
+
+#login_form .logout {
+	position: relative;
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right:auto;
+	top: 25px;
+	font-size: 18px;
+	color: #9B9B9B;
+}
+#login_form .logout:hover {
+	color: #4D4D4D
+}
+
+@-webkit-keyframes shake {
+	0%, 100% {-webkit-transform: translateX(0);}
+	25% {-webkit-transform: translateX(-10px);}
+	75% {-webkit-transform: translateX(10px);}
+}
+#login_form.animate {
+	-webkit-animation-name: shake;
+	-webkit-animation-duration: 150ms;
+	-webkit-animation-iteration-count: 3;
 }
 
 /* ==|== non-semantic helper classes ========================================
