@@ -1,18 +1,15 @@
 # PlainReader
 
-PlainReader (working title) is a clean, minimal web-based client for the excellent [NewsBlur](http://newsblur.com) RSS reader. It's still in an **early beta** state with only the bare minimum of features to work as a functional news reader.
+PlainReader (working title) is a clean, minimal web-based client for the excellent [NewsBlur](http://newsblur.com) RSS reader. It's still in an **early beta** state with only the bare minimum of features to work as a functional news reader. PlainReader is designed to work on WebKit browsers only, such as Safari (including iPad) and Chrome.
 
-## Download Links
-
-* [Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.dmg) (10.6+)
-* [Python Source](https://github.com/lhagan/PlainReader/zipball/master) (all other platforms)
+Go try it out: *hosted version coming soon*
 
 ## Features
 
 1. Simple list of unread items from NewsBlur's River of News
 2. One-click to send to Instapaper
 3. Pinboard integration ('popup with tags' & 'read later')
-4. Full article mode using [Instapaper's text engine](http://www.instapaper.com/extras) (click the article title)
+4. Full article mode using [Instapaper's text engine](http://www.instapaper.com/extras) (just click the article title)
 5. 20px Georgia article font
 6. Keyboard shortcuts: up/down arrows to flip through articles, enter for full article mode (see above), spacebar to smoothly scroll articles
 
@@ -28,23 +25,11 @@ I started building PlainReader out of a desire for a simple, minimal RSS reading
 PlainReader consists of a web (HTML5, CSS3, Javascript) front-end and an intermediary server that proxies NewsBlur to get around cross-domain restrictions and strip down the data transferred to just what's needed. Some acknowledgements:
 
 * [NewsBlur](http://newsblur.com): web-based RSS reader (think Google Reader, but better), does all the actual work fetching feeds and such.
-* [Bottle](http://bottlepy.org/docs/dev/): Python micro web framework -- talks to NewsBlur and serves up PlainReader.
 * [Zepto](http://zeptojs.com/): minimalist JavaScript framework with jQuery syntax, specifically designed for mobile WebKit.
 * [Instapaper](http://www.instapaper.com): text engine provides cleaned up article content to minimize loading times (and advertising).
 * [HTML5 Boilerplate](http://html5boilerplate.com/): HTML/CSS/JS template.
 * [Iconic](http://somerandomdude.com/work/iconic/): free, minimal icons distributed (among other things) in OTF font format, allowing PlainReader's interface to get by without a single image.
-* [Beautiful Soup](http://www.crummy.com/software/BeautifulSoup/): Python HTML/XML parser.
-* [Platypus](http://sveinbjorn.org/platypus): bundles PlainReader into a Mac Application.
-
-## Usage
-
-Starting PlainReader runs a local web server that hosts the PlainReader webapp. Once the server is running, just access PlainReader in your browser at [http://localhost:8181](http://localhost:8181). If you aren't running a firewall (or if you configure your firewall to allow HTTP connections to port 8181), you can access PlainReader from any computer (or iOS device) on your local network using your computer's IP address or Bonjour name.
-
-**Mac users**: just [download the Mac App](https://github.com/downloads/lhagan/PlainReader/PlainReader.dmg)!
-
-**Everyone else**: PlainReader's only dependency is Python, so just [grab the source code](https://github.com/lhagan/PlainReader/zipball/master), run `python serv.py` in your terminal and point your browser at [http://localhost:8181](http://localhost:8181).
-
-**IMPORTANT:** don't run PlainReader on a computer/server that's open to the internet or on an untrusted LAN. If your computer isn't firewalled, anyone on your network can access your feeds while PlainReader is running and logged in.
+* [nginx](http://wiki.nginx.org/Main): HTTP server that proxies NewsBlur.
 
 ## Roadmap
 
@@ -56,7 +41,7 @@ Starting PlainReader runs a local web server that hosts the PlainReader webapp. 
     * feed favicons & intelligence classifiers in story list
 4. <del>'mark all as read' button</del> (done)
 5. intelligence <del>panel</del> tag buttons in the article header
-6. load multiple 'pages' of unread items (currently, you have to hit refresh feeds once you get to the bottom of the list)
+6. <del>load multiple 'pages' of unread items (currently, you have to hit refresh feeds once you get to the bottom of the list)<del> (done)
 7. <del>Windows support</del> (done)
 
 I don't plan on ever supporting:
