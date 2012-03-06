@@ -421,6 +421,7 @@ img {
     position: absolute;
     top: 12px;  
     color: #B6B4B3;
+	font-size: 18px;
 }
 
 #send_to_instapaper {
