@@ -21,29 +21,29 @@ var Newsblur = function () {
 			nogood,
 			intel,
 			i,
-			j;
+			prop;
 
 		print('processing stories');
 		print('got ' + allstories.length + ' stories');
 		if (allstories.length > 0) {
 			for (i = 0; i < allstories.length; i += 1) {
 				story = allstories[i];
-				print(story.story_title);
 				if (story.read_status === 0) {
-					nogood = true;
+					nogood = false;
 					// story is no good if any intelligence attributes are -1
 					// but a +1 overrides all
 					intel = story.intelligence;
-					print(intel);
-					for (j = 0; j < intel.length; j += 1) {
-						if (parseInt(intel[j], 10) === -1) {
-							nogood = true;
-						}
-						if (parseInt(intel[j], 10) === 1) {
-							nogood = false;
+					for (prop in intel) {
+						if (intel.hasOwnProperty(prop)) {
+							if (parseInt(intel[prop], 10) === -1) {
+								nogood = true;
+							}
+							if (parseInt(intel[prop], 10) === 1) {
+								nogood = false;
+							}
 						}
 					}
-					if (nogood !== false) {
+					if (nogood === false) {
 						story.site_title = unreadfeeds[story.story_feed_id];
 						unreadstories.push(story);
 					}
@@ -64,8 +64,6 @@ var Newsblur = function () {
 			postdata = "";
 
 		print('processing feeds');
-		print(feeds);
-
 		if (feeds !== undefined && Object.keys(feeds).length > 0) {
 			for (feed_id in feeds) {
 				if (feeds.hasOwnProperty(feed_id)) {
@@ -80,9 +78,11 @@ var Newsblur = function () {
 					}
 				}
 			}
-			print('postdata: ' + postdata.length);
-			if (postdata.length === 0) {
+			if (postdata.length > 0) {
 				getPages(postdata, 1);
+			} else {
+				complete = true;
+				callback();
 			}
 		} else {
 			complete = true;
