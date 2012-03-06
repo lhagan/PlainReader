@@ -79,6 +79,7 @@ var Newsblur = function () {
 				}
 			}
 			if (postdata.length > 0) {
+				print(postdata);
 				getPages(postdata, 1);
 			} else {
 				complete = true;
@@ -119,16 +120,21 @@ var Newsblur = function () {
 	};
 
 	this.refresh = function (call) {
+		complete = false;
 		callback = call;
 		// zero the unread count
 		that.items.unreadcount = 0;
-		$.getJSON('/newsblur/reader/feeds', processFeeds);
+		// need to refresh feeds before getting list to ensure count isn't stale
+		$.getJSON('/newsblur/reader/refresh_feeds', function () {
+			$.getJSON('/newsblur/reader/feeds', processFeeds);
+		});
 	};
 
 	this.markRead = function (feed_id, story_id) {
 		var run,
 			interval,
-			queue;
+			queue,
+			count = 0;
 		run = function () {
 			var feed,
 				queue,
@@ -137,6 +143,7 @@ var Newsblur = function () {
 				clear = function (feed) {
 					print('mark as read successful');
 					mark_read_queue[feed] = [];
+					that.items.unreadcount -= count;
 				};
 			for (feed in mark_read_queue) {
 				if (mark_read_queue.hasOwnProperty(feed)) {
@@ -146,6 +153,7 @@ var Newsblur = function () {
 						for (i = 0; i < queue.length; i += 1) {
 							postdata += "&story_id=" + queue[i];
 						}
+						count = queue.length;
 						$.ajax({
 							type: 'POST',
 							url: '/newsblur/reader/mark_story_as_read',
