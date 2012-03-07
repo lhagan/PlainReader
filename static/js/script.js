@@ -36,6 +36,7 @@ $(document).ready(function () {
 	instapaperText = function (data) {
         $('#content .body_text').html(data);
         $('#content .body_text a').attr('target', '_blank');
+		$('#content .body_text a').attr('rel', 'noreferrer');
         $('#content header a').unbind('click');
 		print('got article');
 
@@ -174,7 +175,9 @@ $(document).ready(function () {
 	                $('#content header .author').html(story_obj.story_authors);
 	                $('#content .body_text').html(story_obj.story_content);
 	                $('#content .body_text a').attr('target', '_blank');
+					$('#content .body_text a').attr('rel', 'noreferrer');
 	                $('#content header a').attr('href', story_obj.story_permalink);
+					$('#open_in_new_window').attr('href', story_obj.story_permalink);
 
 	                if (document.getSelection) {
 	                    d = document.getSelection();
@@ -305,10 +308,10 @@ $(document).ready(function () {
     /*
     Open original article in a new tab/window
     */
-    $('#open_in_new_window').bind('click', function (event) {
+    /*$('#open_in_new_window').bind('click', function (event) {
         open($('#content header a').attr('href'));
 		event.preventDefault();
-    });
+    });*/
 
     //updateFeeds();
 
