@@ -1,7 +1,8 @@
-/* plugins.css
+/* script.js
 part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.md for details) */
+
 /*global stripTags, print, $, document, open, event, smoothScroll, Newsblur, Instapaper */
 
 var unreaditems;

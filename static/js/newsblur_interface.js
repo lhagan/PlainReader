@@ -1,3 +1,8 @@
+/* newsblur_interface.js
+part of PlainReader by Luke Hagan
+created: 2012-03-01
+released under the MIT license (see LICENSE.md for details) */
+
 /*global $, print, clearInterval, setInterval, setTimeout, clearTimeout*/
 
 var Newsblur = function () {

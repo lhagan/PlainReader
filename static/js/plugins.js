@@ -1,3 +1,8 @@
+/* plugins.js
+part of PlainReader by Luke Hagan
+created: 2011-11-05
+released under the MIT license (see LICENSE.md for details) */
+
 /*global log */
 // usage: log('inside coolFunc', this, arguments);
 // paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/

@@ -1,3 +1,8 @@
+/* instapaper.js
+part of PlainReader by Luke Hagan
+created: 2012-03-04
+released under the MIT license (see LICENSE.md for details) */
+
 /*global $, console, document*/
 
 var Instapaper = function () {
