@@ -6,12 +6,13 @@ released under the MIT license (see LICENSE.md for details) */
 /*global $, print, clearInterval, setInterval, setTimeout, clearTimeout*/
 
 var Newsblur = function () {
-	"use strict";
+	'use strict';
 	var that = this,
 		processStories,
 		processFeeds,
 		getPages,
 		getStories,
+		sortByDate,
 		unreadfeeds = {},
 		callback,
 		complete = false,
@@ -21,7 +22,6 @@ var Newsblur = function () {
 
 	processStories = function (json) {
 		var allstories = json.stories,
-			unreadstories = [],
 			story,
 			nogood,
 			intel,
@@ -48,13 +48,15 @@ var Newsblur = function () {
 							}
 						}
 					}
-					if (nogood === false) {
+					if (nogood === false &&
+							that.items.stories.containsObjectWithPropertyValue('id', story.id) === false) {
 						story.site_title = unreadfeeds[story.story_feed_id];
-						unreadstories.push(story);
+						that.items.stories.push(story);
 					}
 				}
+				// sort items
+				that.items.stories.sort(sortByDate);
 			}
-			that.items.stories = unreadstories;
 		}
 		if (allstories.length < 18) {
 			complete = true;
@@ -112,7 +114,7 @@ var Newsblur = function () {
 	getPages = function (postdata, page) {
 		var run, interval;
 		run = function () {
-			if (complete === true) {
+			if (complete === true || page > 2) {
 				clearInterval(interval);
 			} else {
 				print('getting page ' + page);
@@ -122,6 +124,16 @@ var Newsblur = function () {
 		};
 		interval = setInterval(run, 10000);
 		run();
+	};
+
+	sortByDate = function (a, b) {
+		var toDate = function (d) {
+				return d.replaceAt(10, "T");
+			},
+			dateA = new Date(toDate(a.story_date)),
+			dateB = new Date(toDate(b.story_date));
+
+		return dateA - dateB;
 	};
 
 	this.refresh = function (call) {
@@ -147,6 +159,7 @@ var Newsblur = function () {
 				postdata = "",
 				clear = function (feed) {
 					print('mark as read successful');
+					count = 0;
 					mark_read_queue[feed] = [];
 					that.items.unreadcount -= count;
 				};
@@ -210,3 +223,17 @@ var Newsblur = function () {
         this.login('', '', call);
 	};
 };
+
+// TODO: move to plugins?
+// check array for object with property that matches provided value
+Array.prototype.containsObjectWithPropertyValue = function (property, value) {
+	var i, l = this.length;
+	for (i = 0; i < l; i += 1) {
+		if (this[i].hasOwnProperty(property) && this[i][property] === value) {
+			return true;
+		}
+	}
+	return false;
+};
+
+
