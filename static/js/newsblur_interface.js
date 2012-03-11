@@ -150,8 +150,7 @@ var Newsblur = function () {
 	this.markRead = function (feed_id, story_id) {
 		var run,
 			interval,
-			queue,
-			count = 0;
+			queue;
 		run = function () {
 			var feed,
 				queue,
@@ -159,11 +158,9 @@ var Newsblur = function () {
 				postdata = "",
 				clear = function (feed) {
 					print('mark as read successful');
-					count = 0;
 					mark_read_queue[feed] = [];
-					that.items.unreadcount -= count;
 				},
-				
+
 				ajax = function (postdata) {
 					$.ajax({
 						type: 'POST',
@@ -174,7 +171,7 @@ var Newsblur = function () {
 						error: function (xhr, type) { print("error! " + xhr + " " + type); }
 					});
 				};
-				
+
 			for (feed in mark_read_queue) {
 				if (mark_read_queue.hasOwnProperty(feed)) {
 					queue = mark_read_queue[feed];
@@ -182,8 +179,9 @@ var Newsblur = function () {
 						postdata = "feed_id=" + feed;
 						for (i = 0; i < queue.length; i += 1) {
 							postdata += "&story_id=" + queue[i];
+							that.items.unreadcount -= 1;
+							print(that.items.unreadcount);
 						}
-						count = queue.length;
 						ajax(postdata);
 					}
 				}
