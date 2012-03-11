@@ -82,4 +82,13 @@ String.prototype.replaceAt = function (index, c) {
 	return this.substr(0, index) + c + this.substr(index + (c.length === 0 ? 1 : c.length));
 };
 
-
+// check array for object with property that matches provided value
+Array.prototype.containsObjectWithPropertyValue = function (property, value) {
+	var i, l = this.length;
+	for (i = 0; i < l; i += 1) {
+		if (this[i].hasOwnProperty(property) && this[i][property] === value) {
+			return true;
+		}
+	}
+	return false;
+};

@@ -162,7 +162,19 @@ var Newsblur = function () {
 					count = 0;
 					mark_read_queue[feed] = [];
 					that.items.unreadcount -= count;
+				},
+				
+				ajax = function (postdata) {
+					$.ajax({
+						type: 'POST',
+						url: '/newsblur/reader/mark_story_as_read',
+						data: postdata,
+						dataType: 'json',
+						success: function () { clear(feed); },
+						error: function (xhr, type) { print("error! " + xhr + " " + type); }
+					});
 				};
+				
 			for (feed in mark_read_queue) {
 				if (mark_read_queue.hasOwnProperty(feed)) {
 					queue = mark_read_queue[feed];
@@ -172,14 +184,7 @@ var Newsblur = function () {
 							postdata += "&story_id=" + queue[i];
 						}
 						count = queue.length;
-						$.ajax({
-							type: 'POST',
-							url: '/newsblur/reader/mark_story_as_read',
-							data: postdata,
-							dataType: 'json',
-							success: function () { clear(feed); },
-							error: function (xhr, type) { print("error! " + xhr + " " + type); }
-						});
+						ajax(postdata);
 					}
 				}
 			}
@@ -223,17 +228,3 @@ var Newsblur = function () {
         this.login('', '', call);
 	};
 };
-
-// TODO: move to plugins?
-// check array for object with property that matches provided value
-Array.prototype.containsObjectWithPropertyValue = function (property, value) {
-	var i, l = this.length;
-	for (i = 0; i < l; i += 1) {
-		if (this[i].hasOwnProperty(property) && this[i][property] === value) {
-			return true;
-		}
-	}
-	return false;
-};
-
-
