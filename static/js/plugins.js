@@ -45,6 +45,17 @@ function stripTags(html) {
    return tmp.textContent||tmp.innerText;
 }
 
+// TODO: may be other useful extensions here
+// https://gist.github.com/1379704/f5898782fb366b157c66239e09a96aa52bc9258a
+/*
+  $.fn.scrollTop = function(scrollTop) {
+    this.each(function() {
+      this.scrollTop = scrollTop;
+    });
+    return this;
+  };
+  */
+
 // page scrolling
 // based on: https://github.com/madrobby/zepto/issues/401#issuecomment-4156269
 // with modifications to scroll div element instead of window
@@ -91,4 +102,17 @@ Array.prototype.containsObjectWithPropertyValue = function (property, value) {
 		}
 	}
 	return false;
+};
+
+// work-around for bug in Mobile Safari that results in zoom-in when rotating
+// from portrait to landscape
+// http://adactio.com/journal/4470/
+if ($.os.ios) {
+  var viewportmeta = document.querySelector('meta[name="viewport"]');
+  if (viewportmeta) {
+    viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
+    document.body.addEventListener('gesturestart', function() {
+      viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+    }, false);
+  }
 };

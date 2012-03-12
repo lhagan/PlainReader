@@ -81,6 +81,8 @@ $(document).ready(function () {
 		// hide read stories;
 		$('#stories li a .status').each(function () {
 			if ($(this).html() === '1') {
+				// TODO: add collapsing animation. This works on Safari but not Mobile Safari.
+				//$(this).parent().parent().animate({height: 0}, 500);
 				$(this).parent().parent().addClass('hidden');
 			}
 		});
@@ -192,10 +194,10 @@ $(document).ready(function () {
 	                // scroll stories list to keep selected item in center (where possible)
 	                // TODO: move to plugins
 	                this.parentNode.scrollIntoView(true);
+					currentscroll = list.scrollTop;
 	                if (list.scrollTop !== (list.scrollHeight - listheight)) {
 	                    list.scrollTop = currentscroll - (listheight / 2 - elementheight / 2);
 	                }
-
 	            });
 
 	            $(item).appendTo('#stories ul');
@@ -218,12 +220,12 @@ $(document).ready(function () {
     $('#refresh').bind('click', function (event) {
         // spin the refresh button to show progress
         $('#refresh_wrapper').addClass('spinning');
-        // clear stories list
-        hideReadStories();
         // call refresh on server
         //$.get('/refresh', updateFeeds);
 		print('updating feeds');
 		nb.refresh(updateFeeds);
+        // clear stories list
+        hideReadStories();
 		event.preventDefault();
     });
 
@@ -319,7 +321,7 @@ $(document).ready(function () {
     /*
     keyboard shortcuts
     */
-    nextStory = function () {
+    nextStory = function (event) {
         var selected = $('#stories .selected'),
 			next = selected.next();
 
@@ -330,13 +332,19 @@ $(document).ready(function () {
 			next = $('#stories li').not('.hidden').first();
 			$('a', next).trigger('click');
 		}
+		if (event) {
+			event.preventDefault();
+		}
     };
 
-    prevStory = function () {
+    prevStory = function (event) {
         var prev = $('#stories .selected').prev();
         if (prev.length !== 0) {
             $('a', prev).trigger('click');
         }
+		if (event) {
+			event.preventDefault();
+		}
     };
 
     key_down = function (e) {
@@ -405,4 +413,3 @@ $(document).ready(function () {
 	nb = new Newsblur();
 	ip = new Instapaper();
 });
-

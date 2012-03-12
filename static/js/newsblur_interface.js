@@ -180,7 +180,6 @@ var Newsblur = function () {
 						for (i = 0; i < queue.length; i += 1) {
 							postdata += "&story_id=" + queue[i];
 							that.items.unreadcount -= 1;
-							print(that.items.unreadcount);
 						}
 						ajax(postdata);
 					}
