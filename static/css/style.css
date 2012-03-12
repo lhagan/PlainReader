@@ -730,7 +730,20 @@ img {
 
 }
 
-
+@media only screen and (max-width: 1000px), only screen and (orientation:portrait) {
+	#stories {
+		display: none;
+	}
+	#sidebar {
+		width: 45px !important;
+	}
+	#content_wrapper {
+		left: 45px !important;
+	}
+	#topbar_inner {
+		left: 65px !important;
+	}
+}
 
 /* ==|== print styles =======================================================
    Print styles.
