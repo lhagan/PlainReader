@@ -106,6 +106,7 @@ $(document).ready(function () {
 
     updateUnreadCount = function () {
         $('#unreadcount').html(unreadcount);
+		document.title = "PlainReader (" + unreadcount + ")";
     };
 
     getUnread = function (json) {
@@ -372,7 +373,7 @@ $(document).ready(function () {
 			}
 			event.preventDefault();
 		}
-		
+
 		// r or single quote
 		if (e.keyCode === 82 || e.keyCode === 222) {
 			$('#refresh').trigger('click');
