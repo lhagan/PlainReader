@@ -363,10 +363,19 @@ $(document).ready(function () {
             event.preventDefault();
         }
 
-		// space bar
-		if (e.keyCode === 32) {
-			smoothScroll('content_wrapper', 400, 750);
+		// space bar or forward slash
+		if (e.keyCode === 32 || e.keyCode === 191) {
+			if (e.shiftKey) {
+				smoothScroll('content_wrapper', -400, 750);
+			} else {
+				smoothScroll('content_wrapper', 400, 750);
+			}
 			event.preventDefault();
+		}
+		
+		// r or single quote
+		if (e.keyCode === 82 || e.keyCode === 222) {
+			$('#refresh').trigger('click');
 		}
     };
 
