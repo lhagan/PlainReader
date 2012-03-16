@@ -223,7 +223,7 @@ OFL-licensed: http://scripts.sil.org/OFL */
 	   url("../fonts/iconic_stroke.otf") format('opentype');
 }
 
-#nav, #topbar, .button {
+#nav, #topbar, .button, .icon {
     font-family: "IconicStroke";
 }
 
@@ -576,14 +576,13 @@ img {
 
 #stories a .icon {
   position: absolute;
-  top: 20px;
-  left: -42px;
+  top: 21px;
+  left: -22px;
   height: 16px;
   width: 16px;
-  font-size: 16px;
-  overflow: scroll;
+  font-size: 10px;
 }
-#stories a .icon: after {
+#stories a .icon:before {
 	content: '\e02d';
 }
 
