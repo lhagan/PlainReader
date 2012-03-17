@@ -455,9 +455,9 @@ img {
     -webkit-overflow-scrolling: touch;
     position: fixed;
     right: 0px;
-    left:365px;
+    left: 365px;
     bottom: 0px;
-    top:45px;
+    top: 45px;
     margin-left: 56px;
 }
 
@@ -504,14 +504,14 @@ img {
 
 #content .body_text a {
 	text-decoration: none;
-	border-bottom: 1px solid #CCC;
+	border-bottom: 1px solid #CCCCCC;
 }
 
 #content .body_text a, #content .body_text a:visited {
 	color: #4B4B4B;
 }
 #content .body_text a:hover {
-	color: #666;
+	color: #666666;
 }
 
 #content .body_text #titlebar img, #content .body_text #titlebar .byline_divider {
@@ -521,6 +521,39 @@ img {
 	font-size: 20px;
 	line-height: 1.4em;
 }
+
+#detail_drawer {
+    position: fixed;
+    left: 366px;
+	right: 0px;
+    bottom: 0px;
+    height: 0px;
+	background: #3D3E40;
+	overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    font-size: 14px;
+	line-height: 1.5em;
+    color: #EEEEEE;
+}
+#detail_drawer .content {
+	display: block;
+	max-width: 780px;
+	margin: 15px;
+	margin-left: 56px;
+}
+#detail_drawer .content a {
+	text-decoration: none;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+#detail_drawer .content a, #detail_drawer .content a:visited {
+	color: white;
+	border-bottom: 1px solid #999999;
+}
+#detail_drawer .content a:hover {
+	color: #DDDDDD;
+}
+
 
 /* stories list items */
 #stories h1 {

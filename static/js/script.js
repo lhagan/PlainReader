@@ -319,6 +319,48 @@ $(document).ready(function () {
 
     //updateFeeds();
 
+	/*
+	Footnotes drawer based on FOOTNOTIFY bookmarklet.
+	By Hans Petter Eikemo, http://openideas.ideon.co http://twitter.com/hpeikemo.
+	No rights reserved, please use attribution if deriving on my work.
+	Web: https://gist.github.com/1046538
+	Modified by Luke Hagan for PlainReader 2012-03-17
+	*/
+	var selectorRegExp = /[\!\"\#\$\%\&\'\(\)\*\+\,\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~]/g;
+	$("#content .body_text sup a").click(function (event) {
+		var target = $(event.currentTarget),
+			href = target.attr('href'),
+			selector,
+			footnote_el;
+		if (href.indexOf('#') === 0) {
+			selector = '#' + href.substr(1).replace(selectorRegExp, '\\$&');
+			footnote_el = $(selector);
+			if (footnote_el.length > 0) {
+				//No paragraphs inside, better take precautions, it might be a backlink or have no content.
+				if (footnote_el.children('p').length === 0) {
+					//let it pass if it is a list item.
+					if (footnote_el.filter('li').length === 0) {
+						//return; 
+					}
+				}
+				$('#detail_drawer .content').html(footnote_el.html());
+		        $('#detail_drawer .content a').attr('target', '_blank');
+				$('#detail_drawer .content a').attr('rel', 'noreferrer');
+
+				$('#detail_drawer').animate({ height: 60 }, { duration: 500, complete: function () {
+					$("#content").click(function (event) {
+						$('#detail_drawer').animate({height: 0}, { duration: 500, complete: function () {
+							$('#detail_drawer .content').html('');
+							$("#content").unbind('click');
+						}});
+						event.preventDefault();
+					});
+				}});
+			}
+		}
+		event.preventDefault();
+	});
+
     /*
     keyboard shortcuts
     */
