@@ -102,6 +102,9 @@ $(document).ready(function () {
 
         // hide the article view
         hideArticleView();
+
+		nb.clear();
+		print("cleared stories");
     };
 
     updateUnreadCount = function () {
@@ -445,16 +448,26 @@ $(document).ready(function () {
 				}
 			};
 		nb.login(username, password, callback);
+		// make sure username is in focus next time
+		$('#login_form').find('input[name="username"]').focus();
 		event.preventDefault();
 	});
 	$('#login_form .cancel').bind('click', function (event) {
 		$('#login_form_wrapper').addClass('hidden');
+		$('#login_form').find('input[name="username"]').val('');
+		$('#login_form').find('input[name="password"]').val('');
+		
+		// make sure username is in focus next time
+		$('#login_form').find('input[name="username"]').focus();
+		
 		// re-bind keydown on cancel
 		$(document).bind('keydown', key_down);
 		event.preventDefault();
 	});
 	$('#login_form .logout').bind('click', function (event) {
 		nb.logout();
+		$('#login_form').find('input[name="username"]').val('');
+		$('#login_form').find('input[name="password"]').val('');
 		$('#login_form_wrapper').addClass('hidden');
 		clearStories();
 		// re-bind keydown on logout

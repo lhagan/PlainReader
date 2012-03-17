@@ -135,6 +135,11 @@ var Newsblur = function () {
 
 		return dateA - dateB;
 	};
+	
+	this.clear = function () {
+		this.items = {'stories': [], 'unreadcount': 0};
+		complete = true;
+	}
 
 	this.refresh = function (call) {
 		complete = false;
