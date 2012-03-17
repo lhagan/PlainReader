@@ -35,7 +35,7 @@ $(document).ready(function () {
 		article_index = 0;
 
 	instapaperText = function (data) {
-        $('#content .body_text').html(data);
+        $('#content .body_text').html(data.title).append(data.article);
         $('#content .body_text a').attr('target', '_blank');
 		$('#content .body_text a').attr('rel', 'noreferrer');
         $('#content header a').unbind('click');

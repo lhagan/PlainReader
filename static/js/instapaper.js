@@ -11,16 +11,21 @@ var Instapaper = function () {
 		var root = document.createElement("div"),
 			allChilds = root.childNodes,
 			i,
+			title,
 			article;
 
 		root.innerHTML = html;
 		for (i = 0; i < allChilds.length; i += 1) {
-			if (allChilds[i].id && allChilds[i].id === 'story') {
-				//return(allChilds[i]);
-				article = allChilds[i];
+			if (allChilds[i].id) {
+				if (allChilds[i].id === 'titlebar') {
+					title = allChilds[i];
+				}
+				if (allChilds[i].id === 'story') {
+					article = allChilds[i];
+				}
 			}
 		}
-		return article;
+		return { 'title': title, 'article': article };
 	};
 
 	this.getArticle = function (url, callback) {

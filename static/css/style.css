@@ -502,6 +502,14 @@ img {
   margin-bottom: 100px;
 }
 
+#content .body_text #titlebar img, #content .body_text #titlebar .byline_divider {
+	display: none;
+}
+#content .body_text #titlebar h1 {
+	font-size: 20px;
+	line-height: 1.4em;
+}
+
 /* stories list items */
 #stories h1 {
   font-size: 14px;
