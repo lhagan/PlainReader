@@ -502,6 +502,18 @@ img {
   margin-bottom: 100px;
 }
 
+#content .body_text a {
+	text-decoration: none;
+	border-bottom: 1px solid #CCC;
+}
+
+#content .body_text a, #content .body_text a:visited {
+	color: #4B4B4B;
+}
+#content .body_text a:hover {
+	color: #666;
+}
+
 #content .body_text #titlebar img, #content .body_text #titlebar .byline_divider {
 	display: none;
 }
