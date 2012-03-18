@@ -103,6 +103,10 @@ $(document).ready(function () {
         // hide the article view
         hideArticleView();
 
+		// zero the unread count
+		unreadcount = 0;
+		updateUnreadCount();
+
 		nb.clear();
 		print("cleared stories");
     };
@@ -202,6 +206,11 @@ $(document).ready(function () {
 	                if (list.scrollTop !== (list.scrollHeight - listheight)) {
 	                    list.scrollTop = currentscroll - (listheight / 2 - elementheight / 2);
 	                }
+
+					// if we're near the end of the list, get the next page of stories
+					if ($('#stories li').size() - $(this).parent().index() < 5) {
+						nb.getNextPage();
+					}
 	            });
 
 	            $(item).appendTo('#stories ul');

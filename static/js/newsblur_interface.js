@@ -10,13 +10,15 @@ var Newsblur = function () {
 	var that = this,
 		processStories,
 		processFeeds,
-		getPages,
+		getPage,
 		getStories,
 		sortByDate,
 		unreadfeeds = {},
 		callback,
-		complete = false,
-		mark_read_queue = {};
+		mark_read_queue = {},
+		current_page = 0,
+		page_count = 0,
+		postdata = "";
 
 	this.items = {'stories': [], 'unreadcount': 0};
 
@@ -26,7 +28,8 @@ var Newsblur = function () {
 			nogood,
 			intel,
 			i,
-			prop;
+			prop,
+			page_empty = true;
 
 		print('processing stories');
 		print('got ' + allstories.length + ' stories');
@@ -45,6 +48,7 @@ var Newsblur = function () {
 							}
 							if (parseInt(intel[prop], 10) === 1) {
 								nogood = false;
+								page_empty = false;
 							}
 						}
 					}
@@ -54,12 +58,17 @@ var Newsblur = function () {
 						that.items.stories.push(story);
 					}
 				}
-				// sort items
-				that.items.stories.sort(sortByDate);
+
+				if (page_empty) {
+					// page was empty, try next
+					that.getNextPage();
+				} else {
+					// sort items by date
+					that.items.stories.sort(sortByDate);
+				}
 			}
-		}
-		if (allstories.length < 18) {
-			complete = true;
+		} else {
+			that.getNextPage();
 		}
 		callback();
 	};
@@ -68,7 +77,9 @@ var Newsblur = function () {
 		var feeds = json.feeds,
 			feed,
 			feed_id,
-			postdata = "";
+			item_count = 0;
+
+		postdata = "";
 
 		print('processing feeds');
 		if (feeds !== undefined && Object.keys(feeds).length > 0) {
@@ -76,6 +87,7 @@ var Newsblur = function () {
 				if (feeds.hasOwnProperty(feed_id)) {
 					feed = feeds[feed_id];
 					if (feed.ps !== 0 || feed.nt !== 0) {
+						item_count += (feed.ng + feed.nt + feed.ps);
 						unreadfeeds[feed_id] = feed.feed_title;
 						that.items.unreadcount += (feed.ps + feed.nt);
 						postdata += 'feeds=' + feed_id + '&';
@@ -87,43 +99,37 @@ var Newsblur = function () {
 			}
 			if (postdata.length > 0) {
 				print(postdata);
-				getPages(postdata, 1);
+				page_count = Math.ceil((item_count / 18));
+				// let's not go crazy here
+				if (page_count > 4) {
+					page_count = 4;
+				}
+				current_page = page_count;
+				getPage(current_page);
 			} else {
-				complete = true;
 				callback();
 			}
 		} else {
-			complete = true;
 			callback();
 		}
 	};
 
-	getStories = function (postdata) {
+	getStories = function (data) {
 		print('getting stories');
-		print(postdata);
+		print(data);
 		$.ajax({
 			type: 'POST',
 			url: '/newsblur/reader/river_stories',
-			data: postdata,
+			data: data,
 			dataType: 'json',
 			success: processStories,
 			error: function (xhr, type) { print("error! " + xhr + " " + type); }
 		});
 	};
 
-	getPages = function (postdata, page) {
-		var run, interval;
-		run = function () {
-			if (complete === true || page > 2) {
-				clearInterval(interval);
-			} else {
-				print('getting page ' + page);
-				getStories(postdata + "page=" + page);
-				page += 1;
-			}
-		};
-		interval = setInterval(run, 10000);
-		run();
+	getPage = function (page) {
+		print('getting page ' + page);
+		getStories(postdata + "page=" + page);
 	};
 
 	sortByDate = function (a, b) {
@@ -135,14 +141,19 @@ var Newsblur = function () {
 
 		return dateA - dateB;
 	};
-	
+
+	this.getNextPage = function () {
+		if (current_page > 1) {
+			current_page -= 1;
+			getPage(current_page);
+		}
+	};
+
 	this.clear = function () {
 		this.items = {'stories': [], 'unreadcount': 0};
-		complete = true;
-	}
+	};
 
 	this.refresh = function (call) {
-		complete = false;
 		callback = call;
 		// zero the unread count
 		that.items.unreadcount = 0;
@@ -160,17 +171,17 @@ var Newsblur = function () {
 			var feed,
 				queue,
 				i,
-				postdata = "",
+				data = "",
 				clear = function (feed) {
 					print('mark as read successful');
 					mark_read_queue[feed] = [];
 				},
 
-				ajax = function (postdata) {
+				ajax = function (data) {
 					$.ajax({
 						type: 'POST',
 						url: '/newsblur/reader/mark_story_as_read',
-						data: postdata,
+						data: data,
 						dataType: 'json',
 						success: function () { clear(feed); },
 						error: function (xhr, type) { print("error! " + xhr + " " + type); }
@@ -181,12 +192,12 @@ var Newsblur = function () {
 				if (mark_read_queue.hasOwnProperty(feed)) {
 					queue = mark_read_queue[feed];
 					if (queue.length > 0) {
-						postdata = "feed_id=" + feed;
+						data = "feed_id=" + feed;
 						for (i = 0; i < queue.length; i += 1) {
-							postdata += "&story_id=" + queue[i];
+							data += "&story_id=" + queue[i];
 							that.items.unreadcount -= 1;
 						}
-						ajax(postdata);
+						ajax(data);
 					}
 				}
 			}
