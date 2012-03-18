@@ -25,6 +25,7 @@ $(document).ready(function () {
 		updateUnreadCount,
 		getUnread,
 		updateFeeds,
+		bindScroll,
 		nextStory,
 		prevStory,
 		key_down,
@@ -157,7 +158,7 @@ $(document).ready(function () {
 						id = $(this).parent().attr('id'),
 						status = $('.status', this).html(),
 						story_obj = all_stories[article_id],
-						list = document.getElementById('stories'),
+						list = $('#stories')[0],
 						listheight = list.offsetHeight,
 						elementheight = $(this).parent().height(),
 						currentscroll = list.scrollTop;
@@ -206,15 +207,11 @@ $(document).ready(function () {
 	                if (list.scrollTop !== (list.scrollHeight - listheight)) {
 	                    list.scrollTop = currentscroll - (listheight / 2 - elementheight / 2);
 	                }
-
-					// if we're near the end of the list, get the next page of stories
-					if ($('#stories li').size() - $(this).parent().index() < 5) {
-						nb.getNextPage();
-					}
 	            });
 
 	            $(item).appendTo('#stories ul');
 				displayed_stories.push(story_obj.id);
+				bindScroll();
 			}
         }
 
@@ -226,6 +223,19 @@ $(document).ready(function () {
 		print('got feeds, processing');
 		getUnread(nb.items);
     };
+
+	// if we're near the end of the list, get the next page of stories
+	bindScroll = function () {
+		var element = $('#stories'),
+			limit = 0;
+		$('#stories').bind('scroll', function () {
+			limit = $('ul', element)[0].offsetHeight - element.height() - (3 * 140);
+			if (this.scrollTop > limit) {
+				nb.getNextPage();
+				$(this).unbind('scroll');
+			}
+		});
+	};
 
     /*
     Refresh Button
