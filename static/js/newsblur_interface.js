@@ -48,7 +48,6 @@ var Newsblur = function () {
 							}
 							if (parseInt(intel[prop], 10) === 1) {
 								nogood = false;
-								page_empty = false;
 							}
 						}
 					}
@@ -56,6 +55,7 @@ var Newsblur = function () {
 							that.items.stories.containsObjectWithPropertyValue('id', story.id) === false) {
 						story.site_title = unreadfeeds[story.story_feed_id];
 						that.items.stories.push(story);
+						page_empty = false;
 					}
 				}
 
