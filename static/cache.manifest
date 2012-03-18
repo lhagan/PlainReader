@@ -1,0 +1,24 @@
+CACHE MANIFEST
+# Generated at Sat Mar 17 16:27:01 -0700 2012
+
+CACHE:
+/css/popover.css
+/css/style.css
+/apple-touch-icon-precomposed.png
+/img/ipad-splash-landscape.png
+/img/ipad-splash-portrait.png
+/index.html
+/js/instapaper.js
+/js/libs/zepto.js
+/js/libs/zepto.min.js
+/js/newsblur_interface.js
+/js/plugins.js
+/js/script.js
+/fonts/iconic_stroke.otf
+
+FALLBACK:
+# For example:
+# / /offline.html
+
+NETWORK:
+*
