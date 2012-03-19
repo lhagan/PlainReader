@@ -133,11 +133,15 @@ var Newsblur = function () {
 	};
 
 	sortByDate = function (a, b) {
+		// parse date string into date object
+		// http://stackoverflow.com/a/5324266
 		var toDate = function (d) {
-				return d.replaceAt(10, "T");
+				var arr = d.split(/[- :]/),
+				    date = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+				return date;
 			},
-			dateA = new Date(toDate(a.story_date)),
-			dateB = new Date(toDate(b.story_date));
+			dateA = toDate(a.story_date),
+			dateB = toDate(b.story_date);
 
 		return dateA - dateB;
 	};

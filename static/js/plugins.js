@@ -86,13 +86,6 @@ smoothScroll = function(element, deltaY, duration) {
     animate();
 };
 
-// replace character in string at index
-// http://stackoverflow.com/a/7376229
-String.prototype.replaceAt = function (index, c) {
-    "use strict";
-	return this.substr(0, index) + c + this.substr(index + (c.length === 0 ? 1 : c.length));
-};
-
 // check array for object with property that matches provided value
 Array.prototype.containsObjectWithPropertyValue = function (property, value) {
 	var i, l = this.length;
