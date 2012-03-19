@@ -25,6 +25,8 @@ $(document).ready(function () {
 		updateUnreadCount,
 		getUnread,
 		updateFeeds,
+		onItemClick,
+		bindItemClick,
 		bindScroll,
 		nextStory,
 		prevStory,
@@ -123,8 +125,7 @@ $(document).ready(function () {
 			list_template = $('#template'),
 			site,
 			story_obj,
-			item,
-			d;
+			item;
 
         unreaditems = json.stories;
         unreadcount = json.unreadcount;
@@ -152,62 +153,7 @@ $(document).ready(function () {
 	            $('a .ident_story', item).html(article_index);
 				article_index += 1;
 
-	            $('a', item).bind('click', function () {
-					var site = $('.ident_site', this).html(),
-						article_id = $('.ident_story', this).html(),
-						id = $(this).parent().attr('id'),
-						status = $('.status', this).html(),
-						story_obj = all_stories[article_id],
-						list = $('#stories')[0],
-						listheight = list.offsetHeight,
-						elementheight = $(this).parent().height(),
-						currentscroll = list.scrollTop;
-
-					// unbind instapaper text link (sometimes conflicts with new bind)
-					$('#content header a').unbind('click');
-
-	                $('#stories ul li.selected').animate({opacity: 0.5}, 100);
-	                $('#stories ul li').removeClass('selected');
-
-	                $(this).parent().addClass('selected');
-
-	                // mark article as read
-	                if (parseInt(status, 10) === 0) {
-	                    $('.status', this).html('1');
-	                    unreadcount -= 1;
-	                    updateUnreadCount();
-						nb.markRead(site, id);
-	                }
-
-	                showArticleView();
-
-	                $('#content header time').html(story_obj.long_parsed_date);
-	                $('#content header h1').html(story_obj.story_title);
-	                $('#content header .site').html(story_obj.site_title);
-	                $('#content header .author').html(story_obj.story_authors);
-	                $('#content .body_text').html(story_obj.story_content);
-	                $('#content .body_text a').attr('target', '_blank');
-					$('#content .body_text a').attr('rel', 'noreferrer');
-	                $('#content header a').attr('href', story_obj.story_permalink);
-					$('#open_in_new_window').attr('href', story_obj.story_permalink);
-
-	                if (document.getSelection) {
-	                    d = document.getSelection();
-	                }
-
-	                // TODO: why doesn't description work?
-	                $('#send_to_instapaper iframe').attr('src', 'http://www.instapaper.com/e2?url=' + encodeURIComponent(story_obj.story_permalink) + '&title=' + encodeURIComponent(story_obj.story_title) + '&description=' + encodeURIComponent(d));
-
-	                bindInstapaperText($('#content header a'));
-
-	                // scroll stories list to keep selected item in center (where possible)
-	                // TODO: move to plugins
-	                this.parentNode.scrollIntoView(true);
-					currentscroll = list.scrollTop;
-	                if (list.scrollTop !== (list.scrollHeight - listheight)) {
-	                    list.scrollTop = currentscroll - (listheight / 2 - elementheight / 2);
-	                }
-	            });
+				$('a', item).bind('click', bindItemClick);
 
 	            $(item).appendTo('#stories ul');
 				displayed_stories.push(story_obj.id);
@@ -223,6 +169,69 @@ $(document).ready(function () {
 		print('got feeds, processing');
 		getUnread(nb.items);
     };
+
+	onItemClick = function (item) {
+		var site = $('.ident_site', item).html(),
+			article_id = $('.ident_story', item).html(),
+			id = $(item).parent().attr('id'),
+			status = $('.status', item).html(),
+			story_obj = all_stories[article_id],
+			list = $('#stories')[0],
+			listheight = list.offsetHeight,
+			elementheight = $(item).parent().height(),
+			currentscroll = list.scrollTop,
+			d;
+
+		// unbind instapaper text link (sometimes conflicts with new bind)
+		$('#content header a').unbind('click');
+
+        $('#stories ul li.selected').css({opacity: 0.5});
+        $('#stories ul li').removeClass('selected');
+
+        $(item).parent().addClass('selected');
+
+        // mark article as read
+        if (parseInt(status, 10) === 0) {
+            $('.status', item).html('1');
+            unreadcount -= 1;
+            updateUnreadCount();
+			nb.markRead(site, id);
+        }
+
+        showArticleView();
+
+        $('#content header time').html(story_obj.long_parsed_date);
+        $('#content header h1').html(story_obj.story_title);
+        $('#content header .site').html(story_obj.site_title);
+        $('#content header .author').html(story_obj.story_authors);
+        $('#content .body_text').html(story_obj.story_content);
+        $('#content .body_text a').attr('target', '_blank');
+		$('#content .body_text a').attr('rel', 'noreferrer');
+        $('#content header a').attr('href', story_obj.story_permalink);
+		$('#open_in_new_window').attr('href', story_obj.story_permalink);
+
+        if (document.getSelection) {
+            d = document.getSelection();
+        }
+
+        // TODO: why doesn't description work?
+        $('#send_to_instapaper iframe').attr('src', 'http://www.instapaper.com/e2?url=' + encodeURIComponent(story_obj.story_permalink) + '&title=' + encodeURIComponent(story_obj.story_title) + '&description=' + encodeURIComponent(d));
+
+        bindInstapaperText($('#content header a'));
+
+        // scroll stories list to keep selected item in center (where possible)
+        // TODO: move to plugins
+        item.parentNode.scrollIntoView(true);
+		currentscroll = list.scrollTop;
+        if (list.scrollTop !== (list.scrollHeight - listheight)) {
+            list.scrollTop = currentscroll - (listheight / 2 - elementheight / 2);
+        }
+	};
+
+	bindItemClick = function (event) {
+		event.preventDefault();
+		onItemClick(this);
+	};
 
 	// if we're near the end of the list, get the next page of stories
 	bindScroll = function () {
@@ -395,7 +404,7 @@ $(document).ready(function () {
         }
 		if (selected.size() === 0) {
 			next = $('#stories li').not('.hidden').first();
-			$('a', next).trigger('click');
+			onItemClick($('a', next)[0]);
 		}
 		if (event) {
 			event.preventDefault();
@@ -405,7 +414,7 @@ $(document).ready(function () {
     prevStory = function (event) {
         var prev = $('#stories .selected').prev();
         if (prev.length !== 0) {
-            $('a', prev).trigger('click');
+            onItemClick($('a', prev)[0]);
         }
 		if (event) {
 			event.preventDefault();
