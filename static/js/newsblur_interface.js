@@ -195,7 +195,7 @@ var Newsblur = function () {
 						data = "feed_id=" + feed;
 						for (i = 0; i < queue.length; i += 1) {
 							data += "&story_id=" + queue[i];
-							that.items.unreadcount -= 1;
+							//that.items.unreadcount -= 1;
 						}
 						ajax(data);
 					}
