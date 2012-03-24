@@ -27,10 +27,6 @@ part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.md for details) */
 
-function print(data) {
-    console.log(data);
-}
-
 // https://github.com/madrobby/zepto/issues/247
 // with modifications (.each didn't work for some reason)
 $.fn.clone=function() {

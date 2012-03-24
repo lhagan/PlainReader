@@ -3,7 +3,7 @@ part of PlainReader by Luke Hagan
 created: 2012-03-01
 released under the MIT license (see LICENSE.md for details) */
 
-/*global $, print, clearInterval, setInterval, setTimeout, clearTimeout*/
+/*global $, console, clearInterval, setInterval, setTimeout, clearTimeout*/
 
 var Newsblur = function () {
 	'use strict';
@@ -31,8 +31,8 @@ var Newsblur = function () {
 			prop,
 			page_empty = true;
 
-		print('processing stories');
-		print('got ' + allstories.length + ' stories');
+		console.log('processing stories');
+		console.log('got ' + allstories.length + ' stories');
 		if (allstories.length > 0) {
 			for (i = 0; i < allstories.length; i += 1) {
 				story = allstories[i];
@@ -81,7 +81,7 @@ var Newsblur = function () {
 
 		postdata = "";
 
-		print('processing feeds');
+		console.log('processing feeds');
 		if (feeds !== undefined && Object.keys(feeds).length > 0) {
 			for (feed_id in feeds) {
 				if (feeds.hasOwnProperty(feed_id)) {
@@ -98,7 +98,7 @@ var Newsblur = function () {
 				}
 			}
 			if (postdata.length > 0) {
-				print(postdata);
+				console.log(postdata);
 				page_count = Math.ceil((item_count / 18));
 				// let's not go crazy here
 				if (page_count > 4) {
@@ -115,20 +115,20 @@ var Newsblur = function () {
 	};
 
 	getStories = function (data) {
-		print('getting stories');
-		print(data);
+		console.log('getting stories');
+		console.log(data);
 		$.ajax({
 			type: 'POST',
 			url: '/newsblur/reader/river_stories',
 			data: data,
 			dataType: 'json',
 			success: processStories,
-			error: function (xhr, type) { print("error! " + xhr + " " + type); }
+			error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
 		});
 	};
 
 	getPage = function (page) {
-		print('getting page ' + page);
+		console.log('getting page ' + page);
 		getStories(postdata + "page=" + page);
 	};
 
@@ -171,13 +171,14 @@ var Newsblur = function () {
 		var run,
 			interval,
 			queue;
+			
 		run = function () {
 			var feed,
 				queue,
 				i,
 				data = "",
 				clear = function (feed) {
-					print('mark as read successful');
+					console.log('mark as read successful');
 					mark_read_queue[feed] = [];
 				},
 
@@ -187,8 +188,8 @@ var Newsblur = function () {
 						url: '/newsblur/reader/mark_story_as_read',
 						data: data,
 						dataType: 'json',
-						success: function () { clear(feed); },
-						error: function (xhr, type) { print("error! " + xhr + " " + type); }
+						//success: function () { clear(feed); },
+						error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
 					});
 				};
 
@@ -233,7 +234,7 @@ var Newsblur = function () {
 			data: {'username': username, 'password': password},
 			dataType: 'json',
 			success: check,
-			error: function (xhr, type) { print("error! " + xhr + " " + type); }
+			error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
 		});
     };
 

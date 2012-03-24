@@ -3,7 +3,7 @@ part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.md for details) */
 
-/*global stripTags, print, $, document, open, event, smoothScroll, Newsblur, Instapaper */
+/*global stripTags, console, $, document, open, event, smoothScroll, Newsblur, Instapaper */
 
 var unreaditems;
 var unreadcount = 0;
@@ -42,11 +42,11 @@ $(document).ready(function () {
         $('#content .body_text a').attr('target', '_blank');
 		$('#content .body_text a').attr('rel', 'noreferrer');
         $('#content header a').unbind('click');
-		print('got article');
+		console.log('got article');
 
         $('#content header a').bind('click', function (event) {
             // TODO: less hacky way to do this?
-			print('returning to regular article view');
+			console.log('returning to regular article view');
             var story = $('.selected .ident_story').html(),
 				story_obj = unreaditems[story];
             $('#content .body_text').html(story_obj.story_content);
@@ -59,7 +59,7 @@ $(document).ready(function () {
 	bindInstapaperText = function (element) {
         element.bind('click', function (event) {
 			ip.getArticle($('#content header a').get(0), instapaperText);
-			print('getting article from instapaper');
+			console.log('getting article from instapaper');
             event.preventDefault();
         });
 	};
@@ -111,7 +111,7 @@ $(document).ready(function () {
 		updateUnreadCount();
 
 		nb.clear();
-		print("cleared stories");
+		console.log("cleared stories");
     };
 
     updateUnreadCount = function () {
@@ -120,7 +120,7 @@ $(document).ready(function () {
     };
 
     getUnread = function (json) {
-		print('updating list');
+		console.log('updating list');
 		var i,
 			list_template = $('#template'),
 			site,
@@ -166,7 +166,7 @@ $(document).ready(function () {
     };
 
     updateFeeds = function () {
-		print('got feeds, processing');
+		console.log('got feeds, processing');
 		getUnread(nb.items);
     };
 
@@ -205,7 +205,7 @@ $(document).ready(function () {
         $('#content header .site').html(story_obj.site_title);
         $('#content header .author').html(story_obj.story_authors);
         $('#content .body_text').html(story_obj.story_content);
-        $('#content .body_text a').attr('target', '_blank');
+        //$('#content .body_text a').attr('target', '_blank');
 		$('#content .body_text a').attr('rel', 'noreferrer');
         $('#content header a').attr('href', story_obj.story_permalink);
 		$('#open_in_new_window').attr('href', story_obj.story_permalink);
@@ -254,7 +254,7 @@ $(document).ready(function () {
         $('#refresh_wrapper').addClass('spinning');
         // call refresh on server
         //$.get('/refresh', updateFeeds);
-		print('updating feeds');
+		console.log('updating feeds');
 		nb.refresh(updateFeeds);
         // clear stories list
         hideReadStories();
@@ -472,7 +472,7 @@ $(document).ready(function () {
 				} else {
 					$form.find('input[name="password"]').val('');
 					$('#login_form').addClass('animate');
-					print("incorrect login, try again");
+					console.log("incorrect login, try again");
 				}
 			};
 		nb.login(username, password, callback);
