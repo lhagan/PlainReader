@@ -8,7 +8,7 @@ CSS3 iPad style popover menu by Peter Viszt
 heavily modified by Luke Hagan 2011-11-06 */
 
 .popover {
-position:absolute;
+position: absolute;
 right: 25px;
 top: 40px;
 width: 125px;

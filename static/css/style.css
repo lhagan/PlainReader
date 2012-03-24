@@ -240,11 +240,14 @@ del {
     background: rgba(255, 0, 0, 0.15);
 }
 
-/* responsive image width
-http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries */
 img {
+	/* responsive image width
+	http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries */
 	max-width: 100%;
 	height: auto;
+
+	/* prevent text from appearing on same line as image */
+	display: block;
 }
 
 #nav a, #stories a, #topbar a, #content header a, #pinboard_popover a, #login_form a {
@@ -560,7 +563,17 @@ img {
 #detail_drawer .content a:hover {
 	color: #DDDDDD;
 }
-
+#detail_drawer h1, #detail_drawer h2, #detail_drawer h3, #detail_drawer h4, #detail_drawer h5, #detail_drawer h6 {
+	font-size: 14px;
+	display: inline;
+}
+#detail_drawer .byline_divider, #detail_drawer br {
+	display: none;
+}
+#detail_drawer p {
+	margin-top: 0.5em;
+	margin-bottom: 0.3em;
+}
 
 /* stories list items */
 #stories h1 {
