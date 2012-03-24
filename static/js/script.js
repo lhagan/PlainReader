@@ -375,12 +375,14 @@ $(document).ready(function () {
 						//return; 
 					}
 				}
+				target.parent().addClass('selected');
 				$('#detail_drawer .content').html(footnote_el.html());
 		        $('#detail_drawer .content a').attr('target', '_blank');
 				$('#detail_drawer .content a').attr('rel', 'noreferrer');
 
 				$('#detail_drawer').animate({ height: 60 }, { duration: 500, complete: function () {
 					$("#content").click(function (event) {
+						$('#content sup').removeClass('selected');
 						$('#detail_drawer').animate({height: 0}, { duration: 500, complete: function () {
 							$('#detail_drawer .content').html('');
 							$("#content").unbind('click');
