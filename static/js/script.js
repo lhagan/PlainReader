@@ -195,6 +195,7 @@ $(document).ready(function () {
             $('.status', item).html('1');
             unreadcount -= 1;
             updateUnreadCount();
+			console.log('marking as read :' + id);
 			nb.markRead(site, id);
         }
 

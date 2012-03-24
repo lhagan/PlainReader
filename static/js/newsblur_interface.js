@@ -202,6 +202,7 @@ var Newsblur = function () {
 							data += "&story_id=" + queue[i];
 							//that.items.unreadcount -= 1;
 						}
+						clear(feed);
 						ajax(data);
 					}
 				}
