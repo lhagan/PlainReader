@@ -5,599 +5,689 @@
    created: 2011-11-03
    released under the MIT license (see LICENSE.md for details)
    ========================================================================== */
-
 /* Iconic by P.J. Onori http://somerandomdude.com/work/iconic/
 OFL-licensed: http://scripts.sil.org/OFL */
 @font-face {
-    font-family: 'IconicStroke';
-   src: local('IconicStroke'),
-   url("../fonts/iconic_stroke.otf") format('opentype');
+  font-family: 'IconicStroke';
+  src: local("IconicStroke"), url("../fonts/iconic_stroke.otf") format("opentype");
 }
 
+/* line 17, scss/primary.styles.scss */
 #nav, #topbar, .button, .icon {
-    font-family: "IconicStroke";
+  font-family: "IconicStroke";
 }
 
+/* line 21, scss/primary.styles.scss */
 body {
-    background: #F0EEEC;
-    overflow: hidden;
+  background: #F0EEEC;
+  overflow: hidden;
 }
 
+/* line 26, scss/primary.styles.scss */
 ins {
-    background: rgba(0, 255, 0, 0.15);
+  background: rgba(0, 255, 0, 0.15);
 }
 
+/* line 30, scss/primary.styles.scss */
 del {
-    background: rgba(255, 0, 0, 0.15);
+  background: rgba(255, 0, 0, 0.15);
 }
 
+/* line 34, scss/primary.styles.scss */
 img {
-/* responsive image width
-http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries */
-    max-width: 100%;
-    height: auto;
-/* prevent text from appearing on same line as image */
-    display: block;
+  /* responsive image width
+  http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries */
+  max-width: 100%;
+  height: auto;
+  /* prevent text from appearing on same line as image */
+  display: block;
 }
 
+/* line 43, scss/primary.styles.scss */
 #nav a, #stories a, #topbar a, #content header a, #pinboard_popover a, #login_form a {
-   /* prevent highlight on touch for UI
-   http://blogs.unbolt.net/index.php/brinley/2010/11/25/disabling-highlight-on-touch-in-ios-mobile-safari-web-apps */
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  /* prevent highlight on touch for UI
+  http://blogs.unbolt.net/index.php/brinley/2010/11/25/disabling-highlight-on-touch-in-ios-mobile-safari-web-apps */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+/* line 49, scss/primary.styles.scss */
 #sidebar {
-    left: 0px;
-    width: 365px;
-    height: 100%;
-    top: 0px;
-    bottom: 0px;
-    position: fixed;
-    border-right: 1px solid #DBDAD8;
-    -webkit-box-shadow: 0 0 0 1px #F7F6F5;
+  left: 0px;
+  width: 365px;
+  height: 100%;
+  top: 0px;
+  bottom: 0px;
+  position: fixed;
+  border-right: 1px solid #DBDAD8;
+  -webkit-box-shadow: 0 0 0 1px #F7F6F5;
 }
 
 /* nav bar */
+/* line 61, scss/primary.styles.scss */
 #nav {
-    position: fixed;
-    width: 45px;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-    background: #3D3E40;
+  position: fixed;
+  width: 45px;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  background: #3D3E40;
 }
 
+/* line 70, scss/primary.styles.scss */
 #nav a, #topbar_inner a, #login_form a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
+/* line 74, scss/primary.styles.scss */
 #unreadcount {
-    position: relative;
-    font-family: Helvetica;
-    font-weight: bold;
-    font-size: 16px;
-    text-align: center;
-    color: #E8E8E8;
-    top: 15px;
+  position: relative;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  color: #E8E8E8;
+  top: 15px;
 }
 
+/* line 84, scss/primary.styles.scss */
 #floater {
-    float: left;
-    height: 50%;
-    margin-bottom: -40px;
+  float: left;
+  height: 50%;
+  margin-bottom: -40px;
 }
 
+/* line 90, scss/primary.styles.scss */
 #arrows {
-    display: block;
-    clear: both;
-    position: relative;
-    font-size: 14px;
-    top: -20px;
+  display: block;
+  clear: both;
+  position: relative;
+  font-size: 14px;
+  top: -20px;
 }
 
+/* line 98, scss/primary.styles.scss */
 #up_wrapper {
-    position: relative;
-    top: 0px;
-    -webkit-transform: rotate(270deg);
+  position: relative;
+  top: 0px;
+  -webkit-transform: rotate(270deg);
 }
 
+/* line 104, scss/primary.styles.scss */
 #down_wrapper {
-    position: relative;
-    -webkit-transform: rotate(90deg);
-    left: -1px;
-    line-height: 2.5em;
-    top: 60px;
+  position: relative;
+  -webkit-transform: rotate(90deg);
+  left: -1px;
+  line-height: 2.5em;
+  top: 60px;
 }
 
+/* line 112, scss/primary.styles.scss */
 #up:before, #down:before {
-    content: '\e047';
+  content: '\e047';
 }
 
+/* line 116, scss/primary.styles.scss */
 #nav .button {
-    color: #E8E8E8;
-    display: block;
+  color: #E8E8E8;
+  display: block;
 }
 
+/* line 121, scss/primary.styles.scss */
 #mark_all_read_wrapper, #refresh_wrapper {
-    margin: 0px;
-    padding: 0px;
-    font-size: 20px;
+  margin: 0px;
+  padding: 0px;
+  font-size: 20px;
 }
 
 @-webkit-keyframes rotate {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
+  /* line 128, scss/primary.styles.scss */
+  from {
+    -webkit-transform: rotate(0deg);
+  }
 
-    to {
-        -webkit-transform: rotate(360deg);
-    }
+  /* line 132, scss/primary.styles.scss */
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
+/* line 137, scss/primary.styles.scss */
 #mark_all_read_wrapper {
-    position: absolute;
-    bottom: 45px;
-    height: 30px;
-    width: 30px;
-    left: 11px;
+  position: absolute;
+  bottom: 45px;
+  height: 30px;
+  width: 30px;
+  left: 11px;
 }
 
+/* line 145, scss/primary.styles.scss */
 #mark_all_read:before {
-    content: '\2717';
+  content: '\2717';
 }
 
+/* line 149, scss/primary.styles.scss */
 #refresh_wrapper {
-    position: absolute;
-    bottom: 10px;
-    left: 12px;
-    height: 20px;
-    width: 20px;
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  height: 20px;
+  width: 20px;
 }
 
+/* line 157, scss/primary.styles.scss */
 #refresh_wrapper.spinning {
-    -webkit-animation-name: rotate;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
+/* line 164, scss/primary.styles.scss */
 #refresh {
-    position: relative;
-    left: 1px;
-    top: -2px;
+  position: relative;
+  left: 1px;
+  top: -2px;
 }
 
+/* line 170, scss/primary.styles.scss */
 #refresh:before {
-    content: '\e036';
+  content: '\e036';
 }
 
+/* line 174, scss/primary.styles.scss */
 #settings_wrapper {
-    position: absolute;
-    top: 50px;
-    height: 30px;
-    width: 30px;
-    left: 7px;
-    font-size: 16px;
-    text-align: center;
+  position: absolute;
+  top: 50px;
+  height: 30px;
+  width: 30px;
+  left: 7px;
+  font-size: 16px;
+  text-align: center;
 }
 
+/* line 184, scss/primary.styles.scss */
 #settings:before {
-    content: '\2699';
+  content: '\2699';
 }
 
 /* stories list */
+/* line 189, scss/primary.styles.scss */
 #stories {
-    position: fixed;
-    width: 320px;
-    height: 100%;
-    left: 45px;
-    top: 0px;
- /*overflow: auto;*/
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
+  position: fixed;
+  width: 320px;
+  height: 100%;
+  left: 45px;
+  top: 0px;
+  /*overflow: auto;*/
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
+/* line 200, scss/primary.styles.scss */
 #stories li span {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /* topbar */
+/* line 205, scss/primary.styles.scss */
 #topbar {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    height: 45px;
-    width: 100%
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 45px;
+  width: 100%;
 }
 
+/* line 213, scss/primary.styles.scss */
 #topbar_inner {
-    position: fixed;
-    height: 45px;
-    left: 385px;
-    right: 0px;
-    margin-right: 20px;
-    border-bottom: 1px solid #E2E0DF;
+  position: fixed;
+  height: 45px;
+  left: 385px;
+  right: 0px;
+  margin-right: 20px;
+  border-bottom: 1px solid #E2E0DF;
 }
 
+/* line 222, scss/primary.styles.scss */
 #topbar .button {
-    display: block;
-    position: absolute;
-    top: 12px;
-    color: #B6B4B3;
-    font-size: 18px;
+  display: block;
+  position: absolute;
+  top: 12px;
+  color: #B6B4B3;
+  font-size: 18px;
 }
 
+/* line 230, scss/primary.styles.scss */
 #send_to_instapaper {
-    right: 115px;
-    margin-bottom: -3px;
-    z-index: 1338;
-    border: 0px;
-    background-color: transparent;
-    overflow: hidden;
-    opacity: .5;
+  right: 115px;
+  margin-bottom: -3px;
+  z-index: 1338;
+  border: 0px;
+  background-color: transparent;
+  overflow: hidden;
+  opacity: .5;
 }
 
+/* line 240, scss/primary.styles.scss */
 #open_in_new_window {
-    right: 70px;
+  right: 70px;
 }
 
+/* line 244, scss/primary.styles.scss */
 #open_in_new_window:before {
-    content: '\e059';
+  content: '\e059';
 }
 
+/* line 248, scss/primary.styles.scss */
 #pinboard {
-    right: 30px;
+  right: 30px;
 }
 
+/* line 252, scss/primary.styles.scss */
 #pinboard:before {
-    content: '\e067';
+  content: '\e067';
 }
 
 /* content */
+/* line 257, scss/primary.styles.scss */
 #content_wrapper {
-   /*overflow: auto;*/
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    position: fixed;
-    right: 0px;
-    left: 365px;
-    bottom: 0px;
-    top: 45px;
-    margin-left: 56px;
+  /*overflow: auto;*/
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  position: fixed;
+  right: 0px;
+  left: 365px;
+  bottom: 0px;
+  top: 45px;
+  margin-left: 56px;
 }
 
+/* line 269, scss/primary.styles.scss */
 #content header {
-    max-width: 780px;
-    margin-top: 25px;
-    border-bottom: 1px solid #E2E0DF;
-    padding-bottom: 16px;
-    margin-right: 56px;
+  max-width: 780px;
+  margin-top: 25px;
+  border-bottom: 1px solid #E2E0DF;
+  padding-bottom: 16px;
+  margin-right: 56px;
 }
 
+/* line 277, scss/primary.styles.scss */
 #content header a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
+/* line 281, scss/primary.styles.scss */
 #content header h1 {
-    font-size: 30px;
-    color: #4B4B4B;
-    margin-top: 5px;
-    margin-bottom: 5px;
+  font-size: 30px;
+  color: #4B4B4B;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
+/* line 288, scss/primary.styles.scss */
 #content header time, #content header .site, #content header .author {
-    color: #A2A2A2;
-    font-size: 12px;
-    display: block;
-    line-height: 1.4em;
+  color: #A2A2A2;
+  font-size: 12px;
+  display: block;
+  line-height: 1.4em;
 }
 
+/* line 295, scss/primary.styles.scss */
 #content header time {
-    left: 0px;
-    top: 0px;
+  left: 0px;
+  top: 0px;
 }
 
+/* line 300, scss/primary.styles.scss */
 #content .body_text {
-    max-width: 780px;
-    color: #4B4B4B;
-    font-family: Georgia;
-    font-size: 20px;
-    line-height: 1.4em;
-    margin-right: 56px;
-    margin-bottom: 100px;
+  max-width: 780px;
+  color: #4B4B4B;
+  font-family: Georgia;
+  font-size: 20px;
+  line-height: 1.4em;
+  margin-right: 56px;
+  margin-bottom: 100px;
 }
 
+/* line 310, scss/primary.styles.scss */
 #content .body_text a {
-    text-decoration: none;
-    border-bottom: 1px solid #CCCCCC;
+  text-decoration: none;
+  border-bottom: 1px solid #CCCCCC;
 }
 
+/* line 315, scss/primary.styles.scss */
 #content .body_text a, #content .body_text a:visited {
-    color: #4B4B4B;
+  color: #4B4B4B;
 }
 
+/* line 319, scss/primary.styles.scss */
 #content .body_text a:hover {
-    color: #666666;
+  color: #666666;
 }
 
+/* line 323, scss/primary.styles.scss */
 #content .body_text #titlebar img, #content .body_text #titlebar .byline_divider {
-    display: none;
+  display: none;
 }
 
+/* line 327, scss/primary.styles.scss */
 #content .body_text #titlebar h1 {
-    font-size: 20px;
-    line-height: 1.4em;
+  font-size: 20px;
+  line-height: 1.4em;
 }
 
+/* line 332, scss/primary.styles.scss */
 #content .body_text a.selected {
-    -webkit-border-radius: 4px;
-    background-color: #4B4B4B;
-    padding: 2px 3px 2px 3px;
-    color: white;
+  -webkit-border-radius: 4px;
+  background-color: #4B4B4B;
+  padding: 2px 3px 2px 3px;
+  color: white;
 }
 
+/* line 339, scss/primary.styles.scss */
 #content .body_text a.selected:hover {
-    color: white;
+  color: white;
 }
 
+/* line 343, scss/primary.styles.scss */
 #content .body_text sup a {
-    border-bottom: 0 !important;
+  border-bottom: 0 !important;
 }
 
+/* line 347, scss/primary.styles.scss */
 #content .body_text sup.selected {
-    -webkit-border-radius: 2px;
-    background-color: #4B4B4B;
-    padding: 0px 3px 2px 3px;
+  -webkit-border-radius: 2px;
+  background-color: #4B4B4B;
+  padding: 0px 3px 2px 3px;
 }
 
+/* line 353, scss/primary.styles.scss */
 #content .body_text sup.selected a {
-    color: white;
+  color: white;
 }
 
+/* line 357, scss/primary.styles.scss */
 #content .body_text sup.selected a:hover {
-    color: white;
+  color: white;
 }
 
+/* line 361, scss/primary.styles.scss */
 #detail_drawer {
-    position: fixed;
-    left: 366px;
-    right: 0px;
-    bottom: 0px;
-    height: 0px;
-    background: #3D3E40;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    font-size: 14px;
-    line-height: 1.5em;
-    color: #EEEEEE;
+  position: fixed;
+  left: 366px;
+  right: 0px;
+  bottom: 0px;
+  height: 0px;
+  background: #3D3E40;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  font-size: 14px;
+  line-height: 1.5em;
+  color: #EEEEEE;
 }
 
+/* line 375, scss/primary.styles.scss */
 #detail_drawer .content {
-    display: block;
-    max-width: 780px;
-    margin: 15px;
-    margin-left: 56px;
+  display: block;
+  max-width: 780px;
+  margin: 15px;
+  margin-left: 56px;
 }
 
+/* line 382, scss/primary.styles.scss */
 #detail_drawer .content a {
-    text-decoration: none;
-    border-bottom: 1px solid #DDDDDD;
+  text-decoration: none;
+  border-bottom: 1px solid #DDDDDD;
 }
 
+/* line 387, scss/primary.styles.scss */
 #detail_drawer .content a, #detail_drawer .content a:visited {
-    color: white;
-    border-bottom: 1px solid #999999;
+  color: white;
+  border-bottom: 1px solid #999999;
 }
 
+/* line 392, scss/primary.styles.scss */
 #detail_drawer .content a:hover {
-    color: #DDDDDD;
+  color: #DDDDDD;
 }
 
+/* line 396, scss/primary.styles.scss */
 #detail_drawer h1, #detail_drawer h2, #detail_drawer h3, #detail_drawer h4, #detail_drawer h5, #detail_drawer h6 {
-    font-size: 14px;
-    display: inline;
+  font-size: 14px;
+  display: inline;
 }
 
+/* line 401, scss/primary.styles.scss */
 #detail_drawer .byline_divider, #detail_drawer br {
-    display: none;
+  display: none;
 }
 
+/* line 405, scss/primary.styles.scss */
 #detail_drawer p {
-    margin-top: 0.5em;
-    margin-bottom: 0.3em;
+  margin-top: 0.5em;
+  margin-bottom: 0.3em;
 }
 
 /* stories list items */
+/* line 411, scss/primary.styles.scss */
 #stories h1 {
-    font-size: 14px;
+  font-size: 14px;
 }
 
+/* line 415, scss/primary.styles.scss */
 #stories ul {
-    padding-left: 0;
-    padding-right: 0;
-    margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
 }
 
+/* line 421, scss/primary.styles.scss */
 #stories li {
-    list-style: none;
-    height: 140px;
- /*margin-bottom: 25px;*/
-    padding-left: 20px;
-    padding-right: 20px;
-    overflow-y: hidden;
+  list-style: none;
+  height: 140px;
+  /*margin-bottom: 25px;*/
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow-y: hidden;
 }
 
+/* line 430, scss/primary.styles.scss */
 #stories .wrap {
-    display: block;
-    height: 110px;
-    margin-top: 15px;
-    margin-bottom: 25px;
-    overflow-y: hidden;
+  display: block;
+  height: 110px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  overflow-y: hidden;
 }
 
+/* line 438, scss/primary.styles.scss */
 #stories li.selected {
-    background: #E4E1DD;
+  background: #E4E1DD;
 }
 
+/* line 442, scss/primary.styles.scss */
 #stories a {
-    position: relative;
-    text-decoration: none;
-    color: #9B9B9B;
-    display: block;
-    height: 110px;
-    margin-left: 20px;
+  position: relative;
+  text-decoration: none;
+  color: #9B9B9B;
+  display: block;
+  height: 110px;
+  margin-left: 20px;
 }
 
+/* line 451, scss/primary.styles.scss */
 #stories a .site, #stories a .date {
-    position: absolute;
-    top: 0px;
-    font-size: 12px;
+  position: absolute;
+  top: 0px;
+  font-size: 12px;
 }
 
+/* line 457, scss/primary.styles.scss */
 #stories a .site {
-    left: 0px;
-    height: 14px;
-    width: 200px;
-    overflow: hidden;
+  left: 0px;
+  height: 14px;
+  width: 200px;
+  overflow: hidden;
 }
 
+/* line 464, scss/primary.styles.scss */
 #stories a .date {
-    right: 0px;
+  right: 0px;
 }
 
+/* line 468, scss/primary.styles.scss */
 #stories a .title {
-    padding-top: 10px;
-    color: #4D4D4D;
-    margin-bottom: 0px;
-    max-height: 34px;
-    overflow: hidden;
+  padding-top: 10px;
+  color: #4D4D4D;
+  margin-bottom: 0px;
+  max-height: 34px;
+  overflow: hidden;
 }
 
+/* line 476, scss/primary.styles.scss */
 #stories a .intro {
-    display: block;
-    font-size: 14px;
-    line-height: 18px;
+  display: block;
+  font-size: 14px;
+  line-height: 18px;
 }
 
+/* line 482, scss/primary.styles.scss */
 #stories a .icon {
-    position: absolute;
-    top: 21px;
-    left: -22px;
-    height: 16px;
-    width: 16px;
-    font-size: 10px;
+  position: absolute;
+  top: 21px;
+  left: -22px;
+  height: 16px;
+  width: 16px;
+  font-size: 10px;
 }
 
+/* line 491, scss/primary.styles.scss */
 #stories a .icon:before {
-    content: '\e02d';
+  content: '\e02d';
 }
 
+/* line 495, scss/primary.styles.scss */
 #frame {
-    position: absolute;
-    width: 100%;
-    top: 100px;
-    left: 300px;
+  position: absolute;
+  width: 100%;
+  top: 100px;
+  left: 300px;
 }
 
+/* line 502, scss/primary.styles.scss */
 #frame iframe {
-    border: none;
-    background-color: white;
+  border: none;
+  background-color: white;
 }
 
 /* login form */
+/* line 508, scss/primary.styles.scss */
 #login_form_wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
-    background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.4);
 }
 
+/* line 516, scss/primary.styles.scss */
 #login_form {
-    position: relative;
-    width: 565px;
-    height: 70px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 150px;
-    background-color: #F0EEEC;
-    -webkit-border-radius: 5px;
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+  width: 565px;
+  height: 70px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+  background-color: #F0EEEC;
+  -webkit-border-radius: 5px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+/* line 528, scss/primary.styles.scss */
 #submit {
-   /* http://developers.enormego.com/view/enter_return_key_to_submit_forms_in_html5 */
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 1px;
-    height: 1px;
-    visibility: hidden;
+  /* http://developers.enormego.com/view/enter_return_key_to_submit_forms_in_html5 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
 }
 
+/* line 539, scss/primary.styles.scss */
 #login_form input {
-    border: none;
-    background-color: #ccc;
-    -webkit-border-radius: 5px;
-    height: 30px;
-    margin: 10px;
-    padding: 10px;
-    -webkit-appearance: none;
-    color: #4D4D4D;
-    font-size: 18px;
+  border: none;
+  background-color: #ccc;
+  -webkit-border-radius: 5px;
+  height: 30px;
+  margin: 10px;
+  padding: 10px;
+  -webkit-appearance: none;
+  color: #4D4D4D;
+  font-size: 18px;
 }
 
+/* line 551, scss/primary.styles.scss */
 #login_form input:hover, #login_form input:focus {
-    outline: none;
+  outline: none;
 }
 
+/* line 555, scss/primary.styles.scss */
 #login_form .cancel, #login_form .logout {
-    color: #9B9B9B;
+  color: #9B9B9B;
 }
 
+/* line 559, scss/primary.styles.scss */
 #login_form .cancel:hover, #login_form .logout:hover {
-    color: #4D4D4D
+  color: #4d4d4d;
 }
 
+/* line 563, scss/primary.styles.scss */
 #login_form .cancel {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 5px;
-    font-size: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px;
+  font-size: 10px;
 }
 
+/* line 571, scss/primary.styles.scss */
 #login_form .cancel:before {
-    content: '\2713';
+  content: '\2713';
 }
 
+/* line 575, scss/primary.styles.scss */
 #login_form .logout {
-    position: relative;
-    text-align: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    top: 25px;
-    font-size: 18px;
+  position: relative;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  top: 25px;
+  font-size: 18px;
 }
 
 @-webkit-keyframes shake {
-    0%, 100% {
-        -webkit-transform: translateX(0);
-    }
+  /* line 586, scss/primary.styles.scss */
+  0%, 100% {
+    -webkit-transform: translateX(0);
+  }
 
-    25% {
-        -webkit-transform: translateX(-10px);
-    }
+  /* line 590, scss/primary.styles.scss */
+  25% {
+    -webkit-transform: translateX(-10px);
+  }
 
-    75% {
-        -webkit-transform: translateX(10px);
-    }
+  /* line 594, scss/primary.styles.scss */
+  75% {
+    -webkit-transform: translateX(10px);
+  }
 }
 
+/* line 599, scss/primary.styles.scss */
 #login_form.animate {
-    -webkit-animation-name: shake;
-    -webkit-animation-duration: 150ms;
-    -webkit-animation-iteration-count: 3;
+  -webkit-animation-name: shake;
+  -webkit-animation-duration: 150ms;
+  -webkit-animation-iteration-count: 3;
 }
