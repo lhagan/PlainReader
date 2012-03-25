@@ -397,7 +397,8 @@
                    -htmlcompress,
                    -imagespng,
                    -imagesjpg,
-                   -copy"/>
+                   -copy,
+				   -gzip"/>
 
   <!--
   *************************************************
@@ -1103,8 +1104,15 @@
             <!--<mapper type="glob" from="*.jpg" to="*.jpg"/>-->
         </apply>
     </target>
+	
+    <target name="-gzip" depends="-copy">
+    <!-- This is a private target -->
 
+		<exec executable="./build/gzip.sh" failonerror="true" osfamily="unix"/>
 
+        <echo message="gzipped eligible files in: ./${dir.publish}."/>
+    </target>
+	
 	<!-- Import project.xml (put any custom build targets in this file so that they aren't overwritten when build.xml is updated) -->
 	<!-- See: https://github.com/h5bp/html5-boilerplate/issues/704 -->
 	<import file="./project.xml" />
