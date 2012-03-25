@@ -95,6 +95,9 @@ $(document).ready(function () {
     };
 
     clearStories = function () {
+		// clear newsblur interface
+		nb.clear();
+
         // clear stories list
         $('#stories li').not('#template').remove();
 
@@ -110,7 +113,6 @@ $(document).ready(function () {
 		unreadcount = 0;
 		updateUnreadCount();
 
-		nb.clear();
 		console.log("cleared stories");
     };
 
@@ -469,9 +471,13 @@ $(document).ready(function () {
 			callback = function (response) {
 				if (response === true) {
 					$('#login_form_wrapper').addClass('hidden');
-					$('#refresh').trigger('click');
 					// re-bind keydown once form is submitted
 					$(document).bind('keydown', key_down);
+
+					// slight delay to let the clear mechanisms happen before loading feeds
+					setTimeout(function () {
+						$('#refresh').trigger('click');
+					}, 300);
 				} else {
 					$form.find('input[name="password"]').val('');
 					$('#login_form').addClass('animate');
