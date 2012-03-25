@@ -331,7 +331,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 
 #content .body_text a.selected {
     -webkit-border-radius: 4px;
-    background-color: #4B4B4B;
+    background-color: #666666;
     padding: 2px 3px 2px 3px;
     color: white;
 }
@@ -346,7 +346,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 
 #content .body_text sup.selected {
     -webkit-border-radius: 2px;
-    background-color: #4B4B4B;
+    background-color: #666666;
     padding: 0px 3px 2px 3px;
 }
 
@@ -600,4 +600,25 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     -webkit-animation-name: shake;
     -webkit-animation-duration: 150ms;
     -webkit-animation-iteration-count: 3;
+}
+
+#detail_popover {
+	width: 85px;
+	ul li {
+		a {
+			display: inline;
+			font-size: 16px;
+			&.preview {
+				&:before {
+				    content: '\e025';
+				}
+				padding-right: 12px;
+			}
+			&.newtab {
+				&:before {
+				    content: '\e059';
+				}
+			}
+		}
+	}
 }

@@ -3,7 +3,7 @@ part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.md for details) */
 
-/*global stripTags, console, $, document, open, event, smoothScroll, Newsblur, Instapaper */
+/*global stripTags, console, $, document, open, event, setTimeout, smoothScroll, Newsblur, Instapaper */
 
 var unreaditems;
 var unreadcount = 0;
@@ -28,6 +28,8 @@ $(document).ready(function () {
 		onItemClick,
 		bindItemClick,
 		bindScroll,
+		bindDetail,
+		preview_link,
 		nextStory,
 		prevStory,
 		key_down,
@@ -42,6 +44,10 @@ $(document).ready(function () {
         $('#content .body_text a').attr('target', '_blank');
 		$('#content .body_text a').attr('rel', 'noreferrer');
         $('#content header a').unbind('click');
+
+		// bind detail functions (preview footnotes, inline links, etc.)
+		bindDetail();
+
 		console.log('got article');
 
         $('#content header a').bind('click', function (event) {
@@ -229,6 +235,9 @@ $(document).ready(function () {
         if (list.scrollTop !== (list.scrollHeight - listheight)) {
             list.scrollTop = currentscroll - (listheight / 2 - elementheight / 2);
         }
+
+		// bind detail functions (preview footnotes, inline links, etc.)
+		bindDetail();
 	};
 
 	bindItemClick = function (event) {
@@ -353,49 +362,134 @@ $(document).ready(function () {
 
     //updateFeeds();
 
-	/*
-	Footnotes drawer based on FOOTNOTIFY bookmarklet.
-	By Hans Petter Eikemo, http://openideas.ideon.co http://twitter.com/hpeikemo.
-	No rights reserved, please use attribution if deriving on my work.
-	Web: https://gist.github.com/1046538
-	Modified by Luke Hagan for PlainReader 2012-03-17
-	*/
-	var selectorRegExp = /[\!\"\#\$\%\&\'\(\)\*\+\,\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~]/g;
-	$("#content .body_text sup a").click(function (event) {
-		var target = $(event.currentTarget),
-			href = target.attr('href'),
-			selector,
-			footnote_el;
-		if (href.indexOf('#') === 0) {
-			selector = '#' + href.substr(1).replace(selectorRegExp, '\\$&');
-			footnote_el = $(selector);
-			if (footnote_el.length > 0) {
-				//No paragraphs inside, better take precautions, it might be a backlink or have no content.
-				if (footnote_el.children('p').length === 0) {
-					//let it pass if it is a list item.
-					if (footnote_el.filter('li').length === 0) {
-						//return; 
+	bindDetail = function () {
+		/*
+		Footnotes drawer based on FOOTNOTIFY bookmarklet.
+		By Hans Petter Eikemo, http://openideas.ideon.co http://twitter.com/hpeikemo.
+		No rights reserved, please use attribution if deriving on my work.
+		Web: https://gist.github.com/1046538
+		Modified by Luke Hagan for PlainReader 2012-03-17
+		*/
+		var selectorRegExp = /[\!\"\#\$\%\&\'\(\)\*\+\,\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~]/g;
+		$("#content .body_text sup a").click(function (event) {
+			var target = $(event.currentTarget),
+				href = target.attr('href'),
+				selector,
+				footnote_el;
+			if (href.indexOf('#') === 0) {
+				selector = '#' + href.substr(1).replace(selectorRegExp, '\\$&');
+				footnote_el = $(selector);
+				if (footnote_el.length > 0) {
+					//No paragraphs inside, better take precautions, it might be a backlink or have no content.
+					if (footnote_el.children('p').length === 0) {
+						//let it pass if it is a list item.
+						if (footnote_el.filter('li').length === 0) {
+							//return; 
+						}
 					}
-				}
-				target.parent().addClass('selected');
-				$('#detail_drawer .content').html(footnote_el.html());
-		        $('#detail_drawer .content a').attr('target', '_blank');
-				$('#detail_drawer .content a').attr('rel', 'noreferrer');
+					target.parent().addClass('selected');
+					$('#detail_drawer .content').html(footnote_el.html());
+			        $('#detail_drawer .content a').attr('target', '_blank');
+					$('#detail_drawer .content a').attr('rel', 'noreferrer');
 
-				$('#detail_drawer').animate({ height: 60 }, { duration: 500, complete: function () {
-					$("#content").click(function (event) {
-						$('#content sup').removeClass('selected');
-						$('#detail_drawer').animate({height: 0}, { duration: 500, complete: function () {
-							$('#detail_drawer .content').html('');
-							$("#content").unbind('click');
-						}});
-						event.preventDefault();
-					});
-				}});
+					$('#detail_drawer').animate({ height: 80 }, { duration: 500, complete: function () {
+						$("#content_wrapper").click(function (event) {
+							$('#content sup').removeClass('selected');
+							$('#detail_drawer').animate({height: 0}, { duration: 500, complete: function () {
+								$('#detail_drawer .content').html('');
+								$("#content_wrapper").unbind('click');
+							}});
+							event.preventDefault();
+						});
+					}});
+				}
 			}
-		}
-		event.preventDefault();
-	});
+			event.preventDefault();
+		});
+
+		/*
+		Detail preview popover
+		*/
+		// don't bind to footnotes!
+		$($('#content .body_text a')).not(function (index) {if ($(this).parents(['sup']).length > 0) { return true; } }).bind('click', function (event) {
+			var that = this,
+				loc_left = event.pageX - 470,
+				loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop - 10;
+
+			if (loc_left < 5) {
+				loc_left = 5;
+			}
+
+			console.log('showing preview popover');
+			$('#detail_popover').css({ left: loc_left, top: loc_top });
+			$('#preview').attr('href', $(this).attr('href'));
+			$('#detail_popover li a').unbind('click');
+			$('#detail_popover li a.preview').unbind('click');
+			$('#detail_popover li a.preview').bind('click', function (event) {
+				preview_link(that);
+				$("#content_wrapper").unbind('click');
+				event.preventDefault();
+			});
+			$('#detail_popover li a.newtab').unbind('click');
+			$('#detail_popover li a.newtab').bind('click', function (event) {
+				open($(that).attr('href'));
+				$("#content_wrapper").unbind('click');
+				// hide the popover
+				$('#detail_popover').addClass('hidden');
+				event.preventDefault();
+			});
+			$('#detail_popover').removeClass('hidden');
+			setTimeout(function () {
+				$("#content_wrapper").bind('click', function (event) {
+					console.log('hiding preview popover');
+					$('#detail_popover').addClass('hidden');
+					$("#content_wrapper").unbind('click');
+					event.preventDefault();
+				});
+			}, 100);
+			event.preventDefault();
+		});
+
+		/*$($('#content .body_text a')).not(function (index) {if ($(this).parents(['sup']).length > 0) { return true};}).bind('mouseout', function (event) {
+			$('#detail_popover').addClass('hidden');
+		});*/
+
+		/*
+		Preview links in detail drawer
+		*/
+		preview_link = function (that) {
+			var show_detail = function (data) {
+					// highlight link
+					$(that).addClass('selected');
+					// hide the popover
+					$('#detail_popover').addClass('hidden');
+					// make sure the view is scrolled to the top
+					$('#detail_drawer').scrollTop = 0;
+					// remove images from content
+					$('img', $(data.title)).remove();
+					$('img', $(data.article)).remove();
+
+					$('#detail_drawer .content').html(data.title).append(data.article);
+			        $('#detail_drawer .content a').attr('target', '_blank');
+					$('#detail_drawer .content a').attr('rel', 'noreferrer');
+
+					$('#detail_drawer').animate({ height: 80 }, { duration: 500, complete: function () {
+						$("#content_wrapper").click(function (event) {
+							// unhighlight link
+							$(that).removeClass('selected');
+							$('#detail_drawer').animate({height: 0}, { duration: 500, complete: function () {
+								$('#detail_drawer .content').html('');
+								$("#content_wrapper").unbind('click');
+							}});
+							event.preventDefault();
+						});
+					}});
+					console.log('previewing link');
+				};
+			ip.getArticle($(that).attr('href'), show_detail);
+			//show_detail({article:"test", title:"test"});
+		};
+	};
 
     /*
     keyboard shortcuts
@@ -514,4 +608,6 @@ $(document).ready(function () {
 
 	nb = new Newsblur();
 	ip = new Instapaper();
+
+	//bindDetail();
 });
