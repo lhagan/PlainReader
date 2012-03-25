@@ -10,7 +10,7 @@ var unreadcount = 0;
 
 /*
 window.onload = function(){ 
-	$('#refresh').trigger('click'); 
+	$('#refresh').trigger('click');
 }
 */
 
@@ -28,6 +28,8 @@ $(document).ready(function () {
 		onItemClick,
 		bindItemClick,
 		bindScroll,
+		hide_popover,
+		hide_detaildrawer,
 		bindDetail,
 		preview_link,
 		nextStory,
@@ -192,6 +194,10 @@ $(document).ready(function () {
 
 		// unbind instapaper text link (sometimes conflicts with new bind)
 		$('#content header a').unbind('click');
+
+		// make sure popover is hidden
+		hide_popover();
+		hide_detaildrawer();
 
         $('#stories ul li.selected').css({opacity: 0.5});
         $('#stories ul li').removeClass('selected');
@@ -362,6 +368,19 @@ $(document).ready(function () {
 
     //updateFeeds();
 
+	hide_popover = function () {
+		console.log('hiding preview popover');
+		$('#detail_popover').addClass('hidden');
+		$("#content_wrapper").unbind('click');
+	};
+
+	hide_detaildrawer = function () {
+		$('#detail_drawer').animate({height: 0}, { duration: 500, complete: function () {
+			//$('#detail_drawer .content').html('');
+			$("#content_wrapper").unbind('click');
+		}});
+	};
+
 	bindDetail = function () {
 		/*
 		Footnotes drawer based on FOOTNOTIFY bookmarklet.
@@ -433,17 +452,13 @@ $(document).ready(function () {
 			$('#detail_popover li a.newtab').unbind('click');
 			$('#detail_popover li a.newtab').bind('click', function (event) {
 				open($(that).attr('href'));
-				$("#content_wrapper").unbind('click');
-				// hide the popover
-				$('#detail_popover').addClass('hidden');
+				hide_popover();
 				event.preventDefault();
 			});
 			$('#detail_popover').removeClass('hidden');
 			setTimeout(function () {
 				$("#content_wrapper").bind('click', function (event) {
-					console.log('hiding preview popover');
-					$('#detail_popover').addClass('hidden');
-					$("#content_wrapper").unbind('click');
+					hide_popover();
 					event.preventDefault();
 				});
 			}, 100);
@@ -457,6 +472,7 @@ $(document).ready(function () {
 		/*
 		Preview links in detail drawer
 		*/
+
 		preview_link = function (that) {
 			var show_detail = function (data) {
 					// highlight link
@@ -477,10 +493,7 @@ $(document).ready(function () {
 						$("#content_wrapper").click(function (event) {
 							// unhighlight link
 							$(that).removeClass('selected');
-							$('#detail_drawer').animate({height: 0}, { duration: 500, complete: function () {
-								$('#detail_drawer .content').html('');
-								$("#content_wrapper").unbind('click');
-							}});
+							hide_detaildrawer();
 							event.preventDefault();
 						});
 					}});
@@ -609,5 +622,5 @@ $(document).ready(function () {
 	nb = new Newsblur();
 	ip = new Instapaper();
 
-	//bindDetail();
+	bindDetail();
 });

@@ -44,7 +44,7 @@ img {
 }
 
 /* line 43, scss/primary.styles.scss */
-#nav a, #stories a, #topbar a, #content header a, #pinboard_popover a, #login_form a {
+#nav a, #stories a, #topbar a, #content header a, #pinboard_popover a, #login_form a, #content_wrapper, #content .body_text a {
   /* prevent highlight on touch for UI
   http://blogs.unbolt.net/index.php/brinley/2010/11/25/disabling-highlight-on-touch-in-ios-mobile-safari-web-apps */
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
