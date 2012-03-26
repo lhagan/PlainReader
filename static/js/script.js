@@ -433,7 +433,7 @@ $(document).ready(function () {
 		$($('#content .body_text a')).not(function (index) {if ($(this).parents(['sup']).length > 0) { return true; } }).bind('click', function (event) {
 			var that = this,
 				loc_left = event.pageX - 470,
-				loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop - 10;
+				loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop + $(this).offset().height - 35;
 
 			if (loc_left < 5) {
 				loc_left = 5;
