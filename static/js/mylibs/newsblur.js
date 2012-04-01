@@ -77,9 +77,11 @@ var Newsblur = function () {
 		var feeds = json.feeds,
 			feed,
 			feed_id,
-			item_count = 0;
+			old_unreadcount = that.items.unreadcount;
 
 		postdata = "";
+		// zero the unread count
+		that.items.unreadcount = 0;
 
 		console.log('processing feeds');
 		if (feeds !== undefined && Object.keys(feeds).length > 0) {
@@ -87,7 +89,7 @@ var Newsblur = function () {
 				if (feeds.hasOwnProperty(feed_id)) {
 					feed = feeds[feed_id];
 					if (feed.ps !== 0 || feed.nt !== 0) {
-						item_count += (feed.ng + feed.nt + feed.ps);
+						//item_count += (feed.ng + feed.nt + feed.ps);
 						unreadfeeds[feed_id] = feed.feed_title;
 						that.items.unreadcount += (feed.ps + feed.nt);
 						postdata += 'feeds=' + feed_id + '&';
@@ -97,13 +99,11 @@ var Newsblur = function () {
 					}
 				}
 			}
-			if (postdata.length > 0) {
+			// only load more pages if we're already on page 1
+			// this assumes that new items always come in at the top of the list
+			page_count = Math.ceil((that.items.unreadcount - old_unreadcount) / 18);
+			if (postdata.length > 0 && current_page <= 1 && page_count > 0) {
 				console.log(postdata);
-				page_count = Math.ceil((item_count / 18));
-				// let's not go crazy here
-				if (page_count > 4) {
-					page_count = 4;
-				}
 				current_page = page_count;
 				getPage(current_page);
 			} else {
@@ -128,8 +128,12 @@ var Newsblur = function () {
 	};
 
 	getPage = function (page) {
-		console.log('getting page ' + page);
-		getStories(postdata + "page=" + page);
+		if (page > 0) {
+			console.log('getting page ' + page);
+			getStories(postdata + "page=" + page);
+		} else {
+			console.log('error, invalid page number: ' + page);
+		}
 	};
 
 	sortByDate = function (a, b) {
@@ -155,12 +159,12 @@ var Newsblur = function () {
 
 	this.clear = function () {
 		this.items = {'stories': [], 'unreadcount': 0};
+		current_page = 0;
+		page_count = 0;
 	};
 
 	this.refresh = function (call) {
 		callback = call;
-		// zero the unread count
-		that.items.unreadcount = 0;
 		// need to refresh feeds before getting list to ensure count isn't stale
 		$.getJSON('/newsblur/reader/refresh_feeds', function () {
 			$.getJSON('/newsblur/reader/feeds', processFeeds);
@@ -171,15 +175,16 @@ var Newsblur = function () {
 		var run,
 			interval,
 			queue;
-			
+
 		run = function () {
 			var feed,
 				queue,
 				i,
 				data = "",
-				clear = function (feed) {
+				clear = function (feed, count) {
 					console.log('mark as read successful');
 					mark_read_queue[feed] = [];
+					that.items.unreadcount -= count;
 				},
 
 				ajax = function (data) {
@@ -202,7 +207,7 @@ var Newsblur = function () {
 							data += "&story_id=" + queue[i];
 							//that.items.unreadcount -= 1;
 						}
-						clear(feed);
+						clear(feed, queue.length);
 						ajax(data);
 					}
 				}
