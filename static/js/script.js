@@ -258,7 +258,9 @@ $(document).ready(function () {
 		$('#stories').bind('scroll', function () {
 			limit = $('ul', element)[0].offsetHeight - element.height() - (3 * 140);
 			if (this.scrollTop > limit) {
-				nb.getNextPage();
+		        // spin the refresh button to show progress
+		        $('#refresh_wrapper').addClass('spinning');
+				nb.getNextPage(updateFeeds);
 				$(this).unbind('scroll');
 			}
 		});

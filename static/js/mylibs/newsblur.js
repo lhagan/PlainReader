@@ -89,7 +89,6 @@ var Newsblur = function () {
 				if (feeds.hasOwnProperty(feed_id)) {
 					feed = feeds[feed_id];
 					if (feed.ps !== 0 || feed.nt !== 0) {
-						//item_count += (feed.ng + feed.nt + feed.ps);
 						unreadfeeds[feed_id] = feed.feed_title;
 						that.items.unreadcount += (feed.ps + feed.nt);
 						postdata += 'feeds=' + feed_id + '&';
@@ -150,10 +149,13 @@ var Newsblur = function () {
 		return dateA - dateB;
 	};
 
-	this.getNextPage = function () {
+	this.getNextPage = function (call) {
+		callback = call;
 		if (current_page > 1) {
 			current_page -= 1;
 			getPage(current_page);
+		} else {
+			callback();
 		}
 	};
 
