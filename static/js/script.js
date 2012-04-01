@@ -3,7 +3,7 @@ part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.md for details) */
 
-/*global stripTags, console, $, document, open, event, setTimeout, smoothScroll, Newsblur, Instapaper */
+/*global stripTags, console, $, document, open, event, setTimeout, clearTimeout, smoothScroll, Newsblur, Instapaper */
 
 var unreaditems;
 var unreadcount = 0;
@@ -31,6 +31,7 @@ $(document).ready(function () {
 		hide_popover,
 		hide_detaildrawer,
 		bindDetail,
+		bindDetailPreview,
 		preview_link,
 		nextStory,
 		prevStory,
@@ -220,7 +221,7 @@ $(document).ready(function () {
         $('#content header .site').html(story_obj.site_title);
         $('#content header .author').html(story_obj.story_authors);
         $('#content .body_text').html(story_obj.story_content);
-        //$('#content .body_text a').attr('target', '_blank');
+        $('#content .body_text a').attr('target', '_blank');
 		$('#content .body_text a').attr('rel', 'noreferrer');
         $('#content header a').attr('href', story_obj.story_permalink);
 		$('#open_in_new_window').attr('href', story_obj.story_permalink);
@@ -432,40 +433,63 @@ $(document).ready(function () {
 		Detail preview popover
 		*/
 		// don't bind to footnotes!
-		$($('#content .body_text a')).not(function (index) {if ($(this).parents(['sup']).length > 0) { return true; } }).bind('click', function (event) {
-			var that = this,
-				loc_left = event.pageX - 470,
-				loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop + $(this).offset().height - 35;
+		bindDetailPreview = function () {
+			var t,
+				q;
+			$($('#content .body_text a')).not(function (index) {if ($(this).parents(['sup']).length > 0) { return true; } }).mouseover(function () {
+				var that = this,
+					loc_left = event.pageX - 470,
+					loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop + $(this).offset().height - 35;
 
-			if (loc_left < 5) {
-				loc_left = 5;
-			}
+				if (loc_left < 5) {
+					loc_left = 5;
+				}
+				
+				if (!$('#preview_popover').hasClass('hidden')) {
+					q = setTimeout(function () {
+						console.log('showing preview popover');
+						$('#detail_popover').css({ left: loc_left, top: loc_top });
+						$('#preview').attr('href', $(that).attr('href'));
+						$('#detail_popover li a').unbind('click');
+						$('#detail_popover li a.preview').unbind('click');
+						$('#detail_popover li a.preview').bind('click', function (event) {
+							preview_link(that);
+							$("#content_wrapper").unbind('click');
+							event.preventDefault();
+						});
+						$('#detail_popover li a.newtab').unbind('click');
+						$('#detail_popover li a.newtab').bind('click', function (event) {
+							open($(that).attr('href'));
+							hide_popover();
+							event.preventDefault();
+						});
+						$('#detail_popover').removeClass('hidden');
+						t = setTimeout(function () {
+							hide_popover();
+						}, 2000);
+					}, 500);
+				}
+			});
+			
+			$($('#content .body_text a')).not(function (index) {if ($(this).parents(['sup']).length > 0) { return true; } }).mouseout(function () {
+				clearTimeout(q);
+			});
 
-			console.log('showing preview popover');
-			$('#detail_popover').css({ left: loc_left, top: loc_top });
-			$('#preview').attr('href', $(this).attr('href'));
-			$('#detail_popover li a').unbind('click');
-			$('#detail_popover li a.preview').unbind('click');
-			$('#detail_popover li a.preview').bind('click', function (event) {
-				preview_link(that);
-				$("#content_wrapper").unbind('click');
-				event.preventDefault();
+			$('#detail_popover').mouseover(function () {
+				clearTimeout(t);
 			});
-			$('#detail_popover li a.newtab').unbind('click');
-			$('#detail_popover li a.newtab').bind('click', function (event) {
-				open($(that).attr('href'));
-				hide_popover();
-				event.preventDefault();
+			$('#detail_popover').mouseout(function (event) {
+				// figure out if mouse actually moved from the popover to something else
+				// otherwise, mouseout fires over child elements of the popover
+				// TODO: make this a plugin?
+				if (event.target === $('div', $(this))[0]) {
+					if ($(event.relatedTarget).closest('#' + $(this).attr('id')).length === 0) {
+						hide_popover();
+					}
+				}
 			});
-			$('#detail_popover').removeClass('hidden');
-			setTimeout(function () {
-				$("#content_wrapper").bind('click', function (event) {
-					hide_popover();
-					event.preventDefault();
-				});
-			}, 100);
-			event.preventDefault();
-		});
+		};
+		bindDetailPreview();
 
 		/*$($('#content .body_text a')).not(function (index) {if ($(this).parents(['sup']).length > 0) { return true};}).bind('mouseout', function (event) {
 			$('#detail_popover').addClass('hidden');
