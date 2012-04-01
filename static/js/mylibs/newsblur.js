@@ -61,7 +61,7 @@ var Newsblur = function () {
 
 				if (page_empty) {
 					// page was empty, try next
-					that.getNextPage();
+					that.getNextPage(callback);
 				} else {
 					// sort items by date
 					that.items.stories.sort(sortByDate);
@@ -71,6 +71,9 @@ var Newsblur = function () {
 			that.getNextPage();
 		}
 		callback();
+		if (allstories.length < 10) {
+			that.getNextPage(callback);
+		}
 	};
 
 	processFeeds = function (json) {
