@@ -29,7 +29,6 @@ $(document).ready(function () {
 		bindItemClick,
 		bindScroll,
 		hide_popover,
-		hide_detaildrawer,
 		bindDetail,
 		bindDetailPreview,
 		preview_link,
@@ -198,7 +197,6 @@ $(document).ready(function () {
 
 		// make sure popover is hidden
 		hide_popover();
-		hide_detaildrawer();
 
         $('#stories ul li.selected').css({opacity: 0.5});
         $('#stories ul li').removeClass('selected');
@@ -374,104 +372,66 @@ $(document).ready(function () {
 	hide_popover = function () {
 		console.log('hiding preview popover');
 		$('#detail_popover').addClass('hidden');
+		$('#detail_popover.expanded .content').addClass('hidden');
+		$('#detail_popover .toolbar').removeClass('hidden');
+		$('#detail_popover').width(85);
+		$('#detail_popover .arrow').css('right', '30px');
+		$('#detail_popover').removeClass('expanded');
+		$('#content_wrapper a.selected').removeClass('selected');
+		$('#detail_popover .content').height(0);
+		$('#detail_popover .toolbar .title').html('');
+		$('#detail_popover .content').css({ 'margin-top': 10 });
 		$("#content_wrapper").unbind('click');
-	};
-
-	hide_detaildrawer = function () {
-		$('#detail_drawer').animate({height: 0}, { duration: 500, complete: function () {
-			//$('#detail_drawer .content').html('');
-			$("#content_wrapper").unbind('click');
-		}});
 	};
 
 	bindDetail = function () {
 		/*
-		Footnotes drawer based on FOOTNOTIFY bookmarklet.
-		By Hans Petter Eikemo, http://openideas.ideon.co http://twitter.com/hpeikemo.
-		No rights reserved, please use attribution if deriving on my work.
-		Web: https://gist.github.com/1046538
-		Modified by Luke Hagan for PlainReader 2012-03-17
-		*/
-		var selectorRegExp = /[\!\"\#\$\%\&\'\(\)\*\+\,\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~]/g;
-		$("#content .body_text sup a").click(function (event) {
-			var target = $(event.currentTarget),
-				href = target.attr('href'),
-				selector,
-				footnote_el;
-			if (href.indexOf('#') === 0) {
-				selector = '#' + href.substr(1).replace(selectorRegExp, '\\$&');
-				footnote_el = $(selector);
-				if (footnote_el.length > 0) {
-					//No paragraphs inside, better take precautions, it might be a backlink or have no content.
-					if (footnote_el.children('p').length === 0) {
-						//let it pass if it is a list item.
-						if (footnote_el.filter('li').length === 0) {
-							//return; 
-						}
-					}
-					target.parent().addClass('selected');
-					$('#detail_drawer .content').html(footnote_el.html());
-			        $('#detail_drawer .content a').attr('target', '_blank');
-					$('#detail_drawer .content a').attr('rel', 'noreferrer');
-
-					$('#detail_drawer').animate({ height: 80 }, { duration: 500, complete: function () {
-						$("#content_wrapper").click(function (event) {
-							$('#content sup').removeClass('selected');
-							$('#detail_drawer').animate({height: 0}, { duration: 500, complete: function () {
-								$('#detail_drawer .content').html('');
-								$("#content_wrapper").unbind('click');
-							}});
-							event.preventDefault();
-						});
-					}});
-				}
-			}
-			event.preventDefault();
-		});
-
-		/*
 		Detail preview popover
 		*/
-		// don't bind to footnotes!
 		bindDetailPreview = function () {
 			var t,
 				q;
-			$($('#content .body_text a')).not(function (index) {if ($(this).parents(['sup']).length > 0) { return true; } }).mouseover(function () {
+			$($('#content .body_text a')).mouseover(function () {
 				var that = this,
-					loc_left = event.pageX - 470,
+					loc_left = event.pageX - 465,
 					loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop + $(this).offset().height - 35;
 
 				if (loc_left < 5) {
 					loc_left = 5;
 				}
-				
-				if (!$('#preview_popover').hasClass('hidden')) {
+
+				if ($('#detail_popover').hasClass('hidden')) {
 					q = setTimeout(function () {
 						console.log('showing preview popover');
 						$('#detail_popover').css({ left: loc_left, top: loc_top });
-						$('#preview').attr('href', $(that).attr('href'));
-						$('#detail_popover li a').unbind('click');
-						$('#detail_popover li a.preview').unbind('click');
-						$('#detail_popover li a.preview').bind('click', function (event) {
-							preview_link(that);
-							$("#content_wrapper").unbind('click');
-							event.preventDefault();
-						});
-						$('#detail_popover li a.newtab').unbind('click');
-						$('#detail_popover li a.newtab').bind('click', function (event) {
+						$('#detail_popover .toolbar a').unbind('click');
+						if ($(that).parent().is('sup')) {
+							console.log('footnote');
+							$('#detail_popover .toolbar').addClass('hidden');
+							preview_link(event, that, loc_left);
+						} else {
+							$('#detail_popover .toolbar .preview a').bind('click', function (event) {
+								preview_link(event, that, loc_left);
+								event.preventDefault();
+							});
+							t = setTimeout(function () {
+								hide_popover();
+							}, 2000);
+						}
+						$('#detail_popover').addClass('expanded');
+						$('#detail_popover .toolbar .newtab a').bind('click', function (event) {
 							open($(that).attr('href'));
 							hide_popover();
 							event.preventDefault();
 						});
 						$('#detail_popover').removeClass('hidden');
-						t = setTimeout(function () {
-							hide_popover();
-						}, 2000);
 					}, 500);
+				} else {
+					hide_popover();
 				}
 			});
-			
-			$($('#content .body_text a')).not(function (index) {if ($(this).parents(['sup']).length > 0) { return true; } }).mouseout(function () {
+
+			$($('#content .body_text a')).mouseout(function () {
 				clearTimeout(q);
 			});
 
@@ -479,12 +439,16 @@ $(document).ready(function () {
 				clearTimeout(t);
 			});
 			$('#detail_popover').mouseout(function (event) {
-				// figure out if mouse actually moved from the popover to something else
-				// otherwise, mouseout fires over child elements of the popover
-				// TODO: make this a plugin?
-				if (event.target === $('div', $(this))[0]) {
-					if ($(event.relatedTarget).closest('#' + $(this).attr('id')).length === 0) {
-						hide_popover();
+				// ignore mouseout if we're loading a preview (indicator icon is spinning)
+				// or if the popover is in expanded mode
+				if ($('.spinning', $(this)).length === 0 && !($(this).hasClass('expanded'))) {
+					// figure out if mouse actually moved from the popover to something else
+					// otherwise, mouseout fires over child elements of the popover
+					// TODO: make this a plugin?
+					if (event.target === $('.popover-body', $(this))[0]) {
+						if ($(event.relatedTarget).closest('#' + $(this).attr('id')).length === 0) {
+							hide_popover();
+						}
 					}
 				}
 			});
@@ -496,37 +460,95 @@ $(document).ready(function () {
 		});*/
 
 		/*
-		Preview links in detail drawer
+		Preview links in detail popover
 		*/
-
-		preview_link = function (that) {
-			var show_detail = function (data) {
+		preview_link = function (event, that, loc_left) {
+			var body_width = $('#content .body_text').width(),
+				bind_deselect = function () {
+					$("#content_wrapper").click(function (event) {
+						// unhighlight link
+						if ($(event.target).closest('#detail_popover').length === 0) {
+							hide_popover();
+							event.preventDefault();
+						}
+					});
+				},
+				show_detail = function () {
+					bind_deselect();
 					// highlight link
 					$(that).addClass('selected');
-					// hide the popover
-					$('#detail_popover').addClass('hidden');
 					// make sure the view is scrolled to the top
-					$('#detail_drawer').scrollTop = 0;
+					$('#detail_popover .content').scrollTop = 0;
+
+					$('#detail_popover .content a').attr('target', '_blank');
+					$('#detail_popover .content a').attr('rel', 'noreferrer');
+
+					$('#detail_popover .content').removeClass('hidden');
+				},
+				handle_text = function (data) {
+					$('#detail_popover .content').css({ 'margin-top': -10 });
 					// remove images from content
 					$('img', $(data.title)).remove();
 					$('img', $(data.article)).remove();
 
-					$('#detail_drawer .content').html(data.title).append(data.article);
-			        $('#detail_drawer .content a').attr('target', '_blank');
-					$('#detail_drawer .content a').attr('rel', 'noreferrer');
+					$('#detail_popover .toolbar .title').html(data.title);
+					$('#detail_popover .toolbar .title').removeClass('hidden');
+					$('#detail_popover .content').html(data.article);
 
-					$('#detail_drawer').animate({ height: 80 }, { duration: 500, complete: function () {
-						$("#content_wrapper").click(function (event) {
-							// unhighlight link
-							$(that).removeClass('selected');
-							hide_detaildrawer();
-							event.preventDefault();
-						});
-					}});
+					// stop spinning
+					$(event.target).parent().removeClass('spinning');
+
 					console.log('previewing link');
+
+					$('#detail_popover').animate({ left: 10, width: body_width - 10 }, { duration: 750, complete: function () {
+						show_detail();
+						$('#detail_popover .content').animate({ height: 75 }, { duration: 750 });
+					}});
+					$('#detail_popover .arrow').animate({ right: body_width - loc_left - 54 }, { duration: 750 });
+				},
+				handle_footnote = function () {
+					/*
+					Footnotes popover based on FOOTNOTIFY bookmarklet.
+					By Hans Petter Eikemo, http://openideas.ideon.co http://twitter.com/hpeikemo.
+					No rights reserved, please use attribution if deriving on my work.
+					Web: https://gist.github.com/1046538
+					Modified by Luke Hagan for PlainReader 2012-03-17
+					*/
+					var target = $(that),
+						href = target.attr('href'),
+						selector,
+						footnote_el,
+						selectorRegExp = /[\!\"\#\$\%\&\'\(\)\*\+\,\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~]/g;
+
+					if (href.indexOf('#') === 0) {
+						selector = '#' + href.substr(1).replace(selectorRegExp, '\\$&');
+						footnote_el = $(selector);
+						if (footnote_el.length > 0) {
+							// No paragraphs inside, better take precautions, it might be a backlink or have no content.
+							if (footnote_el.children('p').length === 0) {
+								//let it pass if it is a list item.
+								if (footnote_el.filter('li').length === 0) {
+									return;
+								}
+							}
+							$('#detail_popover .content').html(footnote_el.html());
+							$('#detail_popover').css({ left: 10, width: body_width - 10 });
+							$('#detail_popover .arrow').css({ right: body_width - loc_left - 54 });
+							$('#detail_popover .content').css({ height: 'auto' });
+							show_detail();
+						}
+					}
 				};
-			ip.getArticle($(that).attr('href'), show_detail);
-			//show_detail({article:"test", title:"test"});
+
+			if ($(that).parent().is('sup')) {
+				handle_footnote();
+			} else {
+				$(event.target).parent().addClass('spinning');
+				ip.getArticle($(that).attr('href'), handle_text);
+				/*setTimeout(function () {
+					handle_text({article: "lorem ipsum", title: "test"});
+				}, 500);*/
+			}
 		};
 	};
 

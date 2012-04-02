@@ -154,7 +154,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     width: 20px;
 }
 
-#refresh_wrapper.spinning {
+.spinning {
     -webkit-animation-name: rotate;
     -webkit-animation-duration: 1s;
     -webkit-animation-iteration-count: infinite;
@@ -330,14 +330,20 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 }
 
 #content .body_text a.selected {
-    -webkit-border-radius: 4px;
-    background-color: #666666;
+    -webkit-border-radius: 5px;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    background-color: #F0EA00;
+	background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #F0F500),
+		color-stop(0.5, #F1E600),
+		color-stop(1.0, #F0E100)
+	);
     padding: 2px 3px 2px 3px;
-    color: white;
-}
-
-#content .body_text a.selected:hover {
-    color: white;
+	color: black;
+	border-bottom: 0 !important;
 }
 
 #content .body_text sup a {
@@ -346,65 +352,18 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 
 #content .body_text sup.selected {
     -webkit-border-radius: 2px;
-    background-color: #666666;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    background-color: #F0EA00;
+	background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #F0F500),
+		color-stop(0.5, #F1E600),
+		color-stop(1.0, #F0E100)
+	);
     padding: 0px 3px 2px 3px;
-}
-
-#content .body_text sup.selected a {
-    color: white;
-}
-
-#content .body_text sup.selected a:hover {
-    color: white;
-}
-
-#detail_drawer {
-    position: fixed;
-    left: 366px;
-    right: 0px;
-    bottom: 0px;
-    height: 0px;
-    background: #3D3E40;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    font-size: 14px;
-    line-height: 1.5em;
-    color: #EEEEEE;
-}
-
-#detail_drawer .content {
-    display: block;
-    max-width: 780px;
-    margin: 15px;
-    margin-left: 56px;
-}
-
-#detail_drawer .content a {
-    text-decoration: none;
-    border-bottom: 1px solid #DDDDDD;
-}
-
-#detail_drawer .content a, #detail_drawer .content a:visited {
-    color: white;
-    border-bottom: 1px solid #999999;
-}
-
-#detail_drawer .content a:hover {
-    color: #DDDDDD;
-}
-
-#detail_drawer h1, #detail_drawer h2, #detail_drawer h3, #detail_drawer h4, #detail_drawer h5, #detail_drawer h6 {
-    font-size: 14px;
-    display: inline;
-}
-
-#detail_drawer .byline_divider, #detail_drawer br {
-    display: none;
-}
-
-#detail_drawer p {
-    margin-top: 0.5em;
-    margin-bottom: 0.3em;
+	color: black;
 }
 
 /* stories list items */
@@ -602,23 +561,105 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     -webkit-animation-iteration-count: 3;
 }
 
+@mixin detail-popover-text {
+	a, a:visited {
+	    text-decoration: none;
+	    border-bottom: 1px solid #CCCCCC;
+		color: #4B4B4B;
+	}
+	a:hover {
+		color: #666666;
+	}
+	p {
+	    margin-top: 0.5em;
+	    margin-bottom: 0.3em;
+	}
+	.byline_divider, br {
+	    display: none;
+	}
+}
+
 #detail_popover {
 	width: 85px;
-	ul li {
-		a {
-			display: inline;
-			font-size: 16px;
+	.arrow {
+	    right: 30px;
+	}
+	.toolbar {
+		position: relative;
+		top: 0;
+		height: 46px;
+		.wrapper {
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			margin: 0;
+			padding: 0;
+			top: 15px;
+			overflow: hidden;
+			a {
+				position: relative;
+			}
 			&.preview {
-				&:before {
-				    content: '\e025';
+				left: 11px;
+				a {
+					&:before {
+						content: '\e025';
+					}
+					top: 1px;
+					left: 2px;
 				}
-				padding-right: 12px;
+				&.spinning {
+					a {
+						&:before {
+							content: '\e037';
+						}
+					}
+				}
 			}
 			&.newtab {
-				&:before {
-				    content: '\e059';
+				right: 13px;
+				a {
+					&:before {
+					    content: '\e059';
+					}
 				}
 			}
 		}
+		a {
+			font-size: 16px;
+		    display: block;
+		    text-decoration: none;
+		    color: #B6B4B3;
+		}
+		.title {
+			overflow: hidden;
+			white-space: nowrap;
+			position: relative;
+			left: 50px;
+			line-height: 46px;
+			font-size: 14px;
+			#titlebar h1 {
+				font-size: 1.15em;
+				display: inline;
+			}
+			a, div {
+				display: inline;
+			}
+			@include detail-popover-text;
+		}
+	}
+	.content {
+		height: 0;
+		margin: 15px;
+		margin-top: 10px;
+	    overflow-y: scroll;
+	    -webkit-overflow-scrolling: touch;
+		color: #4B4B4B;
+		h1, h2, h3, h4, h5, h6, li {
+		    font-size: 14px;
+		    display: inline;
+		}
+		@include detail-popover-text;
 	}
 }
+
