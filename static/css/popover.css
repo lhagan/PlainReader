@@ -5,7 +5,7 @@ released under the MIT license (see LICENSE.md for details)
 
 based on https://forrst.com/posts/CSS3_iPad_style_popover_menu-PJv
 CSS3 iPad style popover menu by Peter Viszt
-heavily modified by Luke Hagan 2011-11-06 */
+heavily modified by Luke Hagan 2011-11-06 & 2012-04-01 */
 
 .popover {
     position: absolute;
@@ -18,35 +18,38 @@ heavily modified by Luke Hagan 2011-11-06 */
 
 .popover .popover-content {
     position: relative;
-    -webkit-border-radius: 11px;
-    border-radius: 11px;
-    background-color: #B6B4B3;
-    padding: 5px;
+    /*-webkit-border-radius: 11px;
+    border-radius: 11px;*/
+    /*background-color: #B6B4B3;
+    padding: 5px;*/
 }
 
 .popover .popover-body {
-    -webkit-border-radius: 7px;
-    border-radius: 7px;
+    -webkit-border-radius: 5px;
+	border: 1px solid #B6B4B3;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /*border-radius: 7px;*/
     background: #fff;
 }
 
 .popover .arrow {
     position: absolute;
     right: 23px;
-    top: -8px;
+    top: -9px;
     width: 25px;
     height: 10px;
-    overflow: hidden;
 }
 
 .popover .arrow span {
     display: block;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     background: red;
-    -webkit-transform: rotate(45deg) skew(-10deg, -10deg);
+    -webkit-transform: rotate(45deg) skew(-5deg, -5deg);
     margin: 1px 0 0 4px;
-    background: #B6B4B3;
+    background: white;
+	border-top: 1px solid #B6B4B3;
+	border-left: 1px solid #B6B4B3;
 }
 
 .popover .popover-body ul {
