@@ -48,6 +48,7 @@ var Newsblur = function () {
 							}
 							if (parseInt(intel[prop], 10) === 1) {
 								nogood = false;
+								break;
 							}
 						}
 					}
