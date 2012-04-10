@@ -2,6 +2,34 @@
 <!DOCTYPE project>
 <project name="Project Build" default="build" basedir="../">
 	
-    <!-- Use this file to define any custom build targets (for example, automatically deploying via FTP). -->
+	<!-- from Rob Larsen
+	http://htmlcssjavascript.com/javascript/an-ant-task-to-comment-out-console-log-calls-from-javascript-files/ -->
+    <target name="-removeconsole" depends="minify">
+		<replaceregexp match="(console.log\(.*\))" replace="" flags="g">
+			<fileset dir="${dir.publish}/${dir.js}/">
+				<include name="*.js"/>
+			</fileset>
+		</replaceregexp>
+		
+		<echo message="removed console.log statements."/>
+    </target>
+	
+    <target name="-stripfont" depends="minify">
+    <!-- This is a private target -->
 
+		<exec executable="./build/stripfont.py" failonerror="true" osfamily="unix"/>
+
+        <echo message="stripped font."/>
+    </target>
+	
+    <target name="-gzip" depends="-stripfont">
+    <!-- This is a private target -->
+
+		<exec executable="./build/gzip.sh" failonerror="true" osfamily="unix"/>
+
+        <echo message="gzipped eligible files in: ./${dir.publish}."/>
+    </target>
+	
+	<target name="deploy" depends="minify, -stripfont, -gzip" />	
+	
 </project>

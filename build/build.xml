@@ -397,9 +397,7 @@
                    -htmlcompress,
                    -imagespng,
                    -imagesjpg,
-                   -copy,
-				   -stripfont,
-				   -gzip"/>
+                   -copy"/>
 
   <!--
   *************************************************
@@ -1105,23 +1103,6 @@
             <!--<mapper type="glob" from="*.jpg" to="*.jpg"/>-->
         </apply>
     </target>
-	
-    <target name="-gzip" depends="-copy">
-    <!-- This is a private target -->
-
-		<exec executable="./build/gzip.sh" failonerror="true" osfamily="unix"/>
-
-        <echo message="gzipped eligible files in: ./${dir.publish}."/>
-    </target>
-	
-    <target name="-stripfont" depends="-copy">
-    <!-- This is a private target -->
-
-		<exec executable="./build/stripfont.py" failonerror="true" osfamily="unix"/>
-
-        <echo message="stripped font."/>
-    </target>
-	
 	
 	<!-- Import project.xml (put any custom build targets in this file so that they aren't overwritten when build.xml is updated) -->
 	<!-- See: https://github.com/h5bp/html5-boilerplate/issues/704 -->
