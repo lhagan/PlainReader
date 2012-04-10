@@ -480,30 +480,25 @@ $(document).ready(function () {
 					By Hans Petter Eikemo, http://openideas.ideon.co http://twitter.com/hpeikemo.
 					No rights reserved, please use attribution if deriving on my work.
 					Web: https://gist.github.com/1046538
-					Modified by Luke Hagan for PlainReader 2012-03-17
+					Heavily modified by Luke Hagan for PlainReader 2012-03-17, 2012-04-09
 					*/
 					var target = $(that),
 						href = target.attr('href'),
-						selector,
+						rel = href.split('#'),
 						footnote_el,
-						selectorRegExp = /[\!\"\#\$\%\&\'\(\)\*\+\,\.\/\:\;\<\=\>\?\@\[\\\]\^\`\{\|\}\~]/g;
+						selectorRegExp = /[!"#\$%&'\(\)\*\+,\.\/:;<=>\?@\[\\\]\^`{\|}~]/g;
 
-					if (href.indexOf('#') === 0) {
-						selector = '#' + href.substr(1).replace(selectorRegExp, '\\$&');
-						footnote_el = $(selector);
+					if (rel.length >= 2) {
+						rel = '#' + rel[1].replace(selectorRegExp,'\\$&');
+						footnote_el = $(rel);
 						if (footnote_el.length > 0) {
-							// No paragraphs inside, better take precautions, it might be a backlink or have no content.
-							if (footnote_el.children('p').length === 0) {
-								//let it pass if it is a list item.
-								if (footnote_el.filter('li').length === 0) {
-									return;
-								}
-							}
 							$('#detail_popover .content').html(footnote_el.html());
 							$('#detail_popover').css({ left: 10, width: body_width - 10 });
 							$('#detail_popover .arrow').css({ right: body_width - loc_left - 54 });
 							$('#detail_popover .content').css({ height: 'auto' });
 							show_detail();
+						} else {
+							hide_popover();
 						}
 					}
 				};
