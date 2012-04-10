@@ -424,13 +424,11 @@ $(document).ready(function () {
 							event.preventDefault();
 						});
 						$('#detail_popover').removeClass('hidden');
-				}
-			$($('#content .body_text a')).mouseout(function () {
-			});
 						setTimeout(function () {
 							bind_deselect();
 						}, 250);
 					} else {
+						hide_popover();
 					}
 					event.preventDefault();
 				}
