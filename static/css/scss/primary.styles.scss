@@ -343,15 +343,21 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 	);
     padding: 2px 3px 2px 3px;
 	color: black;
-	border-bottom: 0 !important;
+	border: none;
 }
 
 #content .body_text sup a {
-    border-bottom: 0 !important;
+    -webkit-border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 0px 3px 2px 3px;
+	//margin-left: 2px;
+	color: white;
+	&:visited, &:hover {
+		color: white;
+	}
 }
 
-#content .body_text sup.selected {
-    -webkit-border-radius: 2px;
+#content .body_text sup a.selected {
 	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     background-color: #F0EA00;
 	background-image: -webkit-gradient(
@@ -362,8 +368,10 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 		color-stop(0.5, #F1E600),
 		color-stop(1.0, #F0E100)
 	);
-    padding: 0px 3px 2px 3px;
-	color: black;
+	color: #4B4B4B;
+	&:visited {
+		color: #4B4B4B;
+	}
 }
 
 /* stories list items */
@@ -634,9 +642,11 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 		.title {
 			overflow: hidden;
 			white-space: nowrap;
+			text-overflow: ellipsis;
 			position: relative;
-			left: 50px;
-			line-height: 46px;
+			left: 40px;
+			margin-right: 90px;
+			line-height: 48px;
 			font-size: 14px;
 			#titlebar h1 {
 				font-size: 1.15em;
@@ -655,8 +665,9 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 	    overflow-y: scroll;
 	    -webkit-overflow-scrolling: touch;
 		color: #4B4B4B;
+		font-size: 16px;
 		h1, h2, h3, h4, h5, h6, li {
-		    font-size: 14px;
+		    font-size: 16px;
 		    display: inline;
 		}
 		@include detail-popover-text;
