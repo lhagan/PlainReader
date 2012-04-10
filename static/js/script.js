@@ -380,10 +380,18 @@ $(document).ready(function () {
 		/*
 		Detail preview popover
 		*/
+		var bind_deselect = function () {
+			$("#content_wrapper").click(function (event) {
+				// unhighlight link
+				if ($(event.target).closest('#detail_popover').length === 0) {
+					hide_popover();
+					event.preventDefault();
+				}
+			});
+		};
+		
 		bindDetailPreview = function () {
-			var t,
-				q;
-			$($('#content .body_text a')).mouseover(function () {
+			$($('#content .body_text a')).click(function (event) {
 				var that = this,
 					loc_left = event.pageX - 465,
 					loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop + $(this).offset().height - 35;
@@ -391,9 +399,11 @@ $(document).ready(function () {
 				if (loc_left < 5) {
 					loc_left = 5;
 				}
-
-				if ($('#detail_popover').hasClass('hidden')) {
-					q = setTimeout(function () {
+				
+				// ignore if user is holding down cmd/ctl key
+				// (to open a in a new window in background)
+				if (!event.metaKey) {
+					if ($('#detail_popover').hasClass('hidden')) {
 						console.log('showing preview popover');
 						$('#detail_popover').css({ left: loc_left, top: loc_top });
 						$('#detail_popover .toolbar a').unbind('click');
@@ -406,42 +416,23 @@ $(document).ready(function () {
 								preview_link(event, that, loc_left);
 								event.preventDefault();
 							});
-							t = setTimeout(function () {
-								hide_popover();
-							}, 2000);
 						}
 						$('#detail_popover').addClass('expanded');
-						$('#detail_popover .toolbar .newtab a').bind('click', function (event) {
+						$('#detail_popover .toolbar .newtab a').click(function (event) {
 							open($(that).attr('href'));
 							hide_popover();
 							event.preventDefault();
 						});
 						$('#detail_popover').removeClass('hidden');
-					}, 500);
-				} else {
-					hide_popover();
 				}
-			});
-
 			$($('#content .body_text a')).mouseout(function () {
-				clearTimeout(q);
 			});
-
-			$('#detail_popover').mouseover(function () {
-				clearTimeout(t);
-			});
-			$('#detail_popover').mouseout(function (event) {
-				// ignore mouseout if we're loading a preview (indicator icon is spinning)
-				// or if the popover is in expanded mode
-				if ($('.spinning', $(this)).length === 0 && !($(this).hasClass('expanded'))) {
-					// figure out if mouse actually moved from the popover to something else
-					// otherwise, mouseout fires over child elements of the popover
-					// TODO: make this a plugin?
-					if (event.target === $('.popover-body', $(this))[0]) {
-						if ($(event.relatedTarget).closest('#' + $(this).attr('id')).length === 0) {
-							hide_popover();
-						}
+						setTimeout(function () {
+							bind_deselect();
+						}, 250);
+					} else {
 					}
+					event.preventDefault();
 				}
 			});
 		};
@@ -452,17 +443,8 @@ $(document).ready(function () {
 		*/
 		preview_link = function (event, that, loc_left) {
 			var body_width = $('#content .body_text').width(),
-				bind_deselect = function () {
-					$("#content_wrapper").click(function (event) {
-						// unhighlight link
-						if ($(event.target).closest('#detail_popover').length === 0) {
-							hide_popover();
-							event.preventDefault();
-						}
-					});
-				},
 				show_detail = function () {
-					bind_deselect();
+					//bind_deselect();
 					// highlight link
 					$(that).addClass('selected');
 					// make sure the view is scrolled to the top
