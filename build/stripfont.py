@@ -5,8 +5,8 @@ import re
 import fontforge
 
 base_path = os.getcwd()
-css_file = os.path.join(base_path, 'static/css/scss/primary.styles.scss')
-font_file_source = os.path.join(base_path, 'static/fonts/iconic_stroke.otf')
+css_file = os.path.join(base_path, 'src/css/scss/primary.styles.scss')
+font_file_source = os.path.join(base_path, 'src/fonts/iconic_stroke.otf')
 font_file_target = os.path.join(base_path, 'publish/fonts/iconic_stroke.otf')
 font_type = 'opentype'
 
