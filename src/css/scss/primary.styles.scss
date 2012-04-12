@@ -255,7 +255,6 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 
 /* content */
 #content_wrapper {
-   /*overflow: auto;*/
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     position: fixed;
@@ -263,7 +262,10 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     left: 365px;
     bottom: 0px;
     top: 45px;
-    margin-left: 56px;
+}
+
+#content {
+	margin-left: 56px;
 }
 
 #content header {
@@ -295,6 +297,26 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 #content header time {
     left: 0px;
     top: 0px;
+}
+
+#progress_wrapper {
+	position: absolute;
+	left: 22px;
+	top: 54px;
+	height: 20px;
+	width: 20px;
+	font-size: 18px;
+    margin: 0px;
+    padding: 0px;
+	.button {
+		position: relative;
+		color: rgba(0, 0, 0, 0.5);
+		top: -2px;
+		left: 1px;
+		&:before {
+			content: '\e037'
+		}
+	}
 }
 
 #content .body_text {

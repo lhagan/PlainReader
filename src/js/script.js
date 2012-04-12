@@ -63,10 +63,14 @@ $(document).ready(function () {
             bindInstapaperText($('#content header a'));
             event.preventDefault();
         });
+		// hide and stop progress indicator
+		$('#progress_wrapper').addClass('hidden').removeClass('spinning');
     };
 
 	bindInstapaperText = function (element) {
         element.bind('click', function (event) {
+			// show and spin progress indicator
+			$('#progress_wrapper').removeClass('hidden').addClass('spinning');
 			ip.getArticle($('#content header a').get(0), instapaperText);
 			console.log('getting article from instapaper');
             event.preventDefault();
