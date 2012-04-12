@@ -34,6 +34,14 @@ var Instapaper = function () {
 				var article = parseHTML(data);
 				callback(article);
 			};
-		$.get(instapaper_url, process);
+		$.ajax({
+			type: 'GET',
+			url: instapaper_url,
+			success: process,
+			error: function (xhr, type) {
+				console.log("error loading from instapaper!  " + type);
+				process('<div id="titlebar"><h1>Error: could not load article from Instapaper</h1></div><div id="story"></div>');
+			}
+		});
 	};
 };
