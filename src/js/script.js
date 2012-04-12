@@ -404,9 +404,9 @@ $(document).ready(function () {
 					loc_left = 5;
 				}
 				
-				// ignore if user is holding down cmd/ctl key
-				// (to open a in a new window in background)
-				if (!event.metaKey) {
+				// don't open the preview popover if user is holding down the cmd/ctl key
+				// instead, open a in a new window in background
+				if (!event.ctrlKey && !event.metaKey) {
 					if ($('#detail_popover').hasClass('hidden')) {
 						console.log('showing preview popover');
 						$('#detail_popover').css({ left: loc_left, top: loc_top });
