@@ -137,6 +137,8 @@ $(document).ready(function () {
     };
 
     updateUnreadCount = function () {
+		var oldcount = $('#unreadcount').html();
+		console.log('changing unread count from ' + oldcount + ' to ' + unreadcount);
         $('#unreadcount').html(unreadcount);
 		document.title = "PlainReader (" + unreadcount + ")";
     };
