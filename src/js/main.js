@@ -404,7 +404,7 @@ $(document).ready(function () {
 		bindDetailPreview = function () {
 			$($('#content .body_text a')).click(function (event) {
 				var that = this,
-					loc_left = event.pageX - 465,
+					loc_left = event.pageX - 415,
 					loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop + $(this).offset().height - 35;
 
 				if (loc_left < 5) {
