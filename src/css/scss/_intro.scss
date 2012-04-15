@@ -1,0 +1,99 @@
+/* intro popup */
+#appintro_backdrop {
+	display: none;
+    position: absolute;
+	top: 0;
+	left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+#appintro_window {
+	display: none;
+    position: relative;
+    width: 565px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    background-color: #F0EEEC;
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	z-index: 10001;
+	font-size: 18px;
+	
+	header, footer, section {
+		padding: 1px 15px 1px 15px;
+	}
+	
+	a, a:visited {
+	    text-decoration: none;
+	    border-bottom: 1px solid #CCCCCC;
+		color: #4B4B4B;
+		&:hover {
+			color: #666666;
+		}
+	}
+	
+	header {
+		background-color: rgba(0, 0, 0, 0.1);
+		border-bottom: 1px solid #BBBBBB;
+		// need to round corners on child elements, otherwise they stick
+		// out over the parent's rounds
+		-webkit-border-radius: 10px 10px 0 0;
+		img {
+			float: left;
+			margin-right: 15px;
+			margin-top: 23px;
+		    -webkit-border-radius: 5px;
+		}
+	}
+	
+	.content {		
+		.gear {
+			font-size: 18px;
+			&:before {
+				content: "\2699";
+			}
+		}
+	}
+	
+	.warning {
+		display: none;
+		background-color: #F0E100;
+		color: #4D4D4D;
+	}
+	
+	footer {
+		text-align: center;
+		font-style: italic;
+		font-size: 0.7em;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		background-color: rgba(0, 0, 0, 0.1);
+		border-top: 1px solid #BBBBBB;
+		// need to round corners on child elements, otherwise they stick
+		// out over the parent's rounds
+		-webkit-border-radius: 0 0 10px 10px;
+		a, a:visited {
+		    border-bottom: 1px solid #AAAAAA;
+		}
+	}
+		
+	.button.cancel {
+		color: #9B9B9B;
+	    position: absolute;
+	    top: 5px;
+	    right: 5px;
+	    margin: 5px;
+	    font-size: 12px;
+		border-bottom: none;
+		&:hover {
+			color: #4D4D4D;
+		}
+		&:before {
+			content: '\2713';
+		}
+	}
+}

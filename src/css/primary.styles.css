@@ -794,3 +794,105 @@ img {
 #detail_popover .content .byline_divider, #detail_popover .content br {
   display: none;
 }
+
+/* intro popup */
+/* line 2, scss/_intro.scss */
+#appintro_backdrop {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* line 13, scss/_intro.scss */
+#appintro_window {
+  display: none;
+  position: relative;
+  width: 565px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  background-color: #F0EEEC;
+  -webkit-border-radius: 10px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 10001;
+  font-size: 18px;
+}
+/* line 26, scss/_intro.scss */
+#appintro_window header, #appintro_window footer, #appintro_window section {
+  padding: 1px 15px 1px 15px;
+}
+/* line 30, scss/_intro.scss */
+#appintro_window a, #appintro_window a:visited {
+  text-decoration: none;
+  border-bottom: 1px solid #CCCCCC;
+  color: #4B4B4B;
+}
+/* line 34, scss/_intro.scss */
+#appintro_window a:hover, #appintro_window a:visited:hover {
+  color: #666666;
+}
+/* line 39, scss/_intro.scss */
+#appintro_window header {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #BBBBBB;
+  -webkit-border-radius: 10px 10px 0 0;
+}
+/* line 45, scss/_intro.scss */
+#appintro_window header img {
+  float: left;
+  margin-right: 15px;
+  margin-top: 23px;
+  -webkit-border-radius: 5px;
+}
+/* line 54, scss/_intro.scss */
+#appintro_window .content .gear {
+  font-size: 18px;
+}
+/* line 56, scss/_intro.scss */
+#appintro_window .content .gear:before {
+  content: "\2699";
+}
+/* line 62, scss/_intro.scss */
+#appintro_window .warning {
+  display: none;
+  background-color: #F0E100;
+  color: #4D4D4D;
+}
+/* line 68, scss/_intro.scss */
+#appintro_window footer {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.7em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #BBBBBB;
+  -webkit-border-radius: 0 0 10px 10px;
+}
+/* line 79, scss/_intro.scss */
+#appintro_window footer a, #appintro_window footer a:visited {
+  border-bottom: 1px solid #AAAAAA;
+}
+/* line 84, scss/_intro.scss */
+#appintro_window .button.cancel {
+  color: #9B9B9B;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  margin: 5px;
+  font-size: 12px;
+  border-bottom: none;
+}
+/* line 92, scss/_intro.scss */
+#appintro_window .button.cancel:hover {
+  color: #4D4D4D;
+}
+/* line 95, scss/_intro.scss */
+#appintro_window .button.cancel:before {
+  content: '\2713';
+}

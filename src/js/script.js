@@ -41,7 +41,11 @@ $(document).ready(function () {
 		displayed_stories = [],
 		all_stories = {},
 		article_index = 0;
-		
+	
+	// check for min browser requirements and whether this is
+	// user's first visit
+	PR.detect();
+	
 	instapaperText = function (data) {
         $('#content .body_text').html(data.title).append(data.article);
         $('#content .body_text a').attr('target', '_blank');

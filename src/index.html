@@ -12,6 +12,15 @@
 	<link rel="apple-touch-startup-image" href="img/ipad-splash-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
 	<link rel="apple-touch-startup-image" href="img/ipad-splash-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
     <link rel="stylesheet" href="css/style.css">
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<script>window.html5 || document.write('<script src="js/libs/html5.min.js"><\/script>')</script>
+	<![endif]-->
+	<!--[if IE]>
+	<style type="text/css">
+	.intro, .warning { display: block; }
+	</style>
+	<![endif]-->
 </head>
 
 <body>
@@ -113,11 +122,27 @@
         </div>
     </div>
 	
+    <div id="appintro_backdrop" class="appintro"></div>
+    <div id="appintro_window" class="appintro">
+		<header>
+			<p>Welcome to <strong>PlainReader</strong>, a minimal web-based RSS client for <a href="http://www.newsblur.com">NewsBlur</a>.</p>
+		<section class="content">
+			<p>Try it out in <a href="" class="cancel">demo mode</a>, <span class='gear icon'></span> <a href="" class="login_link">log in with your NewsBlur account</a>, or <a href="https://github.com/lhagan/PlainReader" target="_blank">contribute</a> on GitHub. <small><a href="/about/" class="cancel">More info...</a></small></p>
+		</section>
+		<section class="appintro warning">
+			<p><strong>Warning</strong>: You're using an unsupported browser or device. PlainReader is designed to work on the latest WebKit-based desktop browsers, such as Chrome and Safari, and iPad running iOS 5+.</p>	
+			<p>Go ahead and give it a try if you want, but I can't guarantee anything will work properly!</p>
+		</section>
+		<footer>PlainReader is a <a href="http://lukehagan.com" target="_blank">Luke Hagan</a> production.</footer>
+        <a href="" class="button cancel"></a>
+    </div>
+	
 	<!-- scripts concatenated and minified via build script -->
 	<script src="js/zepto.min.js"></script>
 	<script src="js/newsblur.js"></script>
 	<script src="js/instapaper.js"></script>
 	<script src="js/plugins.js"></script>
+	<script src="js/detect.js"></script>
 	<script src="js/script.js"></script>
 	<!-- end scripts -->
     
