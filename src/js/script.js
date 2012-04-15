@@ -3,7 +3,6 @@ part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.md for details) */
 
-/*global stripTags, console, $, window, document, open, event, setTimeout, clearTimeout, setInterval, smoothScroll, Newsblur, Instapaper */
 /*global PR, stripTags, console, $, window, document, open, event, setTimeout, clearTimeout, setInterval, smoothScroll */
 /*jslint white:	true */
 
@@ -13,7 +12,10 @@ var unreadcount = 0;
 window.onload = function () {
 	"use strict";
 	// refresh feeds on load and every 15 minutes
-	setInterval($('#refresh').trigger('click'), 1000 * 60 * 15);
+	$('#refresh').trigger('click');
+	setInterval(function () {
+		$('#refresh').trigger('click');
+	}, 1000 * 60 * 15);
 };
 
 $(document).ready(function () {
