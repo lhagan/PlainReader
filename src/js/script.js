@@ -3,7 +3,7 @@ part of PlainReader by Luke Hagan
 created: 2011-11-05
 released under the MIT license (see LICENSE.md for details) */
 
-/*global PR, stripTags, console, $, window, document, open, event, setTimeout, clearTimeout, setInterval, smoothScroll */
+/*global PR, console, $, window, document, open, event, setTimeout, clearTimeout, setInterval */
 /*jslint white:	true */
 
 var unreaditems;
@@ -168,7 +168,7 @@ $(document).ready(function () {
 	            $('a .site', item).html(story_obj.site_title);
 	            $('a .date', item).html(story_obj.short_parsed_date);
 	            $('a .title', item).html(story_obj.story_title);
-	            $('a .intro', item).html(stripTags(story_obj.story_content).substring(0, 250));
+	            $('a .intro', item).html($(story_obj.story_content).stripTags().substring(0, 250));
 
 	            // TODO: less hacky way to do this?
 	            $('a .ident_site', item).html(site);
@@ -571,9 +571,9 @@ $(document).ready(function () {
 		// space bar or forward slash
 		if (e.keyCode === 32 || e.keyCode === 191) {
 			if (e.shiftKey) {
-				smoothScroll('content_wrapper', -400, 750);
+				$('#content_wrapper').scroll(-400, 750);
 			} else {
-				smoothScroll('content_wrapper', 400, 750);
+				$('#content_wrapper').scroll(400, 750);
 			}
 			event.preventDefault();
 		}
@@ -642,4 +642,19 @@ $(document).ready(function () {
 	ip = new PR.Instapaper();
 
 	bindDetail();
+	
+	// work-around for bug in Mobile Safari that results in zoom-in when rotating
+	// from portrait to landscape
+	// http://adactio.com/journal/4470/
+	(function () {
+		if ($.os.ios) {
+		    var viewportmeta = document.querySelector('meta[name="viewport"]');
+		    if (viewportmeta) {
+		        viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
+		        document.body.addEventListener('gesturestart', function() {
+		            viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+		        }, false);
+		    }
+		}
+	}());
 });
