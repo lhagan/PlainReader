@@ -3,9 +3,9 @@ part of PlainReader by Luke Hagan
 created: 2012-03-04
 released under the MIT license (see LICENSE.md for details) */
 
-/*global $, console, document*/
+/*global $, PR, console, document*/
 
-var Instapaper = function () {
+PR.Instapaper = function () {
 	"use strict";
 	var parseHTML = function (html) {
 		var root = document.createElement("div"),

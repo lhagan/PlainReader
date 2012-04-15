@@ -3,9 +3,9 @@ part of PlainReader by Luke Hagan
 created: 2012-03-01
 released under the MIT license (see LICENSE.md for details) */
 
-/*global $, console, clearInterval, setInterval, setTimeout, clearTimeout*/
+/*global $, PR, console, clearInterval, setInterval, setTimeout, clearTimeout*/
 
-var Newsblur = function () {
+PR.Newsblur = function () {
 	'use strict';
 	var that = this,
 		processStories,
@@ -106,7 +106,7 @@ var Newsblur = function () {
 			// this assumes that new items always come in at the top of the list
 			page_count = Math.ceil((that.items.unreadcount - old_unreadcount) / 18);
 			if (postdata.length > 0 && current_page <= 1 && page_count > 0) {
-				console.log(postdata);
+				//console.log(postdata);
 				current_page = page_count;
 				getPage(current_page);
 			} else {
@@ -119,7 +119,7 @@ var Newsblur = function () {
 
 	getStories = function (data) {
 		console.log('getting stories');
-		console.log(data);
+		//console.log(data);
 		$.ajax({
 			type: 'POST',
 			url: '/newsblur/reader/river_stories',

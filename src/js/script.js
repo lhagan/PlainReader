@@ -4,6 +4,7 @@ created: 2011-11-05
 released under the MIT license (see LICENSE.md for details) */
 
 /*global stripTags, console, $, window, document, open, event, setTimeout, clearTimeout, setInterval, smoothScroll, Newsblur, Instapaper */
+/*global PR, stripTags, console, $, window, document, open, event, setTimeout, clearTimeout, setInterval, smoothScroll */
 /*jslint white:	true */
 
 var unreaditems;
@@ -635,8 +636,8 @@ $(document).ready(function () {
 		event.preventDefault();
 	});
 
-	nb = new Newsblur();
-	ip = new Instapaper();
+	nb = new PR.Newsblur();
+	ip = new PR.Instapaper();
 
 	bindDetail();
 });
