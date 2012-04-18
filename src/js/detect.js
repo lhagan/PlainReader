@@ -71,6 +71,7 @@ PR.detect = function () {
                 closewindow();
                 event.preventDefault();
             });
+			$('#appintro_window header .img').append($('#settings_popover svg'));
             $('#appintro_window .login_link').click(function (event) {
                 closewindow();
                 $('#settings').trigger('click');

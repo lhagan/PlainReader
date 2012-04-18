@@ -610,7 +610,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 }
 
 @mixin pr-icon {
-	img {
+	svg {
 		float: left;
 	    -webkit-border-radius: 5px;
 	}
