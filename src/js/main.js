@@ -170,7 +170,7 @@ $(document).ready(function () {
 	            $('a .site', item).html(story_obj.site_title);
 	            $('a .date', item).html(story_obj.short_parsed_date);
 	            $('a .title', item).html(story_obj.story_title);
-	            $('a .intro', item).html($(story_obj.story_content).stripTags().substring(0, 250));
+	            $('a .intro', item).html($.stripTags(story_obj.story_content).substring(0, 250));
 
 	            // TODO: less hacky way to do this?
 	            $('a .ident_site', item).html(site);

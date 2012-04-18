@@ -8,15 +8,13 @@ released under the MIT license (see LICENSE.md for details) */
 
 // strip HTML tags
 // based on http://stackoverflow.com/questions/822452/strip-html-from-text-javascript
-(function($){
+(function($) {
     "use strict";
-    $.extend($.fn, {
-        stripTags: function () {
+    $.stripTags = function (content) {
             var tmp = $('<div></div>');
-            tmp.html(this);
+            tmp.html(content);
             return tmp.text();
-        }
-    });
+    };
 }(Zepto));
 
 
