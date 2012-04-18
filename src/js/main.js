@@ -68,6 +68,8 @@ $(document).ready(function () {
             $('#content .body_text').html(story_obj.story_content);
             $('#content header a').unbind('click');
             bindInstapaperText($('#content header a'));
+			// bind detail functions (preview footnotes, inline links, etc.)
+			bindDetail();
             event.preventDefault();
         });
 		// hide and stop progress indicator
