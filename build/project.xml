@@ -16,9 +16,12 @@
 	
     <target name="-stripfont" depends="minify">
     <!-- This is a private target -->
-
-		<exec executable="./build/stripfont.py" failonerror="true" osfamily="unix"/>
-
+		<exec executable="./build/stripfont.py" failonerror="true" osfamily="unix">
+			<arg value="${dir.intermediate}/${dir.css}/style-concat.css"/>
+			<arg value="${dir.source}/fonts/iconic_stroke.otf"/>
+			<arg value="${dir.publish}/fonts/iconic_stroke.otf"/>
+		</exec>
+		
         <echo message="stripped font."/>
     </target>
 	
