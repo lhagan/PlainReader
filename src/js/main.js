@@ -300,14 +300,15 @@ $(document).ready(function () {
     */
     $('#settings').bind('click', function (event) {
 		var go = function (response) {
+			$('#settings_popover').removeClass('animate');
 			if (response === true) {
 				$('#login_form .logout').removeClass('hidden');
-				$('#login input').addClass('hidden');
+				$('#login').addClass('hidden');
 			} else {
 				$('#login_form .logout').addClass('hidden');
-				$('#login input').removeClass('hidden');
+				$('#login').removeClass('hidden');
 			}
-			$('#login_form_wrapper').removeClass('hidden');
+			$('#settings_popover').removeClass('hidden');
 		};
 		// need to temporarily unbind keydown to prevent interference with form submission
 		$(document).unbind('keydown', key_down);
@@ -591,14 +592,14 @@ $(document).ready(function () {
     $('#up').bind('click', prevStory);
 
 	$('#login').submit(function (event) {
-		$('#login_form').removeClass('animate');
+		$('#settings_popover').removeClass('animate');
 		clearStories();
 		var $form = $(this),
 			username = $form.find('input[name="username"]').val(),
 			password = $form.find('input[name="password"]').val(),
 			callback = function (response) {
 				if (response === true) {
-					$('#login_form_wrapper').addClass('hidden');
+					$('#settings_popover').addClass('hidden');
 					// re-bind keydown once form is submitted
 					$(document).bind('keydown', key_down);
 
@@ -608,7 +609,7 @@ $(document).ready(function () {
 					}, 300);
 				} else {
 					$form.find('input[name="password"]').val('');
-					$('#login_form').addClass('animate');
+					$('#settings_popover').addClass('animate');
 					console.log("incorrect login, try again");
 				}
 			};
@@ -617,8 +618,8 @@ $(document).ready(function () {
 		$('#login_form').find('input[name="username"]').focus();
 		event.preventDefault();
 	});
-	$('#login_form .cancel').bind('click', function (event) {
-		$('#login_form_wrapper').addClass('hidden');
+	$('#settings_popover .cancel').bind('click', function (event) {
+		$('#settings_popover').addClass('hidden');
 		$('#login_form').find('input[name="username"]').val('');
 		$('#login_form').find('input[name="password"]').val('');
 
@@ -633,7 +634,7 @@ $(document).ready(function () {
 		nb.logout();
 		$('#login_form').find('input[name="username"]').val('');
 		$('#login_form').find('input[name="password"]').val('');
-		$('#login_form_wrapper').addClass('hidden');
+		$('#settings_popover').addClass('hidden');
 		clearStories();
 		// re-bind keydown on logout
 		$(document).bind('keydown', key_down);

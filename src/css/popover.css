@@ -52,12 +52,21 @@ heavily modified by Luke Hagan 2011-11-06 & 2012-04-01 */
 	border-left: 1px solid #B6B4B3;
 }
 
+.popover.left .arrow {
+    right: auto;
+	left: -12px;
+	top: 15px;
+}
+.popover.left .arrow span {
+	-webkit-transform: rotate(315deg);
+}
+
 .popover .popover-body ul {
     margin: 0;
     padding: 0;
 }
 
-.popover .popover-body ul li {
+.popover.list .popover-body ul li {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     list-style-type: none;
     padding: 0;
@@ -68,12 +77,12 @@ heavily modified by Luke Hagan 2011-11-06 & 2012-04-01 */
     padding: 0 0 0 15px;
 }
 
-.popover .popover-body ul li a {
+.popover.list .popover-body ul li a {
     display: block;
     text-decoration: none;
     color: #B6B4B3;
 }
 
-.popover .popover-body ul li:last-child {
+.popover.list .popover-body ul li:last-child {
     border-bottom: 0;
 }
