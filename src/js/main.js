@@ -11,10 +11,11 @@ var unreadcount = 0;
 
 window.onload = function () {
 	"use strict";
-	// refresh feeds on load and every 15 minutes
+	// hard refresh feeds on load
 	$('#refresh').trigger('click');
 	setInterval(function () {
-		$('#refresh').trigger('click');
+		// soft refresh feeds every 15 minutes
+		PR.refresh(false);
 	}, 1000 * 60 * 15);
 };
 
@@ -104,13 +105,12 @@ $(document).ready(function () {
 
     hideReadStories = function () {
 		// hide read stories;
-		$('#stories li a .status').each(function () {
-			if ($(this).html() === '1') {
-				// TODO: add collapsing animation. This works on Safari but not Mobile Safari.
-				//$(this).parent().parent().animate({height: 0}, 500);
-				$(this).parent().parent().addClass('hidden');
-			}
-		});
+		/*$('#stories li').not('.unread').each(function () {
+			// TODO: add collapsing animation. This works on Safari but not Mobile Safari.
+			//$(this).parent().parent().animate({height: 0}, 500);
+			$(this).addClass('hidden');
+		});*/
+		$('#stories li').not('.unread').addClass('hidden');
 
         // hide the article view
         hideArticleView();
@@ -200,13 +200,18 @@ $(document).ready(function () {
 		var site = $('.ident_site', item).html(),
 			article_id = $('.ident_story', item).html(),
 			id = $(item).parent().attr('id'),
-			status = $('.status', item).html(),
+			read = true,
 			story_obj = all_stories[article_id],
 			list = $('#stories')[0],
 			listheight = list.offsetHeight,
 			elementheight = $(item).parent().height(),
 			currentscroll = list.scrollTop,
 			d;
+			
+		// determine read status
+		if ($(item).parent().hasClass('unread')) {
+			read = false;
+		}	
 
 		// unbind instapaper text link (sometimes conflicts with new bind)
 		$('#content header a').unbind('click');
@@ -220,8 +225,8 @@ $(document).ready(function () {
         $(item).parent().addClass('selected');
 
         // mark article as read
-        if (parseInt(status, 10) === 0) {
-            $('.status', item).html('1');
+        if (!read) {
+			$(item).parent().removeClass('unread');
             unreadcount -= 1;
             updateUnreadCount();
 			console.log('marking as read :' + id);
@@ -281,19 +286,24 @@ $(document).ready(function () {
 			}
 		});
 	};
+	
+	PR.refresh = function (hard) {
+        // spin the refresh button to show progress
+        $('#refresh_wrapper').addClass('spinning');
+        // call refresh on server
+		console.log('updating feeds');
+		nb.refresh(updateFeeds);
+		if (hard) {
+	        // clear stories list
+	        hideReadStories();
+		}
+	};
 
     /*
     Refresh Button
     */
     $('#refresh').bind('click', function (event) {
-        // spin the refresh button to show progress
-        $('#refresh_wrapper').addClass('spinning');
-        // call refresh on server
-        //$.get('/refresh', updateFeeds);
-		console.log('updating feeds');
-		nb.refresh(updateFeeds);
-        // clear stories list
-        hideReadStories();
+		PR.refresh(true);
 		event.preventDefault();
     });
 
