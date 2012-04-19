@@ -684,7 +684,7 @@ img {
 }
 
 /* intro popup */
-/* line 2, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 2, scss/_intro.scss */
 #appintro_backdrop {
   display: none;
   position: absolute;
@@ -696,7 +696,7 @@ img {
   background: rgba(0, 0, 0, 0.4);
 }
 
-/* line 13, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 13, scss/_intro.scss */
 #appintro_window {
   display: none;
   position: relative;
@@ -710,7 +710,7 @@ img {
   z-index: 10001;
   font-size: 18px;
 }
-/* line 26, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 26, scss/_intro.scss */
 #appintro_window header, #appintro_window footer, #appintro_window section {
   padding: 1px 15px 1px 15px;
 }
@@ -724,7 +724,7 @@ img {
 #appintro_window a:hover, #appintro_window a:visited:hover {
   color: #666666;
 }
-/* line 32, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 32, scss/_intro.scss */
 #appintro_window header {
   background-color: rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #BBBBBB;
@@ -735,26 +735,26 @@ img {
   float: left;
   -webkit-border-radius: 5px;
 }
-/* line 40, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 40, scss/_intro.scss */
 #appintro_window header svg {
   margin-right: 15px;
   margin-top: 23px;
 }
-/* line 47, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 47, scss/_intro.scss */
 #appintro_window .content .gear {
   font-size: 18px;
 }
-/* line 49, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 49, scss/_intro.scss */
 #appintro_window .content .gear:before {
   content: "\2699";
 }
-/* line 55, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 55, scss/_intro.scss */
 #appintro_window .warning {
   display: none;
   background-color: #F0E100;
   color: #4D4D4D;
 }
-/* line 61, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 61, scss/_intro.scss */
 #appintro_window footer {
   text-align: center;
   font-style: italic;
@@ -765,11 +765,11 @@ img {
   border-top: 1px solid #BBBBBB;
   -webkit-border-radius: 0 0 10px 10px;
 }
-/* line 72, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 72, scss/_intro.scss */
 #appintro_window footer a, #appintro_window footer a:visited {
   border-bottom: 1px solid #AAAAAA;
 }
-/* line 77, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 77, scss/_intro.scss */
 #appintro_window .button.cancel {
   color: #9B9B9B;
   position: absolute;
@@ -779,17 +779,17 @@ img {
   font-size: 12px;
   border-bottom: none;
 }
-/* line 85, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 85, scss/_intro.scss */
 #appintro_window .button.cancel:hover {
   color: #4D4D4D;
 }
-/* line 88, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_intro.scss */
+/* line 88, scss/_intro.scss */
 #appintro_window .button.cancel:before {
   content: '\2713';
 }
 
 /* login form */
-/* line 3, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 3, scss/_settings.scss */
 #settings_popover {
   width: 555px;
   left: 50px;
@@ -797,7 +797,7 @@ img {
   font-size: 16px;
   color: #4B4B4B;
 }
-/* line 10, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 10, scss/_settings.scss */
 #settings_popover h1 {
   font-size: 18px;
   margin: 0;
@@ -812,18 +812,19 @@ img {
 #settings_popover a:hover, #settings_popover a:visited:hover {
   color: #666666;
 }
-/* line 17, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 17, scss/_settings.scss */
 #settings_popover.animate {
   -webkit-animation-name: shake;
   -webkit-animation-duration: 150ms;
   -webkit-animation-iteration-count: 3;
 }
-/* line 23, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 23, scss/_settings.scss */
 #settings_popover .toolbar {
   position: relative;
   top: 0;
   padding: 10px;
-  margin-bottom: 10px;
+  padding-top: 25px;
+  margin-bottom: 20px;
   margin-left: 50px;
 }
 /* line 613, scss/primary.styles.scss */
@@ -831,27 +832,32 @@ img {
   float: left;
   -webkit-border-radius: 5px;
 }
-/* line 31, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 32, scss/_settings.scss */
 #settings_popover .toolbar svg {
   position: absolute;
   left: -33px;
   top: 20px;
 }
-/* line 37, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 38, scss/_settings.scss */
+#settings_popover .toolbar h1 {
+  display: inline;
+  margin-right: 15px;
+}
+/* line 43, scss/_settings.scss */
 #settings_popover .toolbar h1, #settings_popover .toolbar a {
   margin-top: 3px;
   margin-bottom: 5px;
 }
-/* line 42, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 48, scss/_settings.scss */
 #settings_popover .toolbar a {
   font-size: 0.9em;
   border: none;
 }
-/* line 45, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 51, scss/_settings.scss */
 #settings_popover .toolbar a:hover {
   border-bottom: 1px solid #CCCCCC;
 }
-/* line 50, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 56, scss/_settings.scss */
 #settings_popover .toolbar .button.cancel {
   color: #9B9B9B;
   position: absolute;
@@ -862,47 +868,47 @@ img {
   border-bottom: none;
   text-decoration: none;
 }
-/* line 59, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 65, scss/_settings.scss */
 #settings_popover .toolbar .button.cancel:hover {
   color: #4D4D4D;
 }
-/* line 62, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 68, scss/_settings.scss */
 #settings_popover .toolbar .button.cancel:before {
   content: '\2713';
 }
-/* line 68, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 74, scss/_settings.scss */
 #settings_popover section {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   margin-right: 15px;
 }
-/* line 73, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 79, scss/_settings.scss */
 #settings_popover section, #settings_popover footer {
   margin-left: 15px;
 }
-/* line 75, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 81, scss/_settings.scss */
 #settings_popover section p, #settings_popover footer p {
   margin: 0;
 }
-/* line 79, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 85, scss/_settings.scss */
 #settings_popover section table, #settings_popover footer table {
   text-align: left;
   font-size: 0.8em;
-  margin-top: 5px;
+  margin-top: 15px;
   width: 100%;
 }
-/* line 84, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
-#settings_popover section table th, #settings_popover section table tr:last-child, #settings_popover footer table th, #settings_popover footer table tr:last-child {
+/* line 90, scss/_settings.scss */
+#settings_popover section table th, #settings_popover footer table th {
   border-bottom: 1px solid #CCCCCC;
 }
-/* line 87, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 93, scss/_settings.scss */
 #settings_popover section table td, #settings_popover footer table td {
   padding: 5px 15px 5px 0;
 }
-/* line 91, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 97, scss/_settings.scss */
 #settings_popover section table tr td:first-child, #settings_popover footer table tr td:first-child {
   font-style: italic;
 }
-/* line 93, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 99, scss/_settings.scss */
 #settings_popover section table tr td:first-child em, #settings_popover footer table tr td:first-child em {
   font-style: normal;
   font-family: 'Monaco', 'Courier', monospace;
@@ -911,7 +917,7 @@ img {
   border-radius: 3px;
   padding: 0 5px;
 }
-/* line 107, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 113, scss/_settings.scss */
 #settings_popover #login_form #submit {
   /* http://developers.enormego.com/view/enter_return_key_to_submit_forms_in_html5 */
   position: absolute;
@@ -922,15 +928,15 @@ img {
   height: 1px;
   visibility: hidden;
 }
-/* line 118, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 124, scss/_settings.scss */
 #settings_popover #login_form form {
   margin-bottom: 15px;
 }
-/* line 119, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 125, scss/_settings.scss */
 #settings_popover #login_form form p {
   margin-bottom: 10px;
 }
-/* line 125, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 131, scss/_settings.scss */
 #settings_popover #login_form input {
   border: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -942,21 +948,21 @@ img {
   font-size: 18px;
   text-align: center;
 }
-/* line 135, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 141, scss/_settings.scss */
 #settings_popover #login_form input:hover, #settings_popover #login_form input:focus {
   outline: none;
 }
-/* line 138, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 144, scss/_settings.scss */
 #settings_popover #login_form input[name="username"] {
   border-radius: 5px 0 0 5px;
 }
-/* line 141, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 147, scss/_settings.scss */
 #settings_popover #login_form input[name="password"] {
   border-radius: 0 5px 5px 0;
   margin-left: -5px;
   border-left: 0;
 }
-/* line 148, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 154, scss/_settings.scss */
 #settings_popover #login_form .logout {
   border: 1px solid rgba(0, 0, 0, 0.1);
   background-color: rgba(0, 0, 0, 0.05);
@@ -970,24 +976,24 @@ img {
   padding: 10px 18px 8px 18px;
   font-size: 18px;
 }
-/* line 160, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+/* line 166, scss/_settings.scss */
 #settings_popover #login_form .logout:hover {
   background-color: rgba(0, 0, 0, 0.08);
   color: #4D4D4D;
 }
 
 @-webkit-keyframes shake {
-  /* line 169, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+  /* line 175, scss/_settings.scss */
   0%, 100% {
     -webkit-transform: translateX(0);
   }
 
-  /* line 173, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+  /* line 179, scss/_settings.scss */
   25% {
     -webkit-transform: translateX(-10px);
   }
 
-  /* line 177, /Users/lhagan/Documents/Projects/PlainReader/PlainReader2/src/css/scss/_settings.scss */
+  /* line 183, scss/_settings.scss */
   75% {
     -webkit-transform: translateX(10px);
   }

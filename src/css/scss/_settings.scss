@@ -9,7 +9,7 @@
 	
     h1 {
         font-size: 18px;
-		margin: 0;	
+		margin: 0;
     }
 	
 	@include grey_link;
@@ -24,7 +24,8 @@
         position: relative;
         top: 0;
         padding: 10px;
-		margin-bottom: 10px;
+		padding-top: 25px;
+		margin-bottom: 20px;
 		margin-left: 50px;
 		
 		@include pr-icon;
@@ -32,6 +33,11 @@
 			position: absolute;
 			left: -33px;
 			top: 20px;
+		}
+		
+		h1 {
+			display: inline;
+			margin-right: 15px;
 		}
 		
 		h1, a {
@@ -66,7 +72,7 @@
     }
 	
 	section {
-		margin-bottom: 20px;
+		margin-bottom: 30px;
 		margin-right: 15px;
 	}
 		
@@ -79,9 +85,9 @@
 		table {
 			text-align: left;
 			font-size: 0.8em;
-			margin-top: 5px;
+			margin-top: 15px;
 			width: 100%;
-			th, tr:last-child {
+			th {
 				border-bottom: 1px solid #CCCCCC;
 			}
 			td {
