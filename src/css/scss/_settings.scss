@@ -1,4 +1,4 @@
-/* login form */
+/* settings form */
 
 #settings_popover {
     width: 555px;
@@ -46,7 +46,7 @@
 		}
 		
 		a {
-			font-size: 0.9em;
+			//font-size: 0.9em;
 		}
         
         .button.cancel {
@@ -78,30 +78,10 @@
             margin: 0;
         }
 		
-		table {
-			text-align: left;
+		table.keyboard {
 			font-size: 0.8em;
 			margin-top: 15px;
 			width: 100%;
-			th {
-				border-bottom: 1px solid #CCCCCC;
-			}
-			td {
-				padding: 5px 15px 5px 0;
-			}
-			tr {
-				td:first-child {
-					font-style: italic;
-					em {
-						font-style: normal;
-						font-family: 'Monaco', 'Courier', monospace;
-						border: 1px solid rgba(0, 0, 0, 0.1);
-						background-color: rgba(0, 0, 0, 0.05);
-						border-radius: 3px;	
-						padding: 0 5px;					
-					}
-				}
-			}
 		}
 	}
     

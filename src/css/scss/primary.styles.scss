@@ -27,11 +27,11 @@ body {
     overflow: hidden;
 }
 
-ins {
+ins, ins p, ins a, ins span, ins em, ins strong {
     background: rgba(0, 255, 0, 0.15);
 }
 
-del {
+del, del p, del a, del span, del em, del strong {
     background: rgba(255, 0, 0, 0.15);
 }
 
@@ -622,3 +622,4 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 
 @import 'intro';
 @import 'settings';
+@import 'keyboard';

@@ -29,12 +29,12 @@ body {
 }
 
 /* line 30, scss/primary.styles.scss */
-ins {
+ins, ins p, ins a, ins span, ins em, ins strong {
   background: rgba(0, 255, 0, 0.15);
 }
 
 /* line 34, scss/primary.styles.scss */
-del {
+del, del p, del a, del span, del em, del strong {
   background: rgba(255, 0, 0, 0.15);
 }
 
@@ -793,7 +793,7 @@ img {
   content: '\2713';
 }
 
-/* login form */
+/* settings form */
 /* line 3, scss/_settings.scss */
 #settings_popover {
   width: 555px;
@@ -853,10 +853,6 @@ img {
   margin-top: 3px;
   margin-bottom: 5px;
 }
-/* line 48, scss/_settings.scss */
-#settings_popover .toolbar a {
-  font-size: 0.9em;
-}
 /* line 52, scss/_settings.scss */
 #settings_popover .toolbar .button.cancel {
   color: #9B9B9B;
@@ -890,34 +886,12 @@ img {
   margin: 0;
 }
 /* line 81, scss/_settings.scss */
-#settings_popover section table, #settings_popover footer table {
-  text-align: left;
+#settings_popover section table.keyboard, #settings_popover footer table.keyboard {
   font-size: 0.8em;
   margin-top: 15px;
   width: 100%;
 }
-/* line 86, scss/_settings.scss */
-#settings_popover section table th, #settings_popover footer table th {
-  border-bottom: 1px solid #CCCCCC;
-}
 /* line 89, scss/_settings.scss */
-#settings_popover section table td, #settings_popover footer table td {
-  padding: 5px 15px 5px 0;
-}
-/* line 93, scss/_settings.scss */
-#settings_popover section table tr td:first-child, #settings_popover footer table tr td:first-child {
-  font-style: italic;
-}
-/* line 95, scss/_settings.scss */
-#settings_popover section table tr td:first-child em, #settings_popover footer table tr td:first-child em {
-  font-style: normal;
-  font-family: 'Monaco', 'Courier', monospace;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 3px;
-  padding: 0 5px;
-}
-/* line 109, scss/_settings.scss */
 #settings_popover #login_form #submit {
   /* http://developers.enormego.com/view/enter_return_key_to_submit_forms_in_html5 */
   position: absolute;
@@ -928,15 +902,15 @@ img {
   height: 1px;
   visibility: hidden;
 }
-/* line 120, scss/_settings.scss */
+/* line 100, scss/_settings.scss */
 #settings_popover #login_form form {
   margin-bottom: 15px;
 }
-/* line 121, scss/_settings.scss */
+/* line 101, scss/_settings.scss */
 #settings_popover #login_form form p {
   margin-bottom: 10px;
 }
-/* line 127, scss/_settings.scss */
+/* line 107, scss/_settings.scss */
 #settings_popover #login_form input {
   border: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -948,21 +922,21 @@ img {
   font-size: 18px;
   text-align: center;
 }
-/* line 137, scss/_settings.scss */
+/* line 117, scss/_settings.scss */
 #settings_popover #login_form input:hover, #settings_popover #login_form input:focus {
   outline: none;
 }
-/* line 140, scss/_settings.scss */
+/* line 120, scss/_settings.scss */
 #settings_popover #login_form input[name="username"] {
   border-radius: 5px 0 0 5px;
 }
-/* line 143, scss/_settings.scss */
+/* line 123, scss/_settings.scss */
 #settings_popover #login_form input[name="password"] {
   border-radius: 0 5px 5px 0;
   margin-left: -5px;
   border-left: 0;
 }
-/* line 150, scss/_settings.scss */
+/* line 130, scss/_settings.scss */
 #settings_popover #login_form .logout {
   border: 1px solid rgba(0, 0, 0, 0.1);
   background-color: rgba(0, 0, 0, 0.05);
@@ -976,25 +950,54 @@ img {
   padding: 10px 18px 8px 18px;
   font-size: 18px;
 }
-/* line 162, scss/_settings.scss */
+/* line 142, scss/_settings.scss */
 #settings_popover #login_form .logout:hover {
   background-color: rgba(0, 0, 0, 0.08);
   color: #4D4D4D;
 }
 
 @-webkit-keyframes shake {
-  /* line 171, scss/_settings.scss */
+  /* line 151, scss/_settings.scss */
   0%, 100% {
     -webkit-transform: translateX(0);
   }
 
-  /* line 175, scss/_settings.scss */
+  /* line 155, scss/_settings.scss */
   25% {
     -webkit-transform: translateX(-10px);
   }
 
-  /* line 179, scss/_settings.scss */
+  /* line 159, scss/_settings.scss */
   75% {
     -webkit-transform: translateX(10px);
   }
+}
+
+/* line 1, scss/_keyboard.scss */
+table.keyboard {
+  text-align: left;
+  font-size: 0.8em;
+  margin-top: 15px;
+  width: 100%;
+}
+/* line 6, scss/_keyboard.scss */
+table.keyboard th {
+  border-bottom: 1px solid #CCCCCC;
+}
+/* line 9, scss/_keyboard.scss */
+table.keyboard td {
+  padding: 5px 15px 5px 0;
+}
+/* line 13, scss/_keyboard.scss */
+table.keyboard tr td:first-child {
+  font-style: italic;
+}
+/* line 15, scss/_keyboard.scss */
+table.keyboard tr td:first-child em {
+  font-style: normal;
+  font-family: 'Monaco', 'Courier', monospace;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  padding: 0 5px;
 }
