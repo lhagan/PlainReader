@@ -688,6 +688,27 @@ img {
   display: none;
 }
 
+/* line 605, scss/primary.styles.scss */
+.button.button-flat-grey {
+  font-family: 'Helvetica', 'Arial', 'sans-serif';
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  color: #9B9B9B;
+  position: relative;
+  text-align: center;
+  display: inline;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 18px 8px 18px;
+  font-size: 18px;
+}
+/* line 618, scss/primary.styles.scss */
+.button.button-flat-grey:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: #4D4D4D;
+}
+
 /* intro popup */
 /* line 2, scss/_intro.scss */
 #appintro_backdrop {
@@ -719,13 +740,13 @@ img {
 #appintro_window header, #appintro_window footer, #appintro_window section {
   padding: 1px 15px 1px 15px;
 }
-/* line 606, scss/primary.styles.scss */
+/* line 625, scss/primary.styles.scss */
 #appintro_window a, #appintro_window a:visited {
   text-decoration: none;
   border-bottom: 1px solid #CCCCCC;
   color: #4B4B4B;
 }
-/* line 610, scss/primary.styles.scss */
+/* line 629, scss/primary.styles.scss */
 #appintro_window a:hover, #appintro_window a:visited:hover {
   color: #666666;
 }
@@ -735,7 +756,7 @@ img {
   border-bottom: 1px solid #BBBBBB;
   -webkit-border-radius: 10px 10px 0 0;
 }
-/* line 617, scss/primary.styles.scss */
+/* line 636, scss/primary.styles.scss */
 #appintro_window header svg {
   float: left;
   -webkit-border-radius: 5px;
@@ -745,21 +766,25 @@ img {
   margin-right: 15px;
   margin-top: 23px;
 }
-/* line 47, scss/_intro.scss */
+/* line 44, scss/_intro.scss */
+#appintro_window header a {
+  border-bottom: 1px solid #555555 !important;
+}
+/* line 50, scss/_intro.scss */
 #appintro_window .content .gear {
   font-size: 18px;
 }
-/* line 49, scss/_intro.scss */
+/* line 52, scss/_intro.scss */
 #appintro_window .content .gear:before {
   content: "\2699";
 }
-/* line 55, scss/_intro.scss */
+/* line 58, scss/_intro.scss */
 #appintro_window .warning {
   display: none;
   background-color: #F0E100;
   color: #4D4D4D;
 }
-/* line 61, scss/_intro.scss */
+/* line 64, scss/_intro.scss */
 #appintro_window footer {
   text-align: center;
   font-style: italic;
@@ -770,11 +795,11 @@ img {
   border-top: 1px solid #BBBBBB;
   -webkit-border-radius: 0 0 10px 10px;
 }
-/* line 72, scss/_intro.scss */
+/* line 75, scss/_intro.scss */
 #appintro_window footer a, #appintro_window footer a:visited {
   border-bottom: 1px solid #AAAAAA;
 }
-/* line 77, scss/_intro.scss */
+/* line 80, scss/_intro.scss */
 #appintro_window .button.cancel {
   color: #9B9B9B;
   position: absolute;
@@ -784,11 +809,11 @@ img {
   font-size: 12px;
   border-bottom: none;
 }
-/* line 85, scss/_intro.scss */
+/* line 88, scss/_intro.scss */
 #appintro_window .button.cancel:hover {
   color: #4D4D4D;
 }
-/* line 88, scss/_intro.scss */
+/* line 91, scss/_intro.scss */
 #appintro_window .button.cancel:before {
   content: '\2713';
 }
@@ -807,13 +832,13 @@ img {
   font-size: 18px;
   margin: 0;
 }
-/* line 606, scss/primary.styles.scss */
+/* line 625, scss/primary.styles.scss */
 #settings_popover a, #settings_popover a:visited {
   text-decoration: none;
   border-bottom: 1px solid #CCCCCC;
   color: #4B4B4B;
 }
-/* line 610, scss/primary.styles.scss */
+/* line 629, scss/primary.styles.scss */
 #settings_popover a:hover, #settings_popover a:visited:hover {
   color: #666666;
 }
@@ -832,7 +857,7 @@ img {
   margin-bottom: 20px;
   margin-left: 50px;
 }
-/* line 617, scss/primary.styles.scss */
+/* line 636, scss/primary.styles.scss */
 #settings_popover .toolbar svg {
   float: left;
   -webkit-border-radius: 5px;
@@ -936,38 +961,19 @@ img {
   margin-left: -5px;
   border-left: 0;
 }
-/* line 130, scss/_settings.scss */
-#settings_popover #login_form .logout {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 5px;
-  color: #9B9B9B;
-  position: relative;
-  text-align: center;
-  display: inline;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px 18px 8px 18px;
-  font-size: 18px;
-}
-/* line 142, scss/_settings.scss */
-#settings_popover #login_form .logout:hover {
-  background-color: rgba(0, 0, 0, 0.08);
-  color: #4D4D4D;
-}
 
 @-webkit-keyframes shake {
-  /* line 151, scss/_settings.scss */
+  /* line 133, scss/_settings.scss */
   0%, 100% {
     -webkit-transform: translateX(0);
   }
 
-  /* line 155, scss/_settings.scss */
+  /* line 137, scss/_settings.scss */
   25% {
     -webkit-transform: translateX(-10px);
   }
 
-  /* line 159, scss/_settings.scss */
+  /* line 141, scss/_settings.scss */
   75% {
     -webkit-transform: translateX(10px);
   }

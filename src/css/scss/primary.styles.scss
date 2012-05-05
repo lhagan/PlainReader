@@ -602,6 +602,25 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 	}
 }
 
+.button.button-flat-grey {
+	font-family: 'Helvetica', 'Arial', 'sans-serif';
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.05);
+	border-radius: 5px;	
+    color: #9B9B9B;
+    position: relative;
+    text-align: center;
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+	padding: 8px 18px 8px 18px;
+    font-size: 18px;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+		color: #4D4D4D;
+    }
+}
+
 @mixin grey-link {
 	a, a:visited {
 	    text-decoration: none;
