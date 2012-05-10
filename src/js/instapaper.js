@@ -25,6 +25,7 @@ PR.Instapaper = function () {
 				}
 			}
 		}
+		$(article).append('<br /><p><em>Cleaned up text view provided by <a href="http://www.instapaper.com">Instapaper</em></a>.</p>');
 		return { 'title': title, 'article': article };
 	};
 
