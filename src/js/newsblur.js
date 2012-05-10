@@ -8,6 +8,8 @@ released under the MIT license (see LICENSE.md for details) */
 PR.Newsblur = function () {
 	'use strict';
 	var that = this,
+		updateUnreadCount,
+		invokeCallback,
 		processStories,
 		processFeeds,
 		getPage,
@@ -16,11 +18,31 @@ PR.Newsblur = function () {
 		unreadfeeds = {},
 		callback,
 		mark_read_queue = {},
+		mark_read_queue_count = 0,
+		raw_unread_count = 0,
 		current_page = 0,
 		page_count = 0,
 		postdata = "";
 
 	this.items = {'stories': [], 'unreadcount': 0};
+
+	updateUnreadCount = function (delta, zero) {
+		if (zero) {
+			raw_unread_count = 0;
+		} else {
+			// adjust raw count
+			raw_unread_count += delta;
+		}
+
+		// adjust unread count to reflect any items in the mark_read_queue
+		console.log('raw unread count: ' + raw_unread_count + ' mark read queue count: ' + mark_read_queue_count);
+		that.items.unreadcount = raw_unread_count - mark_read_queue_count;
+	};
+
+	invokeCallback = function () {
+		updateUnreadCount(0);
+		callback();
+	};
 
 	processStories = function (json) {
 		var allstories = json.stories,
@@ -71,7 +93,9 @@ PR.Newsblur = function () {
 		} else {
 			that.getNextPage();
 		}
-		callback();
+
+		invokeCallback();
+
 		if (allstories.length < 10) {
 			that.getNextPage(callback);
 		}
@@ -85,7 +109,7 @@ PR.Newsblur = function () {
 
 		postdata = "";
 		// zero the unread count
-		that.items.unreadcount = 0;
+		updateUnreadCount(0, true);
 
 		console.log('processing feeds');
 		if (feeds !== undefined && Object.keys(feeds).length > 0) {
@@ -94,7 +118,7 @@ PR.Newsblur = function () {
 					feed = feeds[feed_id];
 					if (feed.ps !== 0 || feed.nt !== 0) {
 						unreadfeeds[feed_id] = feed.feed_title;
-						that.items.unreadcount += (feed.ps + feed.nt);
+						updateUnreadCount(feed.ps + feed.nt);
 						postdata += 'feeds=' + feed_id + '&';
 					}
 					if (!mark_read_queue.hasOwnProperty(feed_id)) {
@@ -102,6 +126,7 @@ PR.Newsblur = function () {
 					}
 				}
 			}
+
 			// only load more pages if we're already on page 1
 			// this assumes that new items always come in at the top of the list
 			page_count = Math.ceil((that.items.unreadcount - old_unreadcount) / 18);
@@ -110,10 +135,10 @@ PR.Newsblur = function () {
 				current_page = page_count;
 				getPage(current_page);
 			} else {
-				callback();
+				invokeCallback();
 			}
 		} else {
-			callback();
+			invokeCallback();
 		}
 	};
 
@@ -159,7 +184,7 @@ PR.Newsblur = function () {
 			current_page -= 1;
 			getPage(current_page);
 		} else {
-			callback();
+			invokeCallback();
 		}
 	};
 
@@ -167,10 +192,12 @@ PR.Newsblur = function () {
 		this.items = {'stories': [], 'unreadcount': 0};
 		current_page = 0;
 		page_count = 0;
+		updateUnreadCount(0, true);
 	};
 
 	this.refresh = function (call) {
 		callback = call;
+		console.log('newsblur refresh');
 		// need to refresh feeds before getting list to ensure count isn't stale
 		$.getJSON('/newsblur/reader/refresh_feeds', function () {
 			$.getJSON('/newsblur/reader/feeds', processFeeds);
@@ -190,7 +217,7 @@ PR.Newsblur = function () {
 				clear = function (feed, count) {
 					console.log('mark as read successful');
 					mark_read_queue[feed] = [];
-					that.items.unreadcount -= count;
+					updateUnreadCount(-count);
 				},
 
 				ajax = function (data) {
@@ -211,7 +238,7 @@ PR.Newsblur = function () {
 						data = "feed_id=" + feed;
 						for (i = 0; i < queue.length; i += 1) {
 							data += "&story_id=" + queue[i];
-							//that.items.unreadcount -= 1;
+							mark_read_queue_count -= 1;
 						}
 						clear(feed, queue.length);
 						ajax(data);
@@ -225,6 +252,7 @@ PR.Newsblur = function () {
 				clearTimeout(interval);
 
 				mark_read_queue[feed_id].push(story_id);
+				mark_read_queue_count += 1;
 				if (mark_read_queue[feed_id].length >= 5) {
 					run();
 				} else {
