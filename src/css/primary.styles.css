@@ -555,20 +555,27 @@ img {
 }
 
 /* line 518, scss/primary.styles.scss */
+#pinboard_popover {
+  right: 25px;
+  top: 40px;
+  width: 125px;
+}
+
+/* line 524, scss/primary.styles.scss */
 #detail_popover {
   width: 85px;
 }
-/* line 520, scss/primary.styles.scss */
+/* line 526, scss/primary.styles.scss */
 #detail_popover .arrow {
   right: 30px;
 }
-/* line 523, scss/primary.styles.scss */
+/* line 529, scss/primary.styles.scss */
 #detail_popover .toolbar {
   position: relative;
   top: 0;
   height: 46px;
 }
-/* line 527, scss/primary.styles.scss */
+/* line 533, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper {
   position: absolute;
   width: 20px;
@@ -578,43 +585,43 @@ img {
   top: 15px;
   overflow: hidden;
 }
-/* line 535, scss/primary.styles.scss */
+/* line 541, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper a {
   position: relative;
 }
-/* line 538, scss/primary.styles.scss */
+/* line 544, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.preview {
   left: 11px;
 }
-/* line 540, scss/primary.styles.scss */
+/* line 546, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.preview a {
   top: 1px;
   left: 2px;
 }
-/* line 541, scss/primary.styles.scss */
+/* line 547, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.preview a:before {
   content: '\e025';
 }
-/* line 549, scss/primary.styles.scss */
+/* line 555, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.preview.spinning a:before {
   content: '\e037';
 }
-/* line 555, scss/primary.styles.scss */
+/* line 561, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.newtab {
   right: 13px;
 }
-/* line 558, scss/primary.styles.scss */
+/* line 564, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.newtab a:before {
   content: '\e059';
 }
-/* line 564, scss/primary.styles.scss */
+/* line 570, scss/primary.styles.scss */
 #detail_popover .toolbar a {
   font-size: 16px;
   display: block;
   text-decoration: none;
   color: #B6B4B3;
 }
-/* line 570, scss/primary.styles.scss */
+/* line 576, scss/primary.styles.scss */
 #detail_popover .toolbar .title {
   overflow: hidden;
   white-space: nowrap;
@@ -625,12 +632,12 @@ img {
   line-height: 48px;
   font-size: 14px;
 }
-/* line 579, scss/primary.styles.scss */
+/* line 585, scss/primary.styles.scss */
 #detail_popover .toolbar .title #titlebar h1 {
   font-size: 1.15em;
   display: inline;
 }
-/* line 583, scss/primary.styles.scss */
+/* line 589, scss/primary.styles.scss */
 #detail_popover .toolbar .title a, #detail_popover .toolbar .title div {
   display: inline;
 }
@@ -653,7 +660,7 @@ img {
 #detail_popover .toolbar .title .byline_divider, #detail_popover .toolbar .title br {
   display: none;
 }
-/* line 589, scss/primary.styles.scss */
+/* line 595, scss/primary.styles.scss */
 #detail_popover .content {
   height: 0;
   margin: 15px;
@@ -663,7 +670,7 @@ img {
   color: #4B4B4B;
   font-size: 16px;
 }
-/* line 597, scss/primary.styles.scss */
+/* line 603, scss/primary.styles.scss */
 #detail_popover .content h1, #detail_popover .content h2, #detail_popover .content h3, #detail_popover .content h4, #detail_popover .content h5, #detail_popover .content h6, #detail_popover .content li {
   font-size: 16px;
   display: inline;
@@ -688,7 +695,7 @@ img {
   display: none;
 }
 
-/* line 605, scss/primary.styles.scss */
+/* line 611, scss/primary.styles.scss */
 .button.button-flat-grey {
   font-family: 'Helvetica', 'Arial', 'sans-serif';
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -703,7 +710,7 @@ img {
   padding: 8px 18px 8px 18px;
   font-size: 18px;
 }
-/* line 618, scss/primary.styles.scss */
+/* line 624, scss/primary.styles.scss */
 .button.button-flat-grey:hover {
   background-color: rgba(0, 0, 0, 0.08);
   color: #4D4D4D;
@@ -740,13 +747,13 @@ img {
 #appintro_window header, #appintro_window footer, #appintro_window section {
   padding: 1px 15px 1px 15px;
 }
-/* line 625, scss/primary.styles.scss */
+/* line 631, scss/primary.styles.scss */
 #appintro_window a, #appintro_window a:visited {
   text-decoration: none;
   border-bottom: 1px solid #CCCCCC;
   color: #4B4B4B;
 }
-/* line 629, scss/primary.styles.scss */
+/* line 635, scss/primary.styles.scss */
 #appintro_window a:hover, #appintro_window a:visited:hover {
   color: #666666;
 }
@@ -756,7 +763,7 @@ img {
   border-bottom: 1px solid #BBBBBB;
   -webkit-border-radius: 10px 10px 0 0;
 }
-/* line 636, scss/primary.styles.scss */
+/* line 642, scss/primary.styles.scss */
 #appintro_window header svg {
   float: left;
   -webkit-border-radius: 5px;
@@ -832,13 +839,13 @@ img {
   font-size: 18px;
   margin: 0;
 }
-/* line 625, scss/primary.styles.scss */
+/* line 631, scss/primary.styles.scss */
 #settings_popover a, #settings_popover a:visited {
   text-decoration: none;
   border-bottom: 1px solid #CCCCCC;
   color: #4B4B4B;
 }
-/* line 629, scss/primary.styles.scss */
+/* line 635, scss/primary.styles.scss */
 #settings_popover a:hover, #settings_popover a:visited:hover {
   color: #666666;
 }
@@ -857,7 +864,7 @@ img {
   margin-bottom: 20px;
   margin-left: 50px;
 }
-/* line 636, scss/primary.styles.scss */
+/* line 642, scss/primary.styles.scss */
 #settings_popover .toolbar svg {
   float: left;
   -webkit-border-radius: 5px;
