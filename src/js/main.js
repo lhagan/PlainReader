@@ -392,7 +392,7 @@ $(document).ready(function () {
 		$('#detail_popover').addClass('hidden');
 		$('#detail_popover.expanded .content').addClass('hidden');
 		$('#detail_popover .toolbar').removeClass('hidden');
-		$('#detail_popover').width(85);
+		$('#detail_popover').removeAttr('style');
 		$('#detail_popover .arrow').css('right', '30px');
 		$('#detail_popover').removeClass('expanded');
 		$('#content_wrapper a.selected').removeClass('selected');
@@ -419,7 +419,7 @@ $(document).ready(function () {
 		bindDetailPreview = function () {
 			$($('#content .body_text a')).click(function (event) {
 				var that = this,
-					loc_left = event.pageX - 415,
+					loc_left = event.pageX - 412,
 					loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop + $(this).offset().height - 35;
 
 				if (loc_left < 5) {
@@ -494,11 +494,11 @@ $(document).ready(function () {
 
 					console.log('previewing link');
 
-					$('#detail_popover').animate({ left: 10, width: body_width - 10 }, { duration: 750, complete: function () {
+					$('#detail_popover').animate({ left: 56, width: body_width }, { duration: 750, complete: function () {
 						show_detail();
 						$('#detail_popover .content').animate({ height: 75 }, { duration: 750 });
 					}});
-					$('#detail_popover .arrow').animate({ right: body_width - loc_left - 54 }, { duration: 750 });
+					$('#detail_popover .arrow').animate({ right: body_width - loc_left }, { duration: 750 });
 				},
 				handle_footnote = function () {
 					/*
@@ -519,8 +519,8 @@ $(document).ready(function () {
 						footnote_el = $(rel);
 						if (footnote_el.length > 0) {
 							$('#detail_popover .content').html(footnote_el.html());
-							$('#detail_popover').css({ left: 10, width: body_width - 10 });
-							$('#detail_popover .arrow').css({ right: body_width - loc_left - 54 });
+							$('#detail_popover').css({ left: 56, width: body_width });
+							$('#detail_popover .arrow').css({ right: body_width - loc_left - 3 });
 							$('#detail_popover .content').css({ height: 'auto' });
 							show_detail();
 						} else {

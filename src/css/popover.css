@@ -9,9 +9,8 @@ heavily modified by Luke Hagan 2011-11-06 & 2012-04-01 */
 
 .popover {
     position: absolute;
-    right: 25px;
-    top: 40px;
-    width: 125px;
+    /*right: 25px;
+    top: 40px;*/
     margin: 0 0px;
     z-index: 10000;
 }
