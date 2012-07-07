@@ -102,7 +102,7 @@ PR.Newsblur = function () {
 	};
 
 	processFeeds = function (json) {
-		var feeds = json.feeds,
+		var feeds = (json) ? json.feeds : [],
 			feed,
 			feed_id,
 			old_unreadcount = that.items.unreadcount;
@@ -151,7 +151,7 @@ PR.Newsblur = function () {
 			data: data,
 			dataType: 'json',
 			success: processStories,
-			error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
+			error: function (xhr, type) { console.log(type + " " + xhr.statusText + "!"); }
 		});
 	};
 
@@ -198,9 +198,24 @@ PR.Newsblur = function () {
 	this.refresh = function (call) {
 		callback = call;
 		console.log('newsblur refresh');
+
+		var ajax = function (protocol, url, data, callback) {
+			$.ajax({
+				type: protocol,
+				url: url,
+				data: data,
+				dataType: 'json',
+				success: callback,
+				error: function (xhr, type) {
+					console.log(type + " " + xhr.statusText + "!");
+					callback();
+				}
+			});
+		};
+
 		// need to refresh feeds before getting list to ensure count isn't stale
-		$.getJSON('/newsblur/reader/refresh_feeds', function () {
-			$.getJSON('/newsblur/reader/feeds', processFeeds);
+		ajax('GET', '/newsblur/reader/refresh_feeds', null, function () {
+			ajax('GET', '/newsblur/reader/feeds', null, processFeeds);
 		});
 	};
 
@@ -227,7 +242,7 @@ PR.Newsblur = function () {
 						data: data,
 						dataType: 'json',
 						//success: function () { clear(feed); },
-						error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
+						error: function (xhr, type) { console.log(type + " " + xhr.statusText + "!"); }
 					});
 				};
 
@@ -274,7 +289,7 @@ PR.Newsblur = function () {
 			data: {'username': username, 'password': password},
 			dataType: 'json',
 			success: check,
-			error: function (xhr, type) { console.log("error! " + xhr + " " + type); }
+			error: function (xhr, type) { console.log(type + " " + xhr.statusText + "!"); }
 		});
     };
 
