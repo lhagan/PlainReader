@@ -84,6 +84,8 @@ PR.Newsblur = function () {
 
 				if (page_empty) {
 					// page was empty, try next
+                    console.log('empty page');
+                    
 					that.getNextPage(callback);
 				} else {
 					// sort items by date
@@ -91,7 +93,7 @@ PR.Newsblur = function () {
 				}
 			}
 		} else {
-			that.getNextPage();
+			that.getNextPage(callback);
 		}
 
 		invokeCallback();
