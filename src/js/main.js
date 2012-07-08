@@ -21,11 +21,7 @@ window.onload = function () {
 
 $(document).ready(function () {
 	"use strict";
-	var instapaperText,
-		bindInstapaperText,
-		showArticleView,
-		hideArticleView,
-		hideReadStories,
+	var hideReadStories,
 		clearStories,
 		updateUnreadCount,
 		getUnread,
@@ -34,14 +30,12 @@ $(document).ready(function () {
 		bindItemClick,
 		bindScroll,
 		hide_popover,
-		bindDetail,
-		bindDetailPreview,
-		preview_link,
 		nextStory,
 		prevStory,
 		key_down,
 		nb,
 		ip,
+        articleview,
 		displayed_stories = [],
 		all_stories = {},
 		article_index = 0;
@@ -50,58 +44,7 @@ $(document).ready(function () {
 	// user's first visit
 	PR.detect();
 	
-	instapaperText = function (data) {
-        $('#content .body_text').html(data.title).append(data.article);
-        $('#content .body_text a').attr('target', '_blank');
-		$('#content .body_text a').attr('rel', 'noreferrer');
-        $('#content header a').unbind('click');
 
-		// bind detail functions (preview footnotes, inline links, etc.)
-		bindDetail();
-
-		console.log('got article');
-
-        $('#content header a').bind('click', function (event) {
-            // TODO: less hacky way to do this?
-			console.log('returning to regular article view');
-            var story = $('.selected .ident_story').html(),
-				story_obj = unreaditems[story];
-            $('#content .body_text').html(story_obj.story_content);
-            $('#content header a').unbind('click');
-            bindInstapaperText($('#content header a'));
-			// bind detail functions (preview footnotes, inline links, etc.)
-			bindDetail();
-            event.preventDefault();
-        });
-		// hide and stop progress indicator
-		$('#progress_wrapper').addClass('hidden').removeClass('spinning');
-    };
-
-	bindInstapaperText = function (element) {
-        element.bind('click', function (event) {
-			// show and spin progress indicator
-			$('#progress_wrapper').removeClass('hidden').addClass('spinning');
-			ip.getArticle($('#content header a').get(0), instapaperText);
-			console.log('getting article from instapaper');
-            event.preventDefault();
-        });
-	};
-
-    showArticleView = function () {
-        // scroll article back to top
-        $('#content_wrapper').get(0).scrollTop = 0;
-        $('#content').removeClass('hidden');
-        $('#pinboard').removeClass('hidden');
-        $('#open_in_new_window').removeClass('hidden');
-        $('#send_to_instapaper iframe').show();
-    };
-
-    hideArticleView = function () {
-        $('#content').addClass('hidden');
-        $('#pinboard').addClass('hidden');
-        $('#open_in_new_window').addClass('hidden');
-        $('#send_to_instapaper iframe').hide();
-    };
 
     hideReadStories = function () {
 		// hide read stories;
@@ -112,9 +55,9 @@ $(document).ready(function () {
 		});*/
 		$('#stories li').not('.unread').addClass('hidden');
 
-        // hide the article view
-        hideArticleView();
-    };
+		// hide the article view
+		articleview.hideArticleView();
+	};
 
     clearStories = function () {
 		// clear newsblur interface
@@ -128,8 +71,8 @@ $(document).ready(function () {
 		displayed_stories = [];
 		all_stories = {};
 
-        // hide the article view
-        hideArticleView();
+		// hide the article view
+		articleview.hideArticleView();
 
 		// zero the unread count
 		unreadcount = 0;
@@ -211,13 +154,7 @@ $(document).ready(function () {
 		// determine read status
 		if ($(item).parent().hasClass('unread')) {
 			read = false;
-		}	
-
-		// unbind instapaper text link (sometimes conflicts with new bind)
-		$('#content header a').unbind('click');
-
-		// make sure popover is hidden
-		hide_popover();
+		}
 
         $('#stories ul li.selected').css({opacity: 0.5});
         $('#stories ul li').removeClass('selected');
@@ -232,28 +169,9 @@ $(document).ready(function () {
 			console.log('marking as read :' + id);
 			nb.markRead(site, id);
         }
-
-        showArticleView();
-
-        $('#content header time').html(story_obj.long_parsed_date);
-        $('#content header h1').html(story_obj.story_title);
-        $('#content header .site').html(story_obj.site_title);
-        $('#content header .author').html(story_obj.story_authors);
-        $('#content .body_text').html(story_obj.story_content);
-        $('#content .body_text a').attr('target', '_blank');
-		$('#content .body_text a').attr('rel', 'noreferrer');
-		$('#content .body_text sup a').removeAttr('title');
-        $('#content header a').attr('href', story_obj.story_permalink);
-		$('#open_in_new_window').attr('href', story_obj.story_permalink);
-
-        if (document.getSelection) {
-            d = document.getSelection();
-        }
-
-        // TODO: why doesn't description work?
-        $('#send_to_instapaper iframe').attr('src', 'http://www.instapaper.com/e2?url=' + encodeURIComponent(story_obj.story_permalink) + '&title=' + encodeURIComponent(story_obj.story_title) + '&description=' + encodeURIComponent(d));
-
-        bindInstapaperText($('#content header a'));
+		
+		articleview.hideArticleView();
+        articleview.showArticle(story_obj);
 
         // scroll stories list to keep selected item in center (where possible)
         // TODO: move to plugins
@@ -262,9 +180,6 @@ $(document).ready(function () {
         if (list.scrollTop !== (list.scrollHeight - listheight)) {
             list.scrollTop = currentscroll - (listheight / 2 - elementheight / 2);
         }
-
-		// bind detail functions (preview footnotes, inline links, etc.)
-		bindDetail();
 	};
 
 	bindItemClick = function (event) {
@@ -387,143 +302,6 @@ $(document).ready(function () {
 		event.preventDefault();
     });
 
-	hide_popover = function () {
-		console.log('hiding preview popover');
-		$('#detail_popover').addClass('hidden');
-		$('#detail_popover.expanded .content').addClass('hidden');
-		$('#detail_popover .toolbar').removeClass('hidden');
-		$('#detail_popover').removeAttr('style');
-		$('#detail_popover .arrow').css('right', '30px');
-		$('#detail_popover').removeClass('expanded');
-		$('#content_wrapper a.selected').removeClass('selected');
-		$('#detail_popover .content').height(0);
-		$('#detail_popover .toolbar .title').html('');
-		$('#detail_popover .content').css({ 'margin-top': 10 });
-		$("#content_wrapper").unbind('click');
-	};
-
-	bindDetail = function () {
-		/*
-		Detail preview popover
-		*/
-		var bind_deselect = function () {
-			$("#content_wrapper").click(function (event) {
-				// unhighlight link
-				if ($(event.target).closest('#detail_popover').length === 0) {
-					hide_popover();
-					event.preventDefault();
-				}
-			});
-		};
-		
-		bindDetailPreview = function () {
-			$($('#content .body_text a')).click(function (event) {
-				var that = this,
-					loc_left = event.pageX - 412,
-					loc_top = $(this).offset().top + $('#content_wrapper').get(0).scrollTop + $(this).offset().height - 35;
-
-				if (loc_left < 5) {
-					loc_left = 5;
-				}
-				
-				// don't open the preview popover if user is holding down the cmd/ctl key
-				// instead, open a in a new window in background
-				if (!event.ctrlKey && !event.metaKey) {
-					if ($('#detail_popover').hasClass('hidden')) {
-						console.log('showing preview popover');
-						$('#detail_popover').css({ left: loc_left, top: loc_top });
-						$('#detail_popover .toolbar a').unbind('click');
-						if ($(that).parent().is('sup')) {
-							console.log('footnote');
-							$('#detail_popover .toolbar').addClass('hidden');
-							preview_link(event, that, loc_left);
-						} else {
-							$('#detail_popover .toolbar .preview a').bind('click', function (event) {
-								preview_link(event, that, loc_left);
-								event.preventDefault();
-							});
-						}
-						$('#detail_popover').addClass('expanded');
-						$('#detail_popover .toolbar .newtab a').click(function (event) {
-							open($(that).attr('href'));
-							hide_popover();
-							event.preventDefault();
-						});
-						$('#detail_popover').removeClass('hidden');
-						setTimeout(function () {
-							bind_deselect();
-						}, 250);
-					} else {
-						hide_popover();
-					}
-					event.preventDefault();
-				}
-			});
-		};
-		bindDetailPreview();
-
-		/*
-		Preview links in detail popover
-		*/
-		preview_link = function (event, that, loc_left) {
-			var body_width = $('#content .body_text').width(),
-				show_detail = function () {
-					//bind_deselect();
-					// highlight link
-					$(that).addClass('selected');
-					// make sure the view is scrolled to the top
-					$('#detail_popover .content').scrollTop = 0;
-
-					$('#detail_popover .content a').attr('target', '_blank');
-					$('#detail_popover .content a').attr('rel', 'noreferrer');
-
-					$('#detail_popover .content').removeClass('hidden');
-				},
-				handle_text = function (link) {
-					// show and spin progress indicator
-					$('#progress_wrapper').removeClass('hidden').addClass('spinning');
-					
-					console.log('getting link from instapaper');
-					hide_popover();
-					ip.getArticle(link, instapaperText);
-				},
-				handle_footnote = function () {
-					/*
-					Footnotes popover based on FOOTNOTIFY bookmarklet.
-					By Hans Petter Eikemo, http://openideas.ideon.co http://twitter.com/hpeikemo.
-					No rights reserved, please use attribution if deriving on my work.
-					Web: https://gist.github.com/1046538
-					Heavily modified by Luke Hagan for PlainReader 2012-03-17, 2012-04-09
-					*/
-					var target = $(that),
-						href = target.attr('href'),
-						rel = href.split('#'),
-						footnote_el,
-						selectorRegExp = /[!"#\$%&'\(\)\*\+,\.\/:;<=>\?@\[\\\]\^`{\|}~]/g;
-
-					if (rel.length >= 2) {
-						rel = '#' + rel[1].replace(selectorRegExp,'\\$&');
-						footnote_el = $(rel);
-						if (footnote_el.length > 0) {
-							$('#detail_popover .content').html(footnote_el.html());
-							$('#detail_popover').css({ left: 56, width: body_width });
-							$('#detail_popover .arrow').css({ right: body_width - loc_left - 3 });
-							$('#detail_popover .content').css({ height: 'auto' });
-							show_detail();
-						} else {
-							hide_popover();
-						}
-					}
-				};
-
-			if ($(that).parent().is('sup')) {
-				handle_footnote();
-			} else {
-				handle_text($(that).attr('href'));
-			}
-		};
-	};
-
     /*
     keyboard shortcuts
     */
@@ -641,8 +419,7 @@ $(document).ready(function () {
 
 	nb = new PR.Newsblur();
 	ip = new PR.Instapaper();
-
-	bindDetail();
+    articleview = new PR.articleview();
 	
 	// work-around for bug in Mobile Safari that results in zoom-in when rotating
 	// from portrait to landscape

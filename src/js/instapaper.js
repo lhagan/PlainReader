@@ -11,22 +11,43 @@ PR.Instapaper = function () {
 		var root = document.createElement("div"),
 			allChilds = root.childNodes,
 			i,
-			title,
-			article;
+			elem,
+            title,
+            site,
+            author,
+            url,
+            article,
+            output;
 
 		root.innerHTML = html;
 		for (i = 0; i < allChilds.length; i += 1) {
-			if (allChilds[i].id) {
-				if (allChilds[i].id === 'titlebar') {
-					title = allChilds[i];
+            elem = allChilds[i];
+			if (elem) {
+				if (elem.id === 'titlebar') {
+                    $(elem).find('img').remove();
+					title = $('h1', elem).html();
+                    site = $('.original', elem).html() || "";
+                    author = $('.author', elem).html() || "";
+                    url = $('.original', elem).attr('href');
+                    console.log(url);
 				}
-				if (allChilds[i].id === 'story') {
-					article = allChilds[i];
+				if (elem.id === 'story') {
+					article = elem;
 				}
 			}
 		}
 		$(article).append('<br /><p><em>Cleaned up text view provided by <a href="http://www.instapaper.com">Instapaper</em></a>.</p>');
-		return { 'title': title, 'article': article };
+
+        output = {
+			long_parsed_date: "",
+			story_title: title,
+			site_title: site,
+			story_authors: author,
+			story_content: article,
+			story_permalink: url
+		};
+
+        return output;
 	};
 
 	this.getArticle = function (url, callback) {
