@@ -33,6 +33,16 @@ PlainReader consists of a web (HTML5, CSS3, Javascript) front-end and an interme
 * [Iconic](http://somerandomdude.com/work/iconic/): free, minimal icons distributed (among other things) in OTF font format, allowing PlainReader's interface to get by without a single image.
 * [nginx](http://wiki.nginx.org/Main): HTTP server that proxies NewsBlur.
 
+## Usage
+
+The easiest way to use PlainReader is via the [hosted version](http://plainreader.com). However, if you want to run your own instance or make modifications, here are some instructions:
+
+* The hosted version is minified, gzipped, etc. by the HTML5 Boilerplate ant build script. To build the yourself site, you'll need [Apache Ant](http://ant.apache.org). Then, just run `ant build` from within the `build` folder. _This is optional._
+
+* PlainReader depends upon the web server nginx to proxy NewsBlur and Instapaper. Unfortunately, not just any nginx will do -- you also need the Lua module. If you're on a Mac, use [these instructions](https://gist.github.com/jugyo/3882497). Other platforms should be similar.
+
+* Once you have nginx installed, modify the `nginx.conf` at the root of this repo to match the path to PlainReader on your system (see lines 72 and 105). Then run nginx using that config file (`nginx -c nginx.conf`). This will host a local instance of the PlainReader source at http://localhost:8000 and the compiled version at http://localhost:8001.
+
 ## What's next?
 
 1. interface additions/refinements:
@@ -46,6 +56,7 @@ I don't plan on ever supporting:
 
 * changing the Intelligence filter mode (only yellow and green items are displayed)
 * non-WebKit browsers
+* mobile phones
 * reading individual feeds (instead of the River of News)
 * social anything (unless you count pinboard)
 * realtime updates (PubSubHubbub)
