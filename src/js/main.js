@@ -156,7 +156,7 @@ $(document).ready(function () {
 			read = false;
 		}
 
-        $('#stories ul li.selected').css({opacity: 0.5});
+        $('#stories ul li.selected').addClass('read');
         $('#stories ul li').removeClass('selected');
 
         $(item).parent().addClass('selected');

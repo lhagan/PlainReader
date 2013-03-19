@@ -24,7 +24,7 @@ OFL-licensed: http://scripts.sil.org/OFL */
 
 /* line 25, scss/primary.styles.scss */
 body {
-  background: #F0EEEC;
+  background: white;
   overflow: hidden;
 }
 
@@ -63,8 +63,7 @@ img {
   top: 0px;
   bottom: 0px;
   position: fixed;
-  border-right: 1px solid #DBDAD8;
-  -webkit-box-shadow: 0 0 0 1px #F7F6F5;
+  border-right: 1px solid #CCC;
 }
 
 /* nav bar */
@@ -75,33 +74,34 @@ img {
   height: 100%;
   left: 0px;
   top: 0px;
-  background: #3D3E40;
+  background: #F7F7F7;
+  border-right: 1px solid #CCC;
 }
 
-/* line 74, scss/primary.styles.scss */
+/* line 75, scss/primary.styles.scss */
 #nav a, #topbar_inner a, #login_form a {
   text-decoration: none;
 }
 
-/* line 78, scss/primary.styles.scss */
+/* line 79, scss/primary.styles.scss */
 #unreadcount {
   position: relative;
   font-family: Helvetica;
   font-weight: bold;
   font-size: 16px;
   text-align: center;
-  color: #E8E8E8;
+  color: #4B4B4B;
   top: 15px;
 }
 
-/* line 88, scss/primary.styles.scss */
+/* line 89, scss/primary.styles.scss */
 #floater {
   float: left;
   height: 50%;
   margin-bottom: -40px;
 }
 
-/* line 94, scss/primary.styles.scss */
+/* line 95, scss/primary.styles.scss */
 #arrows {
   display: block;
   clear: both;
@@ -110,14 +110,14 @@ img {
   top: -20px;
 }
 
-/* line 102, scss/primary.styles.scss */
+/* line 103, scss/primary.styles.scss */
 #up_wrapper {
   position: relative;
   top: 0px;
   -webkit-transform: rotate(270deg);
 }
 
-/* line 108, scss/primary.styles.scss */
+/* line 109, scss/primary.styles.scss */
 #down_wrapper {
   position: relative;
   -webkit-transform: rotate(90deg);
@@ -126,18 +126,18 @@ img {
   top: 60px;
 }
 
-/* line 116, scss/primary.styles.scss */
+/* line 117, scss/primary.styles.scss */
 #up:before, #down:before {
   content: '\e047';
 }
 
-/* line 120, scss/primary.styles.scss */
+/* line 121, scss/primary.styles.scss */
 #nav .button {
-  color: #E8E8E8;
+  color: #4B4B4B;
   display: block;
 }
 
-/* line 125, scss/primary.styles.scss */
+/* line 126, scss/primary.styles.scss */
 #mark_all_read_wrapper, #refresh_wrapper {
   margin: 0px;
   padding: 0px;
@@ -145,32 +145,33 @@ img {
 }
 
 @-webkit-keyframes rotate {
-  /* line 132, scss/primary.styles.scss */
+  /* line 133, scss/primary.styles.scss */
   from {
     -webkit-transform: rotate(0deg);
   }
 
-  /* line 136, scss/primary.styles.scss */
+  /* line 137, scss/primary.styles.scss */
   to {
     -webkit-transform: rotate(360deg);
   }
 }
 
-/* line 141, scss/primary.styles.scss */
+/* line 142, scss/primary.styles.scss */
 #mark_all_read_wrapper {
   position: absolute;
   bottom: 45px;
   height: 30px;
   width: 30px;
   left: 11px;
+  display: none;
 }
 
-/* line 149, scss/primary.styles.scss */
+/* line 151, scss/primary.styles.scss */
 #mark_all_read:before {
   content: '\2717';
 }
 
-/* line 153, scss/primary.styles.scss */
+/* line 155, scss/primary.styles.scss */
 #refresh_wrapper {
   position: absolute;
   bottom: 10px;
@@ -179,7 +180,7 @@ img {
   width: 20px;
 }
 
-/* line 161, scss/primary.styles.scss */
+/* line 163, scss/primary.styles.scss */
 .spinning {
   -webkit-animation-name: rotate;
   -webkit-animation-duration: 1s;
@@ -187,19 +188,19 @@ img {
   -webkit-animation-timing-function: linear;
 }
 
-/* line 168, scss/primary.styles.scss */
+/* line 170, scss/primary.styles.scss */
 #refresh {
   position: relative;
   left: 1px;
   top: -2px;
 }
 
-/* line 174, scss/primary.styles.scss */
+/* line 176, scss/primary.styles.scss */
 #refresh:before {
   content: '\e036';
 }
 
-/* line 178, scss/primary.styles.scss */
+/* line 180, scss/primary.styles.scss */
 #settings_wrapper {
   position: absolute;
   top: 50px;
@@ -210,13 +211,13 @@ img {
   text-align: center;
 }
 
-/* line 188, scss/primary.styles.scss */
+/* line 190, scss/primary.styles.scss */
 #settings:before {
   content: '\2699';
 }
 
 /* stories list */
-/* line 193, scss/primary.styles.scss */
+/* line 195, scss/primary.styles.scss */
 #stories {
   position: fixed;
   width: 320px;
@@ -228,13 +229,13 @@ img {
   -webkit-overflow-scrolling: touch;
 }
 
-/* line 204, scss/primary.styles.scss */
+/* line 206, scss/primary.styles.scss */
 #stories li span {
   overflow: hidden;
 }
 
 /* topbar */
-/* line 209, scss/primary.styles.scss */
+/* line 211, scss/primary.styles.scss */
 #topbar {
   position: fixed;
   top: 0px;
@@ -243,27 +244,27 @@ img {
   width: 100%;
 }
 
-/* line 217, scss/primary.styles.scss */
+/* line 219, scss/primary.styles.scss */
 #topbar_inner {
   position: fixed;
   height: 45px;
   left: 385px;
   right: 0px;
   margin-right: 20px;
-  border-bottom: 1px solid #E2E0DF;
 }
 
-/* line 226, scss/primary.styles.scss */
+/* line 228, scss/primary.styles.scss */
 #topbar .button {
   display: block;
   position: absolute;
   top: 12px;
-  color: #B6B4B3;
+  color: #888;
   font-size: 18px;
 }
 
-/* line 234, scss/primary.styles.scss */
+/* line 236, scss/primary.styles.scss */
 #send_to_instapaper {
+  top: 10px;
   right: 115px;
   margin-bottom: -3px;
   z-index: 1338;
@@ -273,28 +274,28 @@ img {
   opacity: .5;
 }
 
-/* line 244, scss/primary.styles.scss */
+/* line 247, scss/primary.styles.scss */
 #open_in_new_window {
   right: 70px;
 }
 
-/* line 248, scss/primary.styles.scss */
+/* line 251, scss/primary.styles.scss */
 #open_in_new_window:before {
   content: '\e059';
 }
 
-/* line 252, scss/primary.styles.scss */
+/* line 255, scss/primary.styles.scss */
 #pinboard {
   right: 30px;
 }
 
-/* line 256, scss/primary.styles.scss */
+/* line 259, scss/primary.styles.scss */
 #pinboard:before {
   content: '\e067';
 }
 
 /* content */
-/* line 261, scss/primary.styles.scss */
+/* line 264, scss/primary.styles.scss */
 #content_wrapper {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
@@ -305,26 +306,25 @@ img {
   top: 45px;
 }
 
-/* line 271, scss/primary.styles.scss */
+/* line 274, scss/primary.styles.scss */
 #content {
   margin-left: 56px;
 }
 
-/* line 275, scss/primary.styles.scss */
+/* line 278, scss/primary.styles.scss */
 #content header {
   max-width: 780px;
-  margin-top: 25px;
-  border-bottom: 1px solid #E2E0DF;
+  margin-top: 0;
   padding-bottom: 16px;
   margin-right: 56px;
 }
 
-/* line 283, scss/primary.styles.scss */
+/* line 286, scss/primary.styles.scss */
 #content header a {
   text-decoration: none;
 }
 
-/* line 287, scss/primary.styles.scss */
+/* line 290, scss/primary.styles.scss */
 #content header h1 {
   font-size: 30px;
   color: #4B4B4B;
@@ -332,21 +332,21 @@ img {
   margin-bottom: 5px;
 }
 
-/* line 294, scss/primary.styles.scss */
+/* line 297, scss/primary.styles.scss */
 #content header time, #content header .site, #content header .author {
-  color: #A2A2A2;
+  color: #888;
   font-size: 12px;
   display: block;
   line-height: 1.4em;
 }
 
-/* line 301, scss/primary.styles.scss */
+/* line 304, scss/primary.styles.scss */
 #content header time {
   left: 0px;
   top: 0px;
 }
 
-/* line 306, scss/primary.styles.scss */
+/* line 309, scss/primary.styles.scss */
 #progress_wrapper {
   position: absolute;
   left: 22px;
@@ -357,19 +357,19 @@ img {
   margin: 0px;
   padding: 0px;
 }
-/* line 315, scss/primary.styles.scss */
+/* line 318, scss/primary.styles.scss */
 #progress_wrapper .button {
   position: relative;
   color: rgba(0, 0, 0, 0.5);
   top: -2px;
   left: 1px;
 }
-/* line 320, scss/primary.styles.scss */
+/* line 323, scss/primary.styles.scss */
 #progress_wrapper .button:before {
   content: "\e037";
 }
 
-/* line 326, scss/primary.styles.scss */
+/* line 329, scss/primary.styles.scss */
 #content .body_text {
   max-width: 780px;
   color: #4B4B4B;
@@ -380,34 +380,34 @@ img {
   margin-bottom: 100px;
 }
 
-/* line 336, scss/primary.styles.scss */
+/* line 339, scss/primary.styles.scss */
 #content .body_text a {
   text-decoration: none;
   border-bottom: 1px solid #CCCCCC;
 }
 
-/* line 341, scss/primary.styles.scss */
+/* line 344, scss/primary.styles.scss */
 #content .body_text a, #content .body_text a:visited {
   color: #4B4B4B;
 }
 
-/* line 345, scss/primary.styles.scss */
+/* line 348, scss/primary.styles.scss */
 #content .body_text a:hover {
   color: #666666;
 }
 
-/* line 349, scss/primary.styles.scss */
+/* line 352, scss/primary.styles.scss */
 #content .body_text #titlebar img, #content .body_text #titlebar .byline_divider {
   display: none;
 }
 
-/* line 353, scss/primary.styles.scss */
+/* line 356, scss/primary.styles.scss */
 #content .body_text #titlebar h1 {
   font-size: 20px;
   line-height: 1.4em;
 }
 
-/* line 358, scss/primary.styles.scss */
+/* line 361, scss/primary.styles.scss */
 #content .body_text a.selected {
   -webkit-border-radius: 5px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -418,44 +418,44 @@ img {
   border: none;
 }
 
-/* line 375, scss/primary.styles.scss */
+/* line 378, scss/primary.styles.scss */
 #content .body_text sup a {
   -webkit-border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.4);
   padding: 0px 3px 2px 3px;
   color: white;
 }
-/* line 381, scss/primary.styles.scss */
+/* line 384, scss/primary.styles.scss */
 #content .body_text sup a:visited, #content .body_text sup a:hover {
   color: white;
 }
 
-/* line 386, scss/primary.styles.scss */
+/* line 389, scss/primary.styles.scss */
 #content .body_text sup a.selected {
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   background-color: #F0EA00;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f0f500), color-stop(0.5, #f1e600), color-stop(1, #f0e100));
   color: #4B4B4B;
 }
-/* line 398, scss/primary.styles.scss */
+/* line 401, scss/primary.styles.scss */
 #content .body_text sup a.selected:visited {
   color: #4B4B4B;
 }
 
 /* stories list items */
-/* line 404, scss/primary.styles.scss */
+/* line 407, scss/primary.styles.scss */
 #stories h1 {
   font-size: 14px;
 }
 
-/* line 408, scss/primary.styles.scss */
+/* line 411, scss/primary.styles.scss */
 #stories ul {
   padding-left: 0;
   padding-right: 0;
   margin: 0;
 }
 
-/* line 414, scss/primary.styles.scss */
+/* line 417, scss/primary.styles.scss */
 #stories li {
   list-style: none;
   height: 140px;
@@ -463,9 +463,10 @@ img {
   padding-left: 20px;
   padding-right: 20px;
   overflow-y: hidden;
+  border-left: 1px solid #CCC;
 }
 
-/* line 423, scss/primary.styles.scss */
+/* line 427, scss/primary.styles.scss */
 #stories .wrap {
   display: block;
   height: 110px;
@@ -474,12 +475,17 @@ img {
   overflow-y: hidden;
 }
 
-/* line 431, scss/primary.styles.scss */
+/* line 435, scss/primary.styles.scss */
 #stories li.selected {
-  background: #E4E1DD;
+  background: #F7F7F7;
 }
 
-/* line 435, scss/primary.styles.scss */
+/* line 439, scss/primary.styles.scss */
+#stories li.read {
+  opacity: 0.6;
+}
+
+/* line 443, scss/primary.styles.scss */
 #stories a {
   position: relative;
   text-decoration: none;
@@ -489,43 +495,46 @@ img {
   margin-left: 20px;
 }
 
-/* line 444, scss/primary.styles.scss */
+/* line 452, scss/primary.styles.scss */
 #stories a .site, #stories a .date {
   position: absolute;
   top: 0px;
   font-size: 12px;
 }
 
-/* line 450, scss/primary.styles.scss */
+/* line 458, scss/primary.styles.scss */
 #stories a .site {
   left: 0px;
   height: 14px;
   width: 200px;
   overflow: hidden;
+  color: #888;
 }
 
-/* line 457, scss/primary.styles.scss */
+/* line 466, scss/primary.styles.scss */
 #stories a .date {
   right: 0px;
+  color: #888;
 }
 
-/* line 461, scss/primary.styles.scss */
+/* line 471, scss/primary.styles.scss */
 #stories a .title {
   padding-top: 10px;
-  color: #4D4D4D;
+  color: #4B4B4B;
   margin-bottom: 0px;
   max-height: 34px;
   overflow: hidden;
 }
 
-/* line 469, scss/primary.styles.scss */
+/* line 479, scss/primary.styles.scss */
 #stories a .intro {
   display: block;
   font-size: 14px;
   line-height: 18px;
+  color: #888;
 }
 
-/* line 475, scss/primary.styles.scss */
+/* line 486, scss/primary.styles.scss */
 #stories a .icon {
   position: absolute;
   top: 21px;
@@ -535,12 +544,12 @@ img {
   font-size: 10px;
 }
 
-/* line 484, scss/primary.styles.scss */
+/* line 495, scss/primary.styles.scss */
 #stories a .icon:before {
   content: '\e02d';
 }
 
-/* line 488, scss/primary.styles.scss */
+/* line 499, scss/primary.styles.scss */
 #frame {
   position: absolute;
   width: 100%;
@@ -548,34 +557,34 @@ img {
   left: 300px;
 }
 
-/* line 495, scss/primary.styles.scss */
+/* line 506, scss/primary.styles.scss */
 #frame iframe {
   border: none;
   background-color: white;
 }
 
-/* line 518, scss/primary.styles.scss */
+/* line 529, scss/primary.styles.scss */
 #pinboard_popover {
   right: 25px;
   top: 40px;
   width: 125px;
 }
 
-/* line 524, scss/primary.styles.scss */
+/* line 535, scss/primary.styles.scss */
 #detail_popover {
   width: 85px;
 }
-/* line 526, scss/primary.styles.scss */
+/* line 537, scss/primary.styles.scss */
 #detail_popover .arrow {
   right: 30px;
 }
-/* line 529, scss/primary.styles.scss */
+/* line 540, scss/primary.styles.scss */
 #detail_popover .toolbar {
   position: relative;
   top: 0;
   height: 46px;
 }
-/* line 533, scss/primary.styles.scss */
+/* line 544, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper {
   position: absolute;
   width: 20px;
@@ -585,43 +594,43 @@ img {
   top: 15px;
   overflow: hidden;
 }
-/* line 541, scss/primary.styles.scss */
+/* line 552, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper a {
   position: relative;
 }
-/* line 544, scss/primary.styles.scss */
+/* line 555, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.preview {
   left: 11px;
 }
-/* line 546, scss/primary.styles.scss */
+/* line 557, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.preview a {
   top: 1px;
   left: 2px;
 }
-/* line 547, scss/primary.styles.scss */
+/* line 558, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.preview a:before {
   content: '\e025';
 }
-/* line 555, scss/primary.styles.scss */
+/* line 566, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.preview.spinning a:before {
   content: '\e037';
 }
-/* line 561, scss/primary.styles.scss */
+/* line 572, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.newtab {
   right: 13px;
 }
-/* line 564, scss/primary.styles.scss */
+/* line 575, scss/primary.styles.scss */
 #detail_popover .toolbar .wrapper.newtab a:before {
   content: '\e059';
 }
-/* line 570, scss/primary.styles.scss */
+/* line 581, scss/primary.styles.scss */
 #detail_popover .toolbar a {
   font-size: 16px;
   display: block;
   text-decoration: none;
   color: #B6B4B3;
 }
-/* line 576, scss/primary.styles.scss */
+/* line 587, scss/primary.styles.scss */
 #detail_popover .toolbar .title {
   overflow: hidden;
   white-space: nowrap;
@@ -632,35 +641,35 @@ img {
   line-height: 48px;
   font-size: 14px;
 }
-/* line 585, scss/primary.styles.scss */
+/* line 596, scss/primary.styles.scss */
 #detail_popover .toolbar .title #titlebar h1 {
   font-size: 1.15em;
   display: inline;
 }
-/* line 589, scss/primary.styles.scss */
+/* line 600, scss/primary.styles.scss */
 #detail_popover .toolbar .title a, #detail_popover .toolbar .title div {
   display: inline;
 }
-/* line 501, scss/primary.styles.scss */
+/* line 512, scss/primary.styles.scss */
 #detail_popover .toolbar .title a, #detail_popover .toolbar .title a:visited {
   text-decoration: none;
   border-bottom: 1px solid #CCCCCC;
   color: #4B4B4B;
 }
-/* line 506, scss/primary.styles.scss */
+/* line 517, scss/primary.styles.scss */
 #detail_popover .toolbar .title a:hover {
   color: #666666;
 }
-/* line 509, scss/primary.styles.scss */
+/* line 520, scss/primary.styles.scss */
 #detail_popover .toolbar .title p {
   margin-top: 0.5em;
   margin-bottom: 0.3em;
 }
-/* line 513, scss/primary.styles.scss */
+/* line 524, scss/primary.styles.scss */
 #detail_popover .toolbar .title .byline_divider, #detail_popover .toolbar .title br {
   display: none;
 }
-/* line 595, scss/primary.styles.scss */
+/* line 606, scss/primary.styles.scss */
 #detail_popover .content {
   height: 0;
   margin: 15px;
@@ -670,35 +679,35 @@ img {
   color: #4B4B4B;
   font-size: 16px;
 }
-/* line 603, scss/primary.styles.scss */
+/* line 614, scss/primary.styles.scss */
 #detail_popover .content h1, #detail_popover .content h2, #detail_popover .content h3, #detail_popover .content h4, #detail_popover .content h5, #detail_popover .content h6, #detail_popover .content li {
   font-size: 16px;
   display: inline;
 }
-/* line 501, scss/primary.styles.scss */
+/* line 512, scss/primary.styles.scss */
 #detail_popover .content a, #detail_popover .content a:visited {
   text-decoration: none;
   border-bottom: 1px solid #CCCCCC;
   color: #4B4B4B;
 }
-/* line 506, scss/primary.styles.scss */
+/* line 517, scss/primary.styles.scss */
 #detail_popover .content a:hover {
   color: #666666;
 }
-/* line 509, scss/primary.styles.scss */
+/* line 520, scss/primary.styles.scss */
 #detail_popover .content p {
   margin-top: 0.5em;
   margin-bottom: 0.3em;
 }
-/* line 513, scss/primary.styles.scss */
+/* line 524, scss/primary.styles.scss */
 #detail_popover .content .byline_divider, #detail_popover .content br {
   display: none;
 }
 
-/* line 611, scss/primary.styles.scss */
+/* line 622, scss/primary.styles.scss */
 .button.button-flat-grey {
   font-family: 'Helvetica', 'Arial', 'sans-serif';
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  azimuth: 1px solid rgba(0, 0, 0, 0.1);
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 5px;
   color: #9B9B9B;
@@ -710,7 +719,7 @@ img {
   padding: 8px 18px 8px 18px;
   font-size: 18px;
 }
-/* line 624, scss/primary.styles.scss */
+/* line 635, scss/primary.styles.scss */
 .button.button-flat-grey:hover {
   background-color: rgba(0, 0, 0, 0.08);
   color: #4D4D4D;
@@ -747,13 +756,13 @@ img {
 #appintro_window header, #appintro_window footer, #appintro_window section {
   padding: 1px 15px 1px 15px;
 }
-/* line 631, scss/primary.styles.scss */
+/* line 642, scss/primary.styles.scss */
 #appintro_window a, #appintro_window a:visited {
   text-decoration: none;
   border-bottom: 1px solid #CCCCCC;
   color: #4B4B4B;
 }
-/* line 635, scss/primary.styles.scss */
+/* line 646, scss/primary.styles.scss */
 #appintro_window a:hover, #appintro_window a:visited:hover {
   color: #666666;
 }
@@ -763,7 +772,7 @@ img {
   border-bottom: 1px solid #BBBBBB;
   -webkit-border-radius: 10px 10px 0 0;
 }
-/* line 642, scss/primary.styles.scss */
+/* line 653, scss/primary.styles.scss */
 #appintro_window header svg {
   float: left;
   -webkit-border-radius: 5px;
@@ -839,13 +848,13 @@ img {
   font-size: 18px;
   margin: 0;
 }
-/* line 631, scss/primary.styles.scss */
+/* line 642, scss/primary.styles.scss */
 #settings_popover a, #settings_popover a:visited {
   text-decoration: none;
   border-bottom: 1px solid #CCCCCC;
   color: #4B4B4B;
 }
-/* line 635, scss/primary.styles.scss */
+/* line 646, scss/primary.styles.scss */
 #settings_popover a:hover, #settings_popover a:visited:hover {
   color: #666666;
 }
@@ -864,7 +873,7 @@ img {
   margin-bottom: 20px;
   margin-left: 50px;
 }
-/* line 642, scss/primary.styles.scss */
+/* line 653, scss/primary.styles.scss */
 #settings_popover .toolbar svg {
   float: left;
   -webkit-border-radius: 5px;

@@ -23,7 +23,7 @@ OFL-licensed: http://scripts.sil.org/OFL */
 }
 
 body {
-    background: #F0EEEC;
+    background: white;
     overflow: hidden;
 }
 
@@ -57,8 +57,8 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     top: 0px;
     bottom: 0px;
     position: fixed;
-    border-right: 1px solid #DBDAD8;
-    -webkit-box-shadow: 0 0 0 1px #F7F6F5;
+    border-right: 1px solid #CCC;
+    //-webkit-box-shadow: 0 0 0 1px #F7F6F5;
 }
 
 /* nav bar */
@@ -68,7 +68,8 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     height: 100%;
     left: 0px;
     top: 0px;
-    background: #3D3E40;
+    background: #F7F7F7;
+    border-right: 1px solid #CCC;
 }
 
 #nav a, #topbar_inner a, #login_form a {
@@ -81,7 +82,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     font-weight: bold;
     font-size: 16px;
     text-align: center;
-    color: #E8E8E8;
+    color: #4B4B4B;
     top: 15px;
 }
 
@@ -118,7 +119,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 }
 
 #nav .button {
-    color: #E8E8E8;
+    color: #4B4B4B;
     display: block;
 }
 
@@ -144,6 +145,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     height: 30px;
     width: 30px;
     left: 11px;
+    display: none;
 }
 
 #mark_all_read:before {
@@ -211,7 +213,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     top: 0px;
     left: 0px;
     height: 45px;
-    width: 100%
+    width: 100%;
 }
 
 #topbar_inner {
@@ -220,18 +222,19 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     left: 385px;
     right: 0px;
     margin-right: 20px;
-    border-bottom: 1px solid #E2E0DF;
+    //border-bottom: 1px solid #E2E0DF;
 }
 
 #topbar .button {
     display: block;
     position: absolute;
     top: 12px;
-    color: #B6B4B3;
+    color: #888;
     font-size: 18px;
 }
 
 #send_to_instapaper {
+    top: 10px;
     right: 115px;
     margin-bottom: -3px;
     z-index: 1338;
@@ -274,8 +277,8 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 
 #content header {
     max-width: 780px;
-    margin-top: 25px;
-    border-bottom: 1px solid #E2E0DF;
+    margin-top: 0;
+    //border-bottom: 1px solid #E2E0DF;
     padding-bottom: 16px;
     margin-right: 56px;
 }
@@ -292,7 +295,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 }
 
 #content header time, #content header .site, #content header .author {
-    color: #A2A2A2;
+    color: #888;
     font-size: 12px;
     display: block;
     line-height: 1.4em;
@@ -418,6 +421,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     padding-left: 20px;
     padding-right: 20px;
     overflow-y: hidden;
+    border-left: 1px solid #CCC;
 }
 
 #stories .wrap {
@@ -429,7 +433,11 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 }
 
 #stories li.selected {
-    background: #E4E1DD;
+    background: #F7F7F7;
+}
+
+#stories li.read {
+    opacity: 0.6;
 }
 
 #stories a {
@@ -452,15 +460,17 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     height: 14px;
     width: 200px;
     overflow: hidden;
+    color: #888;
 }
 
 #stories a .date {
     right: 0px;
+    color: #888;
 }
 
 #stories a .title {
     padding-top: 10px;
-    color: #4D4D4D;
+    color: #4B4B4B;
     margin-bottom: 0px;
     max-height: 34px;
     overflow: hidden;
@@ -470,6 +480,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
     display: block;
     font-size: 14px;
     line-height: 18px;
+    color: #888;
 }
 
 #stories a .icon {
@@ -610,7 +621,7 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 
 .button.button-flat-grey {
 	font-family: 'Helvetica', 'Arial', 'sans-serif';
-	border: 1px solid rgba(0, 0, 0, 0.1);
+	azimuth: 1px solid rgba(0, 0, 0, 0.1);
 	background-color: rgba(0, 0, 0, 0.05);
 	border-radius: 5px;	
     color: #9B9B9B;
