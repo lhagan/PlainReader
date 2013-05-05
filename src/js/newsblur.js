@@ -20,7 +20,7 @@ PR.Newsblur = function () {
 		mark_read_queue = {},
 		mark_read_queue_count = 0,
 		raw_unread_count = 0,
-		current_page = 0,
+		current_page = 1,
 		page_count = 0,
 		postdata = "";
 
@@ -55,6 +55,7 @@ PR.Newsblur = function () {
 
 		console.log('processing stories');
 		console.log('got ' + allstories.length + ' stories');
+        //console.log(allstories);
 		if (allstories.length > 0) {
 			for (i = 0; i < allstories.length; i += 1) {
 				story = allstories[i];
@@ -131,14 +132,8 @@ PR.Newsblur = function () {
 
 			// only load more pages if we're already on page 1
 			// this assumes that new items always come in at the top of the list
-			page_count = Math.ceil((that.items.unreadcount - old_unreadcount) / 18);
-			if (postdata.length > 0 && current_page <= 1 && page_count > 0) {
-				//console.log(postdata);
-				current_page = page_count;
-				getPage(current_page);
-			} else {
-				invokeCallback();
-			}
+            page_count = Math.ceil((that.items.unreadcount - old_unreadcount) / 12);
+            getPage(current_page);
 		} else {
 			invokeCallback();
 		}
@@ -146,6 +141,7 @@ PR.Newsblur = function () {
 
 	getStories = function (data) {
 		console.log('getting stories');
+        data += "&order=oldest";
 		//console.log(data);
 		$.ajax({
 			type: 'POST',
@@ -181,18 +177,23 @@ PR.Newsblur = function () {
 	};
 
 	this.getNextPage = function (call) {
+        console.log('getting next page');
+        console.log('current page: ' + current_page);
 		callback = call;
-		if (current_page > 1) {
-			current_page -= 1;
-			getPage(current_page);
-		} else {
-			invokeCallback();
-		}
+        // check one page past calculated count to be sure
+        if (current_page < page_count + 1) {
+    		current_page += 1;
+            console.log('next page: ' + current_page);
+    		getPage(current_page);
+        } else {
+            console.log('stringify page');
+    		invokeCallback();
+        }
 	};
 
 	this.clear = function () {
 		this.items = {'stories': [], 'unreadcount': 0};
-		current_page = 0;
+		current_page = 1;
 		page_count = 0;
 		updateUnreadCount(0, true);
 	};
