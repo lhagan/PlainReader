@@ -37,6 +37,10 @@ PR.Newsblur = function () {
 		// adjust unread count to reflect any items in the mark_read_queue
 		console.log('raw unread count: ' + raw_unread_count + ' mark read queue count: ' + mark_read_queue_count);
 		that.items.unreadcount = raw_unread_count - mark_read_queue_count;
+        
+        if (raw_unread_count === 0 || that.items.unreadcount === 0) {
+            current_page = 1;
+        }
 	};
 
 	invokeCallback = function () {
@@ -83,7 +87,7 @@ PR.Newsblur = function () {
 					}
 				}
 
-				if (page_empty) {
+				if (page_empty && raw_unread_count > 0) {
 					// page was empty, try next
                     console.log('empty page');
                     
@@ -181,12 +185,12 @@ PR.Newsblur = function () {
         console.log('current page: ' + current_page);
 		callback = call;
         // check one page past calculated count to be sure
-        if (current_page < page_count + 1) {
+        if (current_page < page_count + 1 && raw_unread_count > 0) {
     		current_page += 1;
             console.log('next page: ' + current_page);
     		getPage(current_page);
         } else {
-            console.log('stringify page');
+            console.log('already on last page');
     		invokeCallback();
         }
 	};
