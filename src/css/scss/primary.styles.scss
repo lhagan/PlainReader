@@ -433,11 +433,11 @@ http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries *
 }
 
 #stories li.selected {
-    background: #F7F7F7;
+    background: #F1F1F1;
 }
 
-#stories li.read {
-    opacity: 0.6;
+#stories li.read * {
+    opacity: 0.8;
 }
 
 #stories a {

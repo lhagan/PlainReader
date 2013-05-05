@@ -477,12 +477,12 @@ img {
 
 /* line 435, scss/primary.styles.scss */
 #stories li.selected {
-  background: #F7F7F7;
+  background: #F1F1F1;
 }
 
 /* line 439, scss/primary.styles.scss */
-#stories li.read {
-  opacity: 0.6;
+#stories li.read * {
+  opacity: 0.8;
 }
 
 /* line 443, scss/primary.styles.scss */
