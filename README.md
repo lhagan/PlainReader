@@ -1,8 +1,10 @@
 # PlainReader
 
+__Note__: PlainReader is no longer under development.
+
 PlainReader (working title) is a clean, minimal web-based client for the excellent [NewsBlur](http://newsblur.com) RSS reader. It's still in an **early beta** state with only the bare minimum of features to work as a functional news reader. PlainReader is designed to work on WebKit browsers only, such as Safari (including iPad) and Chrome.
 
-Go try it out: the [hosted version](http://plainreader.com) is now online!
+~~Go try it out: the [hosted version](http://plainreader.com) is now online!~~
 
 ## Features
 
